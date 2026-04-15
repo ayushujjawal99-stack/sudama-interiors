@@ -1,6 +1,6 @@
 {% load service_content %}
 <article class="service-card">
-    <a href="{{ service.get_absolute_url }}" class="service-card-link">
+    <a href="{% url 'services:service_detail' service.slug %}"></a>
         <div class="card-content">
             <h3>{{ service.name }}</h3>
             {% service_microcopy service as service_copy %}
