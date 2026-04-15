@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="service-detail-hero">
+    <div class="container service-detail-hero__inner">
+        <p class="service-detail-hero__eyebrow">{{ service.category.name }}</p>
+        <h1>{{ service.name }}</h1>
+        <p class="service-detail-hero__summary">{{ hero_description }}</p>
+        <div class="service-detail-hero__actions">
+            <a href="{% url 'home' %}#get-started" class="btn btn-primary">Get Quote</a>
+            <a href="{% url 'services:services_home' %}" class="btn btn-outline">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail-content">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">SERVICE OVERVIEW</p>
+            <h2 class="section-title">Designed Around Quality, Detail, and Long-Term Value</h2>
+        </div>
+
+        <div class="service-detail-content__body">
+            {% for paragraph in content_paragraphs %}
+                <p>{{ paragraph }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="service-detail-process">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">OUR PROCESS</p>
+            <h2 class="section-title">A Structured Journey From Concept To Completion</h2>
+        </div>
+
+        <div class="service-detail-process__grid">
+            {% for item in process_steps %}
+                <article class="service-detail-process__card">
+                    <span class="service-detail-process__step">{{ item.step }}</span>
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.description }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="service-detail-highlights">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">WHY CHOOSE THIS SERVICE</p>
+            <h2 class="section-title">Premium Standards In Every Layer Of Execution</h2>
+        </div>
+
+        <div class="service-detail-highlights__panel">
+            <ul class="service-detail-highlights__list">
+                {% for highlight in service_highlights %}
+                    <li>{{ highlight }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% if related_services %}
+<section class="service-detail-related">
+    <div class="container">
+        <div class="service-detail-section-heading service-detail-section-heading--split">
+            <div>
+                <p class="section-subtitle">RELATED SERVICES</p>
+                <h2 class="section-title">More From {{ service.category.name }}</h2>
+            </div>
+            <a href="{% url 'services:services_home' %}" class="btn btn-outline">Explore Services</a>
+        </div>
+
+        <div class="service-detail-related__grid">
+            {% for related_service in related_services %}
+                <article class="service-detail-related__card">
+                    <p class="service-detail-related__category">{{ related_service.category.name }}</p>
+                    <h3>{{ related_service.name }}</h3>
+                    <p>{{ related_service.short_description|default:related_service.description }}</p>
+                    <a href="{{ related_service.get_absolute_url }}">View Service</a>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="service-detail-cta" id="service-detail-cta">
+    <div class="container">
+        <div class="service-detail-cta__panel">
+            <p class="section-subtitle">START YOUR PROJECT</p>
+            <h2>Bring Your {{ service.name }} Vision To Life</h2>
+            <p>
+                Speak with our team about scope, finishes, timelines, and execution planning.
+                We will help you shape a solution that feels premium, practical, and built to last.
+            </p>
+            <a href="{% url 'home' %}#get-started" class="btn btn-primary">Start Your Project</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

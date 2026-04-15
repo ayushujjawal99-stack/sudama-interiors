@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="service-detail-hero">
+    <div class="container service-detail-hero__inner">
+        <p class="service-detail-hero__eyebrow">PRODUCT CATEGORY</p>
+        <h1>{{ category.name }}</h1>
+        <p class="service-detail-hero__summary">{{ intro }}</p>
+        <div class="service-detail-hero__actions">
+            <a href="{% url 'products:products_home' %}" class="btn btn-outline">View All Categories</a>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail-content">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">WHAT THIS CATEGORY INCLUDES</p>
+            <h2 class="section-title">Material Options At A Glance</h2>
+        </div>
+        <div class="service-detail-content__body">
+            <p>{{ includes }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail-process">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">WHERE IT IS USED</p>
+            <h2 class="section-title">Real-World Interior Applications</h2>
+        </div>
+        <div class="service-detail-content__body">
+            <p>{{ where_used }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail-highlights">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">WHY IT MATTERS</p>
+            <h2 class="section-title">Design Value Meets Everyday Function</h2>
+        </div>
+        <div class="service-detail-content__body">
+            <p>{{ why_matters }}</p>
+        </div>
+    </div>
+</section>
+
+{% if category.products.all %}
+<section class="service-detail-related">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">PRODUCTS IN THIS CATEGORY</p>
+            <h2 class="section-title">Explore Available Materials</h2>
+        </div>
+        <div class="services-grid services-grid--products">
+            {% for product in category.products.all %}
+                {% include 'partials/_product_card.html' with product=product %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="service-detail-highlights">
+    <div class="container">
+        <div class="service-detail-section-heading">
+            <p class="section-subtitle">WHY CHOOSE US</p>
+            <h2 class="section-title">Category Expertise With Reliable Delivery</h2>
+        </div>
+        <div class="service-detail-highlights__panel">
+            <ul class="service-detail-highlights__list">
+                {% for point in choose_us_points %}
+                    <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail-cta" id="service-detail-cta">
+    <div class="container">
+        <div class="service-detail-cta__panel">
+            <p class="section-subtitle">NEXT STEP</p>
+            <h2>Explore materials that fit your space</h2>
+            <p>We help you shortlist the right category options for design intent, usage needs, and project longevity.</p>
+            <a href="{% url 'home' %}#get-started" class="btn btn-primary">Discuss Your Project</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

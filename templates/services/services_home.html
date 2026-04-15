@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load service_content %}
+
+{% block title %}Services | Sudama Interiors{% endblock %}
+{% block meta_description %}Explore premium interior and construction services by Sudama Interiors, organized by category for a clear and scalable browsing experience.{% endblock %}
+
+{% block content %}
+<section class="services-listing-hero">
+    <div class="container">
+        <p class="section-subtitle">OUR SERVICES</p>
+        <h1 class="services-listing-hero__title">Complete Interior And Construction Solutions</h1>
+        <p class="services-listing-hero__description">
+            Sudama Interiors brings together interior design thinking and practical construction execution
+            so clients do not have to treat planning and delivery as separate worlds. We work across the
+            visual, functional, and technical layers of a project with a clear understanding of how spaces
+            are actually lived in, maintained, and experienced over time. From room-level refinements to
+            execution-heavy service requirements, our approach stays grounded in material quality, measured
+            detailing, and dependable site coordination. This gives homeowners and businesses a clearer path
+            from concept to completion, with services that are easier to understand and more meaningful to choose.
+        </p>
+    </div>
+</section>
+
+<section class="services-section services-section--listing">
+    <div class="container">
+        {% for category in categories %}
+            {% if category.services.all %}
+                <div class="services-group">
+                    <p class="category-eyebrow">{{ category.name }}</p>
+                    {% category_copy category as category_text %}
+                    <p class="services-group__intro">{{ category_text }}</p>
+                    <div class="services-grid">
+                        {% for service in category.services.all %}
+                            {% include 'partials/_service_card.html' with service=service %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if not forloop.last %}
+                    {% listing_transition_copy as transition_text %}
+                    <div class="services-transition">
+                        <p class="services-transition__eyebrow">FROM DESIGN TO EXECUTION</p>
+                        <p class="services-transition__text">{{ transition_text }}</p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

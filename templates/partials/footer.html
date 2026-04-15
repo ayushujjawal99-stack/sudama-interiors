@@ -1,0 +1,81 @@
+<footer class="site-footer">
+    <div class="container">
+
+        <div class="footer-top">
+
+            <div>
+                <a href="{% url 'home' %}" class="footer-logo">
+                    <div class="footer-logo-box">S</div>
+                    <span>Sudama Interiors</span>
+                </a>
+
+                <p class="footer-brand-copy">
+                    Premium interior design and construction services.
+                    Transforming spaces with quality craftsmanship since 1971.
+                </p>
+
+                <ul class="footer-contact-list">
+                    <li>
+                        <span class="footer-contact-icon">📞</span>
+                        +91 123 456 7890
+                    </li>
+                    <li>
+                        <span class="footer-contact-icon">✉</span>
+                        info@sudamainteriors.com
+                    </li>
+                    <li>
+                        <span class="footer-contact-icon">📍</span>
+                        123, Design Street, Sector 15,
+                        Gurgaon, Haryana 122001
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+
+                <div class="footer-link-group">
+                    <h3>Services</h3>
+                    <ul>
+                        {% for service in footer_services %}
+                        <li>
+                            <a href="{{ service.get_absolute_url }}">{{ service.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="footer-link-group">
+                    <h3>Products</h3>
+                    <ul>
+                        {% for category in footer_product_categories %}
+                        <li>
+                            <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="footer-link-group">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="{% url 'home' %}#about">About Us</a></li>
+                        <li><a href="{% url 'services:services_home' %}">Our Work</a></li>
+                        <li><a href="{% url 'home' %}#get-started">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Sudama Interiors. All rights reserved.</p>
+            <div class="footer-legal-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+
+    </div>
+</footer>

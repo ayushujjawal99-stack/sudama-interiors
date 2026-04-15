@@ -1,0 +1,32 @@
+{# partials/_product_category_card.html            #}
+{# Receives: category (ProductCategory instance)   #}
+{# Shows image + name + first 3 product tags       #}
+{# ─────────────────────────────────────────────── #}
+<article class="product-category-card">
+    <a href="{{ category.get_absolute_url }}">
+
+        <div class="product-card-image">
+            {% if category.image %}
+                <img src="{{ category.image.url }}"
+                     alt="{{ category.name }}"
+                     loading="lazy">
+            {% else %}
+                <div class="product-card-image-placeholder"></div>
+            {% endif %}
+        </div>
+
+        <div class="product-card-body">
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.description|truncatewords:12 }}</p>
+
+            <div class="product-tags">
+                {% for product in category.products.all|slice:":3" %}
+                    <span class="product-tag">{{ product.name }}</span>
+                {% endfor %}
+            </div>
+
+            <span class="explore-link">Explore Category →</span>
+        </div>
+
+    </a>
+</article>

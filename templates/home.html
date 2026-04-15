@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sudama Interiors — Crafting Spaces That Inspire Living{% endblock %}
+
+{% block content %}
+
+{# ══════════════════════════════════════════ #}
+{# HERO                                       #}
+{# ══════════════════════════════════════════ #}
+<section class="hero" id="home">
+
+    <div class="hero-bg">
+        <img src="{% static 'images/hero.jpg' %}"
+             alt="Luxury interior by Sudama Interiors"
+             loading="eager">
+    </div>
+
+    <div class="hero-text">
+        <div class="container hero-content">
+
+            <h1>Crafting Spaces<br>That Inspire Living</h1>
+
+            <p>
+                We transform ordinary spaces into extraordinary experiences.
+                Expert craftsmanship, premium materials, and design that speaks
+                to your unique style.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#get-started" class="btn btn-primary">Start Your Project →</a>
+                <a href="{% url 'services:services_home' %}" class="btn btn-secondary">View Our Work</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Projects Done</p>
+                </div>
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>Happy Clients</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+{# ══════════════════════════════════════════ #}
+{# SERVICES — fully dynamic from DB           #}
+{# ══════════════════════════════════════════ #}
+<section class="services-section" id="services">
+    <div class="container">
+
+        <div class="section-header">
+            <p class="section-subtitle">OUR SERVICES</p>
+            <h2 class="section-title">Complete Interior Solutions</h2>
+            <p class="section-desc">
+                From concept to completion, we deliver exceptional interiors
+                tailored to your lifestyle and preferences.
+            </p>
+        </div>
+
+        {% for category in service_categories %}
+        <div class="services-group">
+            <p class="category-eyebrow">{{ category.name }}</p>
+            <div class="services-grid">
+                {% for service in category.services.all %}
+                    {% include 'partials/_service_card.html' with service=service %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+
+{# ══════════════════════════════════════════ #}
+{# PRODUCTS — category cards from DB          #}
+{# ══════════════════════════════════════════ #}
+<section class="products-section" id="products">
+    <div class="container">
+
+        <div class="products-header">
+            <div>
+                <p class="section-subtitle">OUR PRODUCTS</p>
+                <h2 class="section-title">Premium Materials &amp; Finishes</h2>
+            </div>
+            <a href="{% url 'products:products_home' %}" class="btn btn-outline">
+                View All Products →
+            </a>
+        </div>
+
+        <div class="products-grid">
+            {% for category in product_categories %}
+                {% include 'partials/_product_category_card.html' with category=category %}
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{# ══════════════════════════════════════════ #}
+{# STATIC SECTIONS — loaded as partials       #}
+{# ══════════════════════════════════════════ #}
+{% include 'partials/about.html' %}
+{% include 'partials/why_choose.html' %}
+{% include 'partials/testimonials.html' %}
+{% include 'partials/get_started.html' %}
+
+{% endblock %}

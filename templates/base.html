@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sudama Interiors{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Premium interior design and construction services. Transforming spaces with quality craftsmanship since 2009.{% endblock %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="container nav-flex">
+
+        <a href="{% url 'home' %}" class="logo">
+            <div class="logo-box">S</div>
+            <span>Sudama Interiors</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'products:products_home' %}">Products</a>
+            <a href="{% url 'services:services_home' %}">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'home' %}#get-started" class="btn-primary">Get Quote</a>
+        </nav>
+
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+{% include 'partials/footer.html' %}
+
+</body>
+</html>

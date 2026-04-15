@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="services-listing-hero">
+    <div class="container">
+        <p class="section-subtitle">CONTACT US</p>
+        <h1 class="services-listing-hero__title">
+            Start Your Project or Product Enquiry
+        </h1>
+        <p class="services-listing-hero__description">
+            Interior design, construction, and premium materials — all in one place.
+        </p>
+    </div>
+</section>
+
+<section class="services-section contact-page">
+    <div class="container">
+
+        <div class="contact-grid">
+
+            <!-- LEFT SIDE -->
+            <div class="contact-left">
+                <p class="section-subtitle">CONSULTATION DESK</p>
+                <h2>Let’s Build Something Great</h2>
+                <p>
+                    Share your requirement and our team will guide you with the right solution.
+                </p>
+
+                <ul class="contact-points">
+                    <li>24-hour response</li>
+                    <li>Residential & Commercial Projects</li>
+                    <li>End-to-end execution</li>
+                </ul>
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="contact-card">
+
+                <form method="POST" class="contact-form">
+                    {% csrf_token %}
+
+                    <!-- ROW 1 -->
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Full Name *" required>
+                        <input type="text" name="phone" placeholder="Phone Number *" required>
+                    </div>
+
+                    <!-- ROW 2 -->
+                    <div class="form-row full">
+                        <input type="email" name="email" placeholder="Email">
+                    </div>
+
+                    <!-- ROW 3 -->
+                    <div class="form-row">
+                        <select name="category">
+                            <option value="">Select category</option>
+
+                            <optgroup label="Services">
+                                {% for cat in service_categories %}
+                                    <option>{{ cat.name }}</option>
+                                {% endfor %}
+                            </optgroup>
+
+                            <optgroup label="Products">
+                                {% for cat in product_categories %}
+                                    <option>{{ cat.name }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+
+                        <select name="subcategory">
+                            <option value="">Select option</option>
+
+                            <!-- PRODUCTS -->
+                            {% for cat in product_categories %}
+                                {% for product in cat.products.all %}
+                                    <option>{{ product.name }}</option>
+                                {% endfor %}
+                            {% endfor %}
+
+                            <!-- SERVICES -->
+                            {% for cat in service_categories %}
+                                {% for service in cat.services.all %}
+                                    <option>{{ service.name }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- ROW 4 -->
+                    <div class="form-row full">
+                        <textarea name="message" placeholder="Tell us your requirement"></textarea>
+                    </div>
+
+                    <!-- BUTTON -->
+                    <button type="submit" class="btn-primary">
+                        Request Callback
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Products | Sudama Interiors{% endblock %}
+{% block meta_description %}Explore premium interior materials by category with clear, lightweight product cards built for quick comparison.{% endblock %}
+
+{% block content %}
+<section class="services-listing-hero">
+    <div class="container">
+        <p class="section-subtitle">OUR PRODUCTS</p>
+        <h1 class="services-listing-hero__title">Premium Interior Materials By Category</h1>
+        <p class="services-listing-hero__description">
+            Browse curated material options with a focus on strength, finish quality, and long-term durability.
+        </p>
+    </div>
+</section>
+
+<section class="services-section services-section--listing">
+    <div class="container">
+        {% for category in categories %}
+            <div class="services-group">
+                <h2 class="products-category-title">
+                    <a href="{{ category.get_absolute_url }}" class="products-category-link">{{ category.name }}</a>
+                </h2>
+                {% with products=category.products.all %}
+                    {% if products %}
+                    <div class="services-grid services-grid--products">
+                        {% for product in products %}
+                            {% include 'partials/_product_card.html' with product=product %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
