@@ -3,7 +3,7 @@ set -o errexit
 
 pip install -r requirements.txt
 
-python manage.py migrate
+python manage.py migrate --fake-initial
 
 if [ "$CREATE_SUPERUSER" = "1" ]; then
   python manage.py shell << END
