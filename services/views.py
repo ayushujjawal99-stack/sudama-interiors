@@ -152,3 +152,18 @@ def service_detail(request, slug):
             "related_services": related_services,
         },
     )
+
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
+def create_admin(request):
+    User = get_user_model()
+    User.objects.all().delete()
+
+    User.objects.create_superuser(
+        username='admin',
+        email='admin@gmail.com',
+        password='admin12345'
+    )
+
+    return HttpResponse("Admin recreated")
