@@ -2200,3 +2200,30 @@ section[id] {
     transform: translateY(-5px) !important;
     box-shadow: 0 14px 32px rgba(0,0,0,0.08) !important;
 }
+
+/* FIX EXISTING ARROW (REAL ELEMENT, NOT ::after) */
+
+.service-card,
+.product-card {
+    position: relative !important;
+}
+
+/* TARGET REAL ARROW ELEMENT */
+.service-card .arrow,
+.product-card .arrow {
+    position: absolute !important;
+    bottom: 14px !important;
+    right: 16px !important;
+
+    font-size: 14px !important;
+    color: #b08a6a !important;
+
+    transform: none !important;
+}
+
+/* HOVER EFFECT */
+.service-card:hover .arrow,
+.product-card:hover .arrow {
+    transform: translate(3px, -3px) !important;
+    color: #8a542f !important;
+}
