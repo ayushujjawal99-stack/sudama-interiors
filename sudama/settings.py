@@ -5,7 +5,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-jh!rk0c9kvc+v)bqc92dc^zhct=9@cr)hmjv27@+l9)bh@t*wk'
 
-DEBUG = True
+DEBUG = False
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+WHITENOISE_MANIFEST_STRICT = False
 ALLOWED_HOSTS = ['sudama-interiors.onrender.com']
 
 
@@ -101,11 +109,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+
 
 
 MEDIA_URL = '/media/'
@@ -113,7 +117,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-WHITENOISE_MANIFEST_STRICT = False
+
 
 print("STORAGE:", STORAGES)
 print("DEBUG:", DEBUG)
