@@ -2134,3 +2134,69 @@ section[id] {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== FORCE OVERRIDE (FINAL FIX) ===== */
+
+.services-grid,
+.products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+}
+
+.service-card,
+.product-card,
+.card {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+
+    height: 180px !important;
+    padding: 22px !important;
+
+    background: #fdfaf7 !important;
+    border: 1px solid #e4dbd2 !important;
+    border-radius: 12px !important;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04) !important;
+    overflow: hidden !important;
+}
+
+/* REMOVE OLD OVERLAYS */
+.service-card::before,
+.service-card::after,
+.product-card::before,
+.product-card::after {
+    display: none !important;
+}
+
+/* TEXT */
+.service-card h3,
+.product-card h3 {
+    font-size: 1.25rem !important;
+}
+
+.service-card p,
+.product-card p {
+    font-size: 0.88rem !important;
+    color: #7a6f66 !important;
+}
+
+/* ARROW */
+.service-card::after,
+.product-card::after {
+    content: "↗" !important;
+    position: absolute !important;
+    bottom: 12px !important;
+    right: 14px !important;
+    font-size: 14px !important;
+    color: #b08a6a !important;
+}
+
+/* HOVER */
+.service-card:hover,
+.product-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 14px 32px rgba(0,0,0,0.08) !important;
+}
