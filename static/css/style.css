@@ -1870,3 +1870,9 @@ section[id] {
         padding: 20px !important;
     }
 }
+
+/* deploy trigger */
+
+body {
+    outline: 3px solid red;
+}
