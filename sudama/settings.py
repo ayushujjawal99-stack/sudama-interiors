@@ -5,9 +5,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-jh!rk0c9kvc+v)bqc92dc^zhct=9@cr)hmjv27@+l9)bh@t*wk'
 
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+DEBUG = False
+ALLOWED_HOSTS = ['sudama-interiors.onrender.com']
 
 
 INSTALLED_APPS = [
