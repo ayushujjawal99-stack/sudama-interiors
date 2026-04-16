@@ -2025,3 +2025,112 @@ section[id] {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* ===== LAYOUT IMPROVEMENT ===== */
+
+.services-grid,
+.products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* tighter = cleaner */
+}
+
+/* ===== CARD DESIGN REFINED ===== */
+
+.card,
+.service-card,
+.product-card {
+    all: unset;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 180px; /* 🔥 fixed clean height */
+    padding: 22px;
+
+    border-radius: 12px;
+    border: 1px solid #e4dbd2;
+
+    background: #fdfaf7; /* warm subtle tone */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+/* HOVER */
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.08);
+    border-color: #d2bfae;
+    background: #ffffff;
+}
+
+/* ===== TEXT STRUCTURE ===== */
+
+.card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 6px;
+}
+
+.card p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #7a6f66;
+}
+
+/* ===== ARROW POSITION (KEY FIX) ===== */
+
+.card::after {
+    content: "↗";
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+
+    font-size: 14px;
+    color: #b08a6a;
+
+    transition: all 0.25s ease;
+}
+
+/* HOVER ARROW */
+
+.card:hover::after {
+    transform: translate(3px, -3px);
+    color: #8a542f;
+}
+
+/* ===== REMOVE OLD WEIRD EFFECTS ===== */
+
+.service-card::before,
+.service-card::after,
+.product-card::before,
+.product-card::after {
+    display: none !important;
+}
+
+/* ===== SECTION BACKGROUND (SUBTLE UPGRADE) ===== */
+
+.services-section,
+.products-section {
+    background: #f8f5f1;
+    padding: 40px 0;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 992px) {
+    .services-grid,
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .services-grid,
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
