@@ -1733,3 +1733,140 @@ section[id] {
         gap: 10px;
     }
 }
+
+/* ===== FINAL PRODUCT PAGE POLISH ===== */
+
+/* SECTION TITLE (PLYWOOD) */
+.products-category-title,
+.products-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: "Playfair Display", serif;
+    margin-bottom: 22px;
+    position: relative;
+}
+
+/* subtle underline accent */
+.products-category-title::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: var(--brand);
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+/* GRID SPACING FIX */
+.products-grid {
+    gap: 22px !important;
+}
+
+/* CARD IMPROVEMENT */
+.product-card,
+.service-card {
+    padding: 24px !important;
+    border-radius: 14px !important;
+
+    background: linear-gradient(180deg, #ffffff 0%, #faf6f2 100%) !important;
+
+    border: 1px solid #e6ddd4 !important;
+
+    box-shadow: 0 8px 22px rgba(0,0,0,0.05) !important;
+
+    transition: all 0.28s ease !important;
+}
+
+/* HOVER = PREMIUM FEEL */
+.product-card:hover,
+.service-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.10) !important;
+    border-color: #d2bfae !important;
+}
+
+/* TITLE INSIDE CARD */
+.product-card h3,
+.service-card h3 {
+    font-size: 1.3rem !important;
+    letter-spacing: -0.01em;
+}
+
+/* DESCRIPTION */
+.product-card p,
+.service-card p {
+    font-size: 0.92rem !important;
+    line-height: 1.6 !important;
+    color: #6e6258 !important;
+}
+
+/* ===== ARROW FIX (IMPORTANT) ===== */
+
+.product-card .arrow,
+.service-card .arrow {
+    position: absolute !important;
+    right: 18px !important;
+    bottom: 16px !important;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #efe3d8;
+    color: var(--brand);
+
+    font-size: 14px;
+
+    transition: all 0.25s ease;
+}
+
+/* ARROW HOVER */
+.product-card:hover .arrow,
+.service-card:hover .arrow {
+    background: var(--brand);
+    color: white;
+    transform: translate(4px, -4px);
+}
+
+/* TEXT WIDTH FIX (important for wrapping issues) */
+.product-card p,
+.service-card p {
+    max-width: 85%;
+}
+
+/* REMOVE UNDERLINE FROM LINKS INSIDE CARD */
+.product-card a,
+.service-card a {
+    text-decoration: none !important;
+}
+
+/* CARD CONTENT STRUCTURE IMPROVEMENT */
+.product-card .card-content,
+.service-card .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* EXTRA SPACING BETWEEN TITLE & TEXT */
+.product-card h3 + p,
+.service-card h3 + p {
+    margin-top: 6px;
+}
+
+/* MOBILE POLISH */
+@media (max-width: 768px) {
+    .products-category-title {
+        font-size: 1.6rem;
+    }
+
+    .product-card,
+    .service-card {
+        padding: 20px !important;
+    }
+}
