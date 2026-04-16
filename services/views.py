@@ -119,11 +119,14 @@ def service_detail(request, slug):
     )
     fallback_paragraphs, process_steps, service_highlights = _build_fallback_content(service)
 
-    full_description_paragraphs = [
-        paragraph.strip()
-        for paragraph in service.full_description.splitlines()
-        if paragraph.strip()
-    ]
+    if service.full_description:
+        full_description_paragraphs = [
+            paragraph.strip()
+            for paragraph in service.full_description.splitlines()
+            if paragraph.strip()
+        ]
+    else:
+        full_description_paragraphs = []
 
     hero_description = (
         service.short_description
@@ -152,18 +155,3 @@ def service_detail(request, slug):
             "related_services": related_services,
         },
     )
-
-from django.http import HttpResponse
-from django.contrib.auth import get_user_model
-
-def create_admin(request):
-    User = get_user_model()
-    User.objects.all().delete()
-
-    User.objects.create_superuser(
-        username='admin',
-        email='admin@gmail.com',
-        password='admin12345'
-    )
-
-    return HttpResponse("Admin recreated")
