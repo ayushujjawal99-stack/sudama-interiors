@@ -2227,3 +2227,60 @@ section[id] {
     transform: translate(3px, -3px) !important;
     color: #8a542f !important;
 }
+
+/* ===== FINAL PREMIUM SPACING + LAYOUT ===== */
+
+/* CONTAINER WIDTH CONTROL */
+.container {
+    max-width: 1120px !important; /* tighter layout */
+    margin: 0 auto !important;
+}
+
+/* SECTION SPACING */
+.products-section,
+.services-section {
+    padding: 32px 0 !important;
+}
+
+/* CATEGORY TITLE SPACING */
+.products-section h2,
+.services-section h2 {
+    margin-bottom: 18px !important;
+}
+
+/* GRID REFINEMENT */
+.services-grid,
+.products-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 18px !important; /* tighter grid */
+}
+
+/* CARD SIZE BALANCE */
+.service-card,
+.product-card {
+    height: 165px !important; /* slightly tighter */
+    padding: 20px !important;
+}
+
+/* TEXT BALANCE */
+.service-card h3,
+.product-card h3 {
+    margin-bottom: 6px !important;
+}
+
+.service-card p,
+.product-card p {
+    margin-bottom: 12px !important;
+}
+
+/* SEPARATOR LINE (BETWEEN SECTIONS) */
+.products-section hr,
+.services-section hr {
+    margin: 28px 0 !important;
+    opacity: 0.4;
+}
+
+/* BACKGROUND SMOOTHING */
+body {
+    background: #f6f3ef !important;
+}
