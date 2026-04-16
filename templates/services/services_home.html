@@ -23,7 +23,7 @@
 
 <section class="services-section services-section--listing">
     <div class="container">
-        {% for service in category.services.all %}
+        {% for category in categories %}
             {% if category.services.all|length > 0 %}
                 <div class="services-group">
                     <p class="category-eyebrow">{{ category.name }}</p>
