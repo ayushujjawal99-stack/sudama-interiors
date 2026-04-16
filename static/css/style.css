@@ -1934,7 +1934,6 @@ section[id] {
         grid-template-columns: 1fr !important;
     }
 }
-
 body {
-    background: red !important;
+    background: blue !important;
 }
