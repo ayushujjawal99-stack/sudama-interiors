@@ -1,10 +1,7 @@
-{% load service_content %}
-<article class="service-card">
-   <a href="{{ service.get_absolute_url }}" class="service-card">
-    <div class="service-card__content">
-        <p class="service-card__category">{{ service.category.name }}</p>
+<a href="{{ service.get_absolute_url }}" class="service-card">
+    <div class="card-content">
+        <p>{{ service.category.name }}</p>
         <h3>{{ service.name }}</h3>
         <p>{{ service.short_description|default:service.description }}</p>
     </div>
 </a>
-</article>

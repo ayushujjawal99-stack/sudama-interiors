@@ -398,8 +398,12 @@ section[id] {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr); /* FIX layout */
+    gap: 32px; /* 🔥 IMPORTANT spacing */
+}
+
+.service-card {
+    width: 100%;
 }
 
 .services-grid--products {
@@ -411,16 +415,22 @@ section[id] {
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 236, 229, 0.95) 100%);
 }
-
 .service-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+
     position: relative;
+    overflow: hidden; /* 🔥 FIX: stops weird overlay bleed */
+    isolation: isolate; /* 🔥 FIX: creates clean stacking context */
+
     height: 100%;
     min-height: 192px;
     padding: 32px;
     border-radius: var(--radius-md);
     border: 1px solid var(--line);
     background:
-        radial-gradient(circle at top right, rgba(138, 84, 47, 0.06), transparent 34%),
+      
         linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 241, 235, 0.96) 100%);
     box-shadow: var(--shadow-card);
     transition:
@@ -429,72 +439,26 @@ section[id] {
         border-color 0.28s ease;
 }
 
-.service-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 28px 54px rgba(43, 27, 18, 0.14);
-    border-color: #cfb8a1;
+.service-card::before,
+.service-card::after {
+    display: none !important;
 }
-
-.service-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 45%);
-    pointer-events: none;
-}
+   
 
 .service-card .card-content {
     position: relative;
+    z-index: 1;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-right: 0;
 }
 
-.service-card h3 {
-    margin: 0 0 12px;
-    font-family: "Playfair Display", serif;
-    font-size: 1.55rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--text);
-}
 
-.service-card p {
-    margin: 0;
-    font-size: 0.97rem;
-    line-height: 1.7;
-    color: var(--text-muted);
+.service-card {
+    overflow: hidden !important;
+    isolation: isolate !important;
 }
-
-.service-card-link .card-content {
-    gap: 12px;
-}
-
-.arrow {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 42px;
-    height: 42px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    background: var(--brand-tint);
-    color: var(--brand);
-    font-size: 1rem;
-    transition: transform 0.22s ease, background-color 0.22s ease, color 0.22s ease;
-}
-
-.service-card:hover .arrow {
-    transform: translate(3px, -3px);
-    background: var(--brand);
-    color: var(--white);
-}
-
 .products-header {
     display: flex;
     align-items: end;
@@ -1876,3 +1840,97 @@ section[id] {
     border-radius: 12px !important;
     border: none !important;
   }
+
+
+  /* 🔥 TEMP FIX: remove unwanted background overlays */
+.services-group::before,
+.services-group::after,
+.services-section::before,
+.services-section::after,
+.services-section--listing::before,
+.services-section--listing::after {
+    display: none !important;
+}
+
+.services-group {
+    position: relative;
+    overflow: hidden;
+}
+
+.services-group {
+    margin-bottom: 48px; /* FIX: create separation */
+    position: relative;
+    z-index: 1;
+}
+
+.services-transition {
+    margin-top: 32px;
+    position: relative;
+    z-index: 0;
+}
+
+.services-section--listing {
+    overflow: hidden;
+}
+
+/* ===== FORCE FIX: SERVICE CARDS CLEAN LAYOUT ===== */
+
+.services-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 32px !important;
+}
+
+.service-card {
+    display: block !important;
+    width: 100% !important;
+
+    position: relative !important;
+    z-index: 1 !important;
+
+    padding: 32px !important;
+    border-radius: 12px !important;
+
+    background: #fff !important; /* 🔥 remove all weird gradients */
+    border: 1px solid #e5e5e5 !important;
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06) !important;
+
+    overflow: hidden !important;
+}
+
+/* 🔥 REMOVE ANY GHOST / OVERLAY / DECORATION */
+.service-card * {
+    background: none !important;
+}
+
+.service-card::before,
+.service-card::after,
+.services-group::before,
+.services-group::after,
+.services-section::before,
+.services-section::after {
+    display: none !important;
+}
+
+/* TEXT FIX */
+.service-card h3 {
+    margin: 10px 0;
+}
+
+.service-card p {
+    margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .services-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
