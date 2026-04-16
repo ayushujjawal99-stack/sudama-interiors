@@ -3,12 +3,9 @@ set -o errexit
 
 pip install -r requirements.txt
 
-# 🔥 FORCE RESET SERVICES TABLE (REAL FIX)
-
+# Migrations
 python manage.py makemigrations services
 python manage.py migrate services
-
-# Apply all migrations
 python manage.py migrate
 
 # Create admin if needed
@@ -27,5 +24,6 @@ print("Admin created or updated")
 END
 fi
 
-# Collect static
+# 🔥 FIX: Reset static files properly
+rm -rf staticfiles || true
 python manage.py collectstatic --no-input
