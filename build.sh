@@ -4,7 +4,7 @@ set -o errexit
 pip install -r requirements.txt
 
 # 🔥 FORCE RESET SERVICES TABLE (REAL FIX)
-python manage.py migrate services zero --noinput || true
+
 python manage.py makemigrations services
 python manage.py migrate services
 
