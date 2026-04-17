@@ -50,21 +50,17 @@
                 </ul>
             </div>
 
-            <!-- 🔹 RIGHT IMAGES (3 GRID) -->
+            <!-- 🔹 RIGHT IMAGES -->
             <div class="service-block__image">
 
                 {% if section.images %}
-                    <div class="image-grid">
-                        {% for img in section.images %}
-                            <img src="{{ img }}" alt="{{ section.title }}">
-                        {% endfor %}
-                    </div>
+                    {% for img in section.images %}
+                        <img src="{{ img }}" alt="{{ section.title }}">
+                    {% endfor %}
                 {% else %}
-                    <div class="image-grid">
-                        {% for i in "123" %}
-                            <div class="image-placeholder">Image</div>
-                        {% endfor %}
-                    </div>
+                    {% for i in "123" %}
+                        <div class="image-placeholder"></div>
+                    {% endfor %}
                 {% endif %}
 
             </div>
