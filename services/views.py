@@ -4,85 +4,99 @@ from .models import Service, ServiceCategory
 
 # 🔥 FIXED CONTENT MAP (BEST FOR YOUR CASE)
 SERVICE_CONTENT = {
+
     "acp-cladding": {
-        "what_it_is": "ACP cladding is a modern exterior and interior surface solution that provides durability, weather resistance, and a premium architectural finish.",
+        "what_it_is": "ACP cladding is a modern architectural solution used for both exterior and interior surfaces, offering durability, weather resistance, and a sleek contemporary finish.",
         "types": [
-            "Exterior ACP cladding",
-            "Interior ACP panels",
-            "Facade cladding systems",
+            "Exterior ACP Cladding",
+            "Interior ACP Panels",
+            "Facade Cladding Systems",
+            "Column & Feature Wall Cladding",
         ],
         "features": [
-            "Weather resistant and long-lasting",
-            "Lightweight yet strong panels",
-            "Modern premium appearance",
+            "High weather resistance for long-term durability",
+            "Lightweight panels with strong structural performance",
+            "Modern metallic and matte finish options",
+            "Corrosion and UV resistant surface",
         ],
         "specifications": [
-            "Material: Aluminum composite panels",
-            "Finish: Matte / Gloss / Metallic",
+            "Material: Aluminum Composite Panel",
+            "Thickness: 3mm – 6mm",
+            "Finish: Matte / Gloss / Metallic / Wooden",
         ],
-        "usage": "Used in building facades, commercial spaces, and modern interiors.",
+        "usage": "Used in building facades, showrooms, offices, and modern interior feature walls where durability and visual impact are important.",
     },
 
     "doors-windows": {
-        "what_it_is": "Doors and windows define access, ventilation, and aesthetics while ensuring safety and comfort in a space.",
+        "what_it_is": "Doors and windows are essential structural elements that control access, ventilation, lighting, and security while enhancing the overall look of a space.",
         "types": [
-            "Sliding doors & windows",
-            "Casement systems",
-            "Fixed glass panels",
+            "Sliding Doors & Windows",
+            "Casement Systems",
+            "Fixed Glass Panels",
+            "Flush Doors",
+            "Aluminum & uPVC Systems",
         ],
         "features": [
-            "Strong structural build",
-            "Sound insulation options",
-            "Weather resistance",
+            "Strong and durable build quality",
+            "Sound insulation for improved comfort",
+            "Weather-resistant for exterior applications",
+            "Smooth operation and long-lasting fittings",
         ],
         "specifications": [
-            "Material: Wood / Aluminum / uPVC",
-            "Finish: Powder coating / Laminate",
+            "Material: Wood / Aluminum / uPVC / Glass",
+            "Frame Thickness: Standard to Heavy Duty",
+            "Finish: Powder Coating / Laminate / Polish",
         ],
-        "usage": "Used in homes, offices, balconies, and commercial buildings.",
+        "usage": "Used in residential homes, offices, balconies, and commercial buildings for controlled access, ventilation, and aesthetics.",
     },
 
     "false-ceiling": {
-        "what_it_is": "False ceilings enhance aesthetics while improving lighting, insulation, and overall ceiling design.",
+        "what_it_is": "False ceilings are secondary ceiling systems designed to improve lighting, hide wiring, and enhance the aesthetic appeal of interior spaces.",
         "types": [
-            "Gypsum ceilings",
-            "POP ceilings",
-            "PVC ceilings",
-            "Wooden ceilings",
+            "Gypsum Ceiling",
+            "POP (Plaster of Paris) Ceiling",
+            "PVC Ceiling",
+            "Wooden Ceiling",
+            "Grid Ceiling",
         ],
         "features": [
-            "Improves lighting design",
-            "Conceals wiring and ducts",
-            "Enhances interior aesthetics",
+            "Enhances lighting and ambiance",
+            "Conceals wiring, ducts, and pipes",
+            "Improves thermal insulation",
+            "Creates premium layered ceiling designs",
         ],
         "specifications": [
             "Material: Gypsum / POP / PVC / Wood",
-            "Finish: Paint / Texture / Laminates",
+            "Finish: Paint / Texture / Laminate",
+            "Design: Plain / Cove / Layered / Patterned",
         ],
-        "usage": "Used in living rooms, bedrooms, offices, and commercial interiors.",
+        "usage": "Used in living rooms, bedrooms, offices, showrooms, and commercial interiors to enhance ceiling design and lighting layout.",
     },
 
     "modular-solutions": {
-        "what_it_is": "Modular solutions are factory-made units designed for flexibility, fast installation, and modern living.",
+        "what_it_is": "Modular solutions are factory-built interior units designed for efficiency, flexibility, and modern aesthetics, allowing faster installation and clean finishing.",
         "types": [
-            "Modular kitchens",
+            "Modular Kitchens",
             "Wardrobes",
-            "TV units",
-            "Storage units",
+            "TV Units",
+            "Storage Units",
+            "Office Modular Systems",
         ],
         "features": [
-            "Quick installation",
-            "Customizable designs",
-            "Modern clean finish",
+            "Highly customizable layouts and finishes",
+            "Fast installation with minimal site work",
+            "Modern clean and premium appearance",
+            "Efficient space utilization",
         ],
         "specifications": [
             "Material: MDF / Plywood / HDF",
-            "Finish: Laminate / Acrylic / PU",
+            "Finish: Laminate / Acrylic / PU / Glass",
+            "Hardware: Soft-close fittings and premium accessories",
         ],
-        "usage": "Used in homes, offices, and commercial spaces for efficient space utilization.",
+        "usage": "Used in residential homes, apartments, offices, and commercial spaces for organized storage and modern interior setups.",
     },
-}
 
+}
 
 # 🔶 HOME
 def services_home(request):
