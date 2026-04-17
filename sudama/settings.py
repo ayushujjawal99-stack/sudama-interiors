@@ -51,7 +51,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'core.context_processors.footer_data',
+                #'core.context_processors.footer_data',
             ],
         },
     },
@@ -99,3 +99,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # DEFAULT FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# test change
