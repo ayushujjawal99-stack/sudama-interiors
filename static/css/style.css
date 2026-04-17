@@ -1984,3 +1984,28 @@ section[id] {
         padding: 20px !important;
     }
 }
+
+.service-split {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 60px;
+    align-items: flex-start;
+}
+
+.service-split__content {
+    flex: 1;
+}
+
+.service-split__images {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.service-split__images img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+}
