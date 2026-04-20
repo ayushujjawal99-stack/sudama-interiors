@@ -27,6 +27,8 @@ def service_detail(request, slug):
 
     intro = content.get("intro", "")
     sections = content.get("sections", [])
+    construction_layout = content.get("construction_layout", None)
+    door_specs = content.get("door_specs", None)
 
     hero_description = (
         service.short_description
@@ -50,6 +52,8 @@ def service_detail(request, slug):
         # 🔥 FINAL DATA PIPELINE
         "intro": intro,
         "sections": sections,
+        "construction_layout": construction_layout,
+        "door_specs": door_specs,
 
         "service_highlights": [
             "Premium material quality",

@@ -4,44 +4,67 @@ SERVICE_CONTENT = {
     # DOORS & WINDOWS
     # =========================================================
     "doors-windows": {
-        "intro": "Doors and windows are critical architectural elements that define access, ventilation, natural lighting, and security while enhancing the overall aesthetic of a space.",
+        "intro": "Doors and windows are critical architectural elements that define access, ventilation, natural lighting, and security while enhancing the overall aesthetic of a space. We offer a complete range with precise material, size, and finish specifications.",
 
         "sections": [
 
             {
-                "title": "Types of Doors",
+                "title": "Interior Doors",
                 "items": [
-                    "Interior Doors – MDF, Plywood, Glass | Thickness: 32mm – 38mm | Focus: Sound insulation, privacy, style",
-                    "Exterior Doors – Solid Wood, Steel, Aluminum | Thickness: 45mm – 55mm+ | Focus: Security & weatherproofing",
-                    "Key Focus Areas – Sound control, durability, design appeal, safety",
-                    "Finish Options – Laminate, Veneer, Paint, PVDF coating, Powder coating, Polish",
+                    "WPC Doors – Termite-proof, moisture-resistant, long-lasting",
+                    "Plywood Doors – Classic solid core with natural wood veneer options",
+                    "Aluminium Doors – Lightweight, corrosion-resistant, modern profiles",
+                    "Standard Thickness – 25mm, 30mm",
                 ],
                 "images": ["/static/images/d1.jpg","/static/images/d2.jpg","/static/images/d3.jpg"]
             },
 
             {
-                "title": "Sliding Systems (Modern Space Optimization)",
+                "title": "Exterior Doors",
                 "items": [
-                    "Two-track / Three-track systems – Standard sliding mechanism with layered panels",
-                    "Slide & Fold (Bi-fold) – Panels fold to create wider openings",
-                    "Lift & Slide – Premium system for large openings with better sealing",
-                    "Ideal for balconies, large glass openings, and modern facades",
+                    "Iron Doors – Heavy-duty security with custom designs",
+                    "Steel Doors – High strength, weather-resistant, low maintenance",
+                    "UPVC Doors – Insulated, weatherproof, energy-efficient",
+                    "Standard Gauge – 16 gauge, 18 gauge, 14 gauge",
                 ],
                 "images": ["/static/images/d4.jpg","/static/images/d5.jpg","/static/images/d6.jpg"]
             },
 
             {
-                "title": "Casement Systems (Maximum Insulation)",
+                "title": "Finishes",
                 "items": [
-                    "Side-hung – Traditional opening like doors/windows",
-                    "Top-hung (Awning) – Ventilation during rain",
-                    "Tilt & Turn – Dual function opening system",
-                    "Fixed windows – Non-opening panels for maximum light",
-                    "Best for soundproofing and insulation",
+                    "Laminates – Wide range of textures and colors",
+                    "Paint – Custom color matching for any interior scheme",
+                    "DUCO – Premium automotive-grade finish, smooth and durable",
+                    "Polish – Natural wood grain enhancement",
+                    "Powder Coated – Scratch and fade resistant for exteriors",
+                    "Anodized – Metallic finish for aluminium, corrosion-proof",
                 ],
                 "images": ["/static/images/d7.jpg","/static/images/d8.jpg","/static/images/d9.jpg"]
             },
+
+            {
+                "title": "Sliding & Casement Systems",
+                "items": [
+                    "Two-track / Three-track sliding systems",
+                    "Slide & Fold (Bi-fold) for wider openings",
+                    "Lift & Slide premium systems for large openings",
+                    "Side-hung, Top-hung, Tilt & Turn casement options",
+                    "Fixed windows for maximum natural light",
+                ],
+                "images": ["/static/images/d10.jpg","/static/images/d11.jpg","/static/images/d12.jpg"]
+            },
         ],
+
+        "door_specs": {
+            "interior": ["WPC", "Plywood", "Aluminium"],
+            "exterior": ["Iron", "Steel", "UPVC"],
+            "sizes": {
+                "interior": ["25mm", "30mm"],
+                "exterior": ["16 gauge", "18 gauge", "14 gauge"],
+            },
+            "finishes": ["Laminates", "Paint", "DUCO", "Polish", "Powder Coated", "Anodized"],
+        },
     },
 
     # =========================================================
@@ -57,7 +80,7 @@ SERVICE_CONTENT = {
                 "items": [
                     "Pre-designed base, wall, and tall cabinets",
                     "Integration with chimney, hob, and built-in appliances",
-                    "Materials: MDF, Plywood, HDF with laminate/acrylic/PU finishes",
+                    "Materials: MDF, Plywood, HDF with laminate/acrylic/DUCO finishes",
                     "Highly optimized for storage and workflow",
                     "Most popular modular solution in Indian homes",
                 ],
@@ -294,6 +317,138 @@ SERVICE_CONTENT = {
                     "Cost-effective solution",
                 ],
                 "images": ["/static/images/a13.jpg","/static/images/a14.jpg","/static/images/a15.jpg"]
+            },
+        ],
+    },
+
+    # =========================================================
+    # CURTAINS & BLINDS
+    # =========================================================
+    "curtains-blinds": {
+        "intro": "Window treatments that combine functionality with aesthetics — controlling light, privacy, and temperature while adding a polished finish to any room.",
+
+        "sections": [
+            {
+                "title": "Zebra Blinds",
+                "items": [
+                    "Alternating sheer and solid fabric bands for precise light control",
+                    "Day-night functionality in a single system",
+                    "Sleek modern look suitable for homes and offices",
+                    "Available in motorized and manual operation",
+                ],
+                "images": ["/static/images/c1.jpg","/static/images/c2.jpg","/static/images/c3.jpg"]
+            },
+
+            {
+                "title": "Roller Blinds",
+                "items": [
+                    "Single-roll fabric with clean minimal appearance",
+                    "Blackout and light-filtering options",
+                    "Easy operation and low maintenance",
+                    "Ideal for bedrooms, offices, and commercial spaces",
+                ],
+                "images": ["/static/images/c4.jpg","/static/images/c5.jpg","/static/images/c6.jpg"]
+            },
+
+            {
+                "title": "Enrich Shade Blinds",
+                "items": [
+                    "Premium layered fabric for soft diffused lighting",
+                    "Elegant appearance with energy-saving insulation",
+                    "Combines the look of curtains with blind functionality",
+                    "Best for living rooms and premium interiors",
+                ],
+                "images": ["/static/images/c7.jpg","/static/images/c8.jpg","/static/images/c9.jpg"]
+            },
+        ],
+    },
+
+    # =========================================================
+    # CONSTRUCTION
+    # =========================================================
+    "construction": {
+        "intro": "Our construction services support the strength behind the finished space, with close attention to execution quality, technical accuracy, and long-term durability. From planning to technical layouts, we ensure every project is built on a solid foundation.",
+
+        "sections": [
+            {
+                "title": "Planning & Layout",
+                "items": [
+                    "Floor Plan – Optimized spatial arrangement for functionality and flow",
+                    "3D Layout Plan – Realistic visualization before execution begins",
+                    "Ensures accurate room proportions and furniture placement",
+                    "Reduces costly changes during construction",
+                ],
+                "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
+            },
+
+            {
+                "title": "Vastu Integration",
+                "items": [
+                    "Aligned planning with vastu principles for positive spatial energy",
+                    "Directional room placement and entrance orientation",
+                    "Balanced elements for harmony and well-being",
+                    "Integrated into floor plan from the design stage",
+                ],
+                "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
+            },
+
+            {
+                "title": "Technical Layouts",
+                "items": [
+                    "Electrical Layout – Planned wiring, switch, and outlet positioning",
+                    "Plumbing Layout – Optimized pipe routing for water supply and drainage",
+                    "Ensures safety, accessibility, and maintenance ease",
+                    "Coordinated with floor plan to avoid conflicts",
+                ],
+                "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
+            },
+        ],
+
+        "construction_layout": {
+            "planning": ["Floor Plan", "3D Layout Plan"],
+            "vastu": "Aligned planning with vastu principles",
+            "technical": ["Electrical Layout", "Plumbing Layout"],
+        },
+    },
+
+    # =========================================================
+    # IRON / METAL FABRICATION
+    # =========================================================
+    "iron-metal-fabrication": {
+        "intro": "Custom iron and metal fabrication for structural and aesthetic applications — from roofing systems to decorative metalwork, built for strength and longevity.",
+
+        "sections": [
+            {
+                "title": "Shades & Roofing Structures",
+                "items": [
+                    "Industrial and residential shade structures",
+                    "Custom roofing frames for weather protection",
+                    "Car parking shades and walkway covers",
+                    "Powder-coated for durability and rust resistance",
+                ],
+                "images": ["/static/images/ir1.jpg","/static/images/ir2.jpg","/static/images/ir3.jpg"]
+            },
+
+            {
+                "title": "Roofing Structure",
+                "items": [
+                    "Pre-engineered roofing systems for fast installation",
+                    "Tubular and angular truss frameworks",
+                    "Suitable for warehouses, factories, and commercial buildings",
+                    "Galvanized and coated options for corrosion protection",
+                ],
+                "images": ["/static/images/ir4.jpg","/static/images/ir5.jpg","/static/images/ir6.jpg"]
+            },
+
+            {
+                "title": "Iron Foundation",
+                "items": [
+                    "Structural iron work for building foundations",
+                    "Column and beam fabrication with precision welding",
+                    "Load-bearing frameworks for multi-story construction",
+                    "Certified materials with quality assurance",
+                ],
+                "images": ["/static/images/ir7.jpg","/static/images/ir8.jpg","/static/images/ir9.jpg"]
             },
         ],
     },

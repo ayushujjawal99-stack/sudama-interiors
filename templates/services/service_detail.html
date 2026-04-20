@@ -72,6 +72,74 @@
 </section>
 {% endif %}
 
+<!-- 🔶 CONSTRUCTION LAYOUT (for construction services) -->
+{% if construction_layout %}
+<section class="service-detail-construction">
+    <div class="container">
+        <p class="section-subtitle">PROJECT PLANNING</p>
+        <h2 class="section-title">Structured Construction Approach</h2>
+
+        <div class="construction-layout">
+            <div class="construction-block">
+                <h3>Planning & Layout</h3>
+                <ul>
+                    {% for item in construction_layout.planning %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="construction-block">
+                <h3>Vastu Integration</h3>
+                <p>{{ construction_layout.vastu }}</p>
+            </div>
+
+            <div class="construction-block">
+                <h3>Technical Layouts</h3>
+                <ul>
+                    {% for item in construction_layout.technical %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 🔶 DOOR SPECIFICATIONS (for doors-windows service) -->
+{% if door_specs %}
+<section class="service-detail-door-specs">
+    <div class="container">
+        <p class="section-subtitle">SPECIFICATIONS</p>
+        <h2 class="section-title">Door Options & Finishes</h2>
+
+        <div class="door-specs">
+            <div class="door-block">
+                <h4>Interior Doors</h4>
+                <p>{{ door_specs.interior|join:", " }}</p>
+                <span class="door-size">Sizes: {{ door_specs.sizes.interior|join:", " }}</span>
+            </div>
+
+            <div class="door-block">
+                <h4>Exterior Doors</h4>
+                <p>{{ door_specs.exterior|join:", " }}</p>
+                <span class="door-size">Sizes: {{ door_specs.sizes.exterior|join:", " }}</span>
+            </div>
+
+            <div class="door-block">
+                <h4>Finishes</h4>
+                <div class="finish-tags">
+                    {% for finish in door_specs.finishes %}
+                        <span class="finish-tag">{{ finish }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
 <!-- 🔶 WHY CHOOSE -->
 <section class="service-detail-highlights">
     <div class="container">
