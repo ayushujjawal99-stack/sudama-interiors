@@ -324,7 +324,7 @@ SERVICE_CONTENT = {
 # CONSTRUCTION (SPLIT INTO 3 SERVICES)
 # =========================================================
 
-"construction-foundation": {
+"construction-foundation-plans": {
     "intro": "Strong structural foundation systems designed for load stability, soil conditions, and long-term durability.",
 
     "sections": [
@@ -399,7 +399,7 @@ SERVICE_CONTENT = {
     ]
 },
 
-"water-systems": {
+"submersible-handpump": {
     "intro": "Complete water solutions including submersible pumps, handpump setups, and long-term plumbing systems.",
 
     "sections": [
