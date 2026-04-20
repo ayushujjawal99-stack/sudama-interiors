@@ -1,0 +1,634 @@
+/* ============================================================
+   PREMIUM UI OVERRIDE LAYER — Sudama Interiors
+   DO NOT remove existing CSS. This file ONLY adds overrides.
+   Loaded after style.css to enhance visual depth, cards,
+   micro-interactions, typography, responsive, and polish.
+   ============================================================ */
+
+/* ===== 1. VISUAL DEPTH SYSTEM ===== */
+
+:root {
+    --shadow-xs: 0 1px 3px rgba(43, 27, 18, 0.04);
+    --shadow-sm: 0 2px 8px rgba(43, 27, 18, 0.06);
+    --shadow-md: 0 8px 24px rgba(43, 27, 18, 0.08);
+    --shadow-lg: 0 16px 40px rgba(43, 27, 18, 0.10);
+    --shadow-xl: 0 24px 56px rgba(43, 27, 18, 0.13);
+    --shadow-hover: 0 20px 48px rgba(43, 27, 18, 0.14);
+    --surface-elevated: rgba(255, 255, 255, 0.92);
+    --surface-hover-tint: rgba(138, 84, 47, 0.025);
+    --transition-smooth: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Subtle body gradient enhancement */
+body {
+    background: linear-gradient(180deg, #fbf8f4 0%, #f5f0ea 40%, var(--bg) 100%);
+}
+
+/* Section surface hierarchy */
+.services-section,
+.products-section {
+    background: linear-gradient(180deg, transparent 0%, rgba(138, 84, 47, 0.012) 50%, transparent 100%);
+}
+
+.testimonials-section {
+    background: linear-gradient(180deg, transparent 0%, rgba(138, 84, 47, 0.018) 50%, transparent 100%);
+}
+
+/* ===== 2. CARD SYSTEM UPGRADE ===== */
+
+.service-card,
+.product-card,
+.card {
+    border: 1px solid rgba(228, 219, 210, 0.85);
+    box-shadow:
+        var(--shadow-sm),
+        0 1px 0 rgba(255, 255, 255, 0.7) inset;
+    transition:
+        transform var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth),
+        background-color var(--transition-smooth);
+}
+
+.service-card {
+    padding: 26px 26px 28px;
+}
+
+.service-card:hover,
+.product-card:hover,
+.card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(194, 170, 148, 0.7);
+    background: linear-gradient(180deg, #ffffff 0%, #fdf9f5 100%);
+}
+
+.service-card:active,
+.product-card:active,
+.card:active {
+    transform: translateY(-2px) scale(0.99);
+    box-shadow: var(--shadow-sm);
+    transition-duration: 0.1s;
+}
+
+/* Product category card enhancement */
+.product-category-card {
+    box-shadow:
+        var(--shadow-md),
+        0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    transition:
+        transform var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth);
+}
+
+.product-category-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: var(--shadow-xl);
+}
+
+.product-category-card:active {
+    transform: translateY(-2px) scale(0.995);
+    transition-duration: 0.1s;
+}
+
+/* Testimonial card depth */
+.testimonial-card {
+    box-shadow:
+        var(--shadow-md),
+        0 1px 0 rgba(255, 255, 255, 0.6) inset;
+    transition:
+        transform var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(194, 170, 148, 0.5);
+}
+
+/* Why card depth */
+.why-card {
+    box-shadow:
+        0 18px 38px rgba(45, 25, 11, 0.16),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    transition:
+        transform var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth);
+}
+
+.why-card:hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 24px 52px rgba(45, 25, 11, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Process & related cards */
+.service-detail-process__card,
+.service-detail-related__card {
+    box-shadow:
+        var(--shadow-md),
+        0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    transition:
+        transform var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth);
+}
+
+.service-detail-process__card:hover,
+.service-detail-related__card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(194, 170, 148, 0.5);
+}
+
+/* ===== 3. MICRO-INTERACTIONS ===== */
+
+/* Arrow: circular background, bottom-right, animate on hover */
+.service-card .arrow,
+.product-card .arrow,
+.card .arrow {
+    position: absolute;
+    right: 18px;
+    bottom: 16px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--brand-tint);
+    color: var(--brand);
+    font-size: 0.88rem;
+    transition:
+        transform var(--transition-smooth),
+        background-color var(--transition-smooth),
+        color var(--transition-smooth),
+        box-shadow var(--transition-smooth);
+}
+
+.service-card:hover .arrow,
+.product-card:hover .arrow,
+.card:hover .arrow {
+    transform: translate(3px, -3px) rotate(-45deg);
+    background: var(--brand);
+    color: var(--white);
+    box-shadow: 0 6px 16px rgba(138, 84, 47, 0.25);
+}
+
+/* Explore link hover */
+.explore-link {
+    transition: color 0.25s ease, transform 0.25s ease, letter-spacing 0.25s ease;
+}
+
+.explore-link:hover {
+    transform: translateX(4px);
+    letter-spacing: 0.02em;
+}
+
+/* Nav link micro-interaction */
+.nav-links a {
+    position: relative;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--brand);
+    border-radius: 2px;
+    transition: width var(--transition-smooth);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Button press-down feel */
+.btn:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-outline:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 0.1s;
+}
+
+/* Product tag hover */
+.product-tag {
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.product-tag:hover {
+    background: var(--brand-tint);
+    border-color: var(--brand);
+    transform: scale(1.03);
+}
+
+/* About point icon hover */
+.about-point-icon {
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.about-point:hover .about-point-icon {
+    background: rgba(138, 84, 47, 0.1);
+    transform: scale(1.08);
+}
+
+/* Footer link hover enhancement */
+.footer-link-group a {
+    transition: color 0.25s ease, transform 0.25s ease, padding-left 0.25s ease;
+}
+
+.footer-link-group a:hover {
+    padding-left: 4px;
+}
+
+/* ===== 4. TYPOGRAPHY POLISH ===== */
+
+/* Heading letter-spacing */
+.section-title,
+.products-header .section-title,
+.about-content h2,
+.why-title,
+.testimonials-title,
+.get-started-title,
+.services-listing-hero__title,
+.service-detail-hero h1 {
+    letter-spacing: -0.035em;
+}
+
+/* Card heading slight letter-spacing */
+.service-card h3,
+.product-card h3,
+.card h3,
+.product-card-body h3 {
+    letter-spacing: -0.01em;
+}
+
+/* Improved heading → description gap */
+.section-subtitle + .section-title,
+.category-eyebrow + .section-title,
+.about-eyebrow + .about-content h2,
+.why-eyebrow + .why-title,
+.testimonials-eyebrow + .testimonials-title,
+.get-started-eyebrow + .get-started-title {
+    margin-top: 4px;
+}
+
+.section-title + .section-desc,
+.why-title + .why-description,
+.testimonials-title + .testimonials-description,
+.get-started-title + .get-started-description,
+.about-content h2 + p {
+    margin-top: 22px;
+}
+
+/* Service card heading → description gap */
+.service-card h3 + p,
+.product-card h3 + p,
+.card h3 + p {
+    margin-top: 8px;
+}
+
+/* Category label spacing */
+.service-card__category {
+    letter-spacing: 0.16em;
+    margin-bottom: 2px;
+}
+
+/* Product card body heading → description gap */
+.product-card-body h3 + p {
+    margin-top: 6px;
+}
+
+/* Section desc readability */
+.section-desc,
+.why-description,
+.testimonials-description,
+.get-started-description {
+    line-height: 1.78;
+}
+
+/* ===== 5. RESPONSIVE SYSTEM ===== */
+
+/* Tablet (≤ 768px): 2-column grid */
+@media (max-width: 768px) {
+    .services-grid,
+    .products-grid,
+    .why-grid,
+    .testimonials-grid,
+    .service-detail-process__grid,
+    .service-detail-related__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .service-detail-highlights__list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .service-card,
+    .product-card {
+        padding: 22px 22px 24px;
+    }
+
+    .section-title,
+    .products-header .section-title,
+    .why-title,
+    .testimonials-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .about-content h2,
+    .get-started-title {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .product-category-card a {
+        grid-template-columns: 180px 1fr;
+    }
+
+    .product-card-body {
+        padding: 22px;
+    }
+
+    .product-card-body h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile (≤ 480px): horizontal scroll cards (Option A) */
+@media (max-width: 480px) {
+    .services-grid,
+    .products-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-bottom: 12px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--line-strong) transparent;
+    }
+
+    .services-grid::-webkit-scrollbar,
+    .products-grid::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .services-grid::-webkit-scrollbar-track,
+    .products-grid::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .services-grid::-webkit-scrollbar-thumb,
+    .products-grid::-webkit-scrollbar-thumb {
+        background: var(--line-strong);
+        border-radius: 4px;
+    }
+
+    .services-grid > .service-card,
+    .products-grid > .product-category-card {
+        flex: 0 0 82%;
+        max-width: 82%;
+        scroll-snap-align: start;
+    }
+
+    .services-grid > .service-card {
+        min-height: 160px;
+    }
+
+    /* Why & testimonials: 2-col compact grid on mobile */
+    .why-grid,
+    .testimonials-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .why-card {
+        min-height: 0;
+        padding: 24px 20px;
+    }
+
+    .why-card h3 {
+        font-size: 1.4rem;
+    }
+
+    .testimonial-card {
+        padding: 22px;
+    }
+
+    /* Typography scaling for mobile readability */
+    .section-title,
+    .products-header .section-title,
+    .why-title,
+    .testimonials-title {
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
+    }
+
+    .about-content h2,
+    .get-started-title {
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
+    }
+
+    .section-desc,
+    .why-description,
+    .testimonials-description,
+    .get-started-description {
+        font-size: 0.95rem;
+        line-height: 1.72;
+    }
+
+    .service-card h3,
+    .product-card h3,
+    .card h3 {
+        font-size: 1.15rem;
+    }
+
+    .service-card p,
+    .product-card p,
+    .card p {
+        font-size: 0.88rem;
+    }
+
+    /* Product category card: stack on mobile */
+    .product-category-card a {
+        grid-template-columns: 1fr;
+    }
+
+    .product-card-image,
+    .product-card-image-placeholder {
+        min-height: 180px;
+    }
+
+    .product-card-body {
+        padding: 20px;
+    }
+
+    .product-card-body h3 {
+        font-size: 1.3rem;
+    }
+
+    /* Process & related grids: 2-col on mobile */
+    .service-detail-process__grid,
+    .service-detail-related__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .service-detail-highlights__list {
+        grid-template-columns: 1fr;
+    }
+
+    /* Service block responsive */
+    .service-block {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .service-block__image {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== 6. PREMIUM TOUCHES ===== */
+
+/* Subtle hover background tint on cards */
+.service-card:hover,
+.product-card:hover,
+.card:hover {
+    background-image: linear-gradient(180deg, #ffffff 0%, #fdf9f5 100%);
+}
+
+/* Focus states for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.service-card:focus-visible,
+.product-card:focus-visible,
+.card:focus-visible,
+.product-category-card:focus-visible,
+.testimonial-card:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
+
+.btn:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-outline:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+}
+
+/* Smooth transitions across interactive elements */
+input,
+select,
+textarea {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+/* Contact form focus enhancement */
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 4px rgba(138, 84, 47, 0.08);
+}
+
+/* Get started form focus enhancement */
+.get-started-form input:focus {
+    box-shadow: 0 0 0 4px rgba(138, 84, 47, 0.1);
+}
+
+/* Stat item hover on hero */
+.stat-item {
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Logo box hover */
+.logo-box {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.logo:hover .logo-box {
+    transform: scale(1.06);
+    box-shadow: 0 12px 26px rgba(138, 84, 47, 0.28);
+}
+
+/* Image hover in service detail */
+.service-block__image img {
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.service-block__image img:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* CTA panel subtle glow */
+.service-detail-cta__panel {
+    box-shadow:
+        0 24px 48px rgba(82, 46, 24, 0.22),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+/* Get started card depth */
+.get-started-card {
+    box-shadow:
+        var(--shadow-lg),
+        0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+
+/* Highlights panel depth */
+.service-detail-highlights__panel {
+    box-shadow:
+        var(--shadow-md),
+        0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+
+/* Contact card depth */
+.contact-card {
+    box-shadow:
+        var(--shadow-lg),
+        0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    transition: box-shadow var(--transition-smooth);
+}
+
+.contact-card:hover {
+    box-shadow: var(--shadow-xl);
+}
+
+/* Smooth scroll indicator for mobile horizontal scroll */
+.services-grid::after,
+.products-grid::after {
+    content: "";
+    flex: 0 0 4px;
+}
+
+/* Ensure no horizontal overflow on body from scroll containers */
+@media (max-width: 480px) {
+    .services-section .container,
+    .products-section .container {
+        overflow: hidden;
+    }
+}
