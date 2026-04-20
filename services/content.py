@@ -36,7 +36,7 @@ SERVICE_CONTENT = {
                     "Laminates – Wide range of textures and colors",
                     "Paint – Custom color matching for any interior scheme",
                     "DUCO – Premium automotive-grade finish, smooth and durable",
-                    "Polish – Natural wood grain enhancement",
+                    
                     "Powder Coated – Scratch and fade resistant for exteriors",
                     "Anodized – Metallic finish for aluminium, corrosion-proof",
                 ],
@@ -320,136 +320,121 @@ SERVICE_CONTENT = {
             },
         ],
     },
+# =========================================================
+# CONSTRUCTION (SPLIT INTO 3 SERVICES)
+# =========================================================
 
-    # =========================================================
-    # CURTAINS & BLINDS
-    # =========================================================
-    "curtains-blinds": {
-        "intro": "Window treatments that combine functionality with aesthetics — controlling light, privacy, and temperature while adding a polished finish to any room.",
+"construction-foundation": {
+    "intro": "Strong structural foundation systems designed for load stability, soil conditions, and long-term durability.",
 
-        "sections": [
-            {
-                "title": "Zebra Blinds",
-                "items": [
-                    "Alternating sheer and solid fabric bands for precise light control",
-                    "Day-night functionality in a single system",
-                    "Sleek modern look suitable for homes and offices",
-                    "Available in motorized and manual operation",
-                ],
-                "images": ["/static/images/c1.jpg","/static/images/c2.jpg","/static/images/c3.jpg"]
-            },
-
-            {
-                "title": "Roller Blinds",
-                "items": [
-                    "Single-roll fabric with clean minimal appearance",
-                    "Blackout and light-filtering options",
-                    "Easy operation and low maintenance",
-                    "Ideal for bedrooms, offices, and commercial spaces",
-                ],
-                "images": ["/static/images/c4.jpg","/static/images/c5.jpg","/static/images/c6.jpg"]
-            },
-
-            {
-                "title": "Enrich Shade Blinds",
-                "items": [
-                    "Premium layered fabric for soft diffused lighting",
-                    "Elegant appearance with energy-saving insulation",
-                    "Combines the look of curtains with blind functionality",
-                    "Best for living rooms and premium interiors",
-                ],
-                "images": ["/static/images/c7.jpg","/static/images/c8.jpg","/static/images/c9.jpg"]
-            },
-        ],
-    },
-
-    # =========================================================
-    # CONSTRUCTION
-    # =========================================================
-    "construction": {
-        "intro": "Our construction services support the strength behind the finished space, with close attention to execution quality, technical accuracy, and long-term durability. From planning to technical layouts, we ensure every project is built on a solid foundation.",
-
-        "sections": [
-            {
-                "title": "Planning & Layout",
-                "items": [
-                    "Floor Plan – Optimized spatial arrangement for functionality and flow",
-                    "3D Layout Plan – Realistic visualization before execution begins",
-                    "Ensures accurate room proportions and furniture placement",
-                    "Reduces costly changes during construction",
-                ],
-                "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
-            },
-
-            {
-                "title": "Vastu Integration",
-                "items": [
-                    "Aligned planning with vastu principles for positive spatial energy",
-                    "Directional room placement and entrance orientation",
-                    "Balanced elements for harmony and well-being",
-                    "Integrated into floor plan from the design stage",
-                ],
-                "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
-            },
-
-            {
-                "title": "Technical Layouts",
-                "items": [
-                    "Electrical Layout – Planned wiring, switch, and outlet positioning",
-                    "Plumbing Layout – Optimized pipe routing for water supply and drainage",
-                    "Ensures safety, accessibility, and maintenance ease",
-                    "Coordinated with floor plan to avoid conflicts",
-                ],
-                "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
-            },
-        ],
-
-        "construction_layout": {
-            "planning": ["Floor Plan", "3D Layout Plan"],
-            "vastu": "Aligned planning with vastu principles",
-            "technical": ["Electrical Layout", "Plumbing Layout"],
+    "sections": [
+        {
+            "title": "Deep Foundation Works (Piling)",
+            "items": [
+                "Bored Casting – Drilling deep holes and filling with reinforced concrete",
+                "Driven Piles – Pre-cast piles driven into ground",
+                "Pile Caps – Structural base connecting multiple piles",
+            ],
+            "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
         },
-    },
+        {
+            "title": "Reinforcement & Concreting",
+            "items": [
+                "Bar Bending (BBS) – Steel reinforcement cage preparation",
+                "Formwork (Shuttering) – Mold setup for structure",
+                "Pouring & Compacting – Dense concrete using vibrators",
+            ],
+            "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
+        },
+        {
+            "title": "Protection & Finishing Works",
+            "items": [
+                "Anti-Termite Treatment – Prevent infestation",
+                "Waterproofing – Moisture protection",
+                "Backfilling – Soil compaction",
+                "Plinth Beam Construction – Ground stability",
+            ],
+            "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
+        },
+    ],
+},
 
-    # =========================================================
-    # IRON / METAL FABRICATION
-    # =========================================================
-    "iron-metal-fabrication": {
-        "intro": "Custom iron and metal fabrication for structural and aesthetic applications — from roofing systems to decorative metalwork, built for strength and longevity.",
+"layout-plans": {
+    "intro": "Smart architectural planning with 2D/3D layouts, vastu integration, and technical systems for accurate execution.",
 
-        "sections": [
-            {
-                "title": "Shades & Roofing Structures",
-                "items": [
-                    "Industrial and residential shade structures",
-                    "Custom roofing frames for weather protection",
-                    "Car parking shades and walkway covers",
-                    "Powder-coated for durability and rust resistance",
-                ],
-                "images": ["/static/images/ir1.jpg","/static/images/ir2.jpg","/static/images/ir3.jpg"]
-            },
+    "sections": [
+        {
+            "title": "Floor Plans & 3D Layouts",
+            "items": [
+                "2D Architectural Floor Plans – Maximum space utilization",
+                "3D Isometric Views – Visual clarity before execution",
+                "Shop-Front & Commercial Layouts – Business-focused planning",
+            ],
+            "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
+        },
+        {
+            "title": "Vastu Integration",
+            "items": [
+                "Scientific Vastu – Energy-balanced planning",
+                "Directional Alignment – Proper room placement",
+                "Remedial Design – Fixing layout issues",
+            ],
+            "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
+        },
+        {
+            "title": "Electrical & Plumbing (MEP)",
+            "items": [
+                "Electrical Load Mapping – Smart wiring",
+                "Plumbing & Drainage – Efficient water flow",
+                "Safety (MCB, Earthing) – Secure system",
+            ],
+            "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
+        },
+    ],
 
-            {
-                "title": "Roofing Structure",
-                "items": [
-                    "Pre-engineered roofing systems for fast installation",
-                    "Tubular and angular truss frameworks",
-                    "Suitable for warehouses, factories, and commercial buildings",
-                    "Galvanized and coated options for corrosion protection",
-                ],
-                "images": ["/static/images/ir4.jpg","/static/images/ir5.jpg","/static/images/ir6.jpg"]
-            },
+    "highlights": [
+        "Zero Rework – Saves up to 15% cost",
+        "Material Accuracy – No wastage",
+        "Contractor Ready – Easy execution drawings",
+    ]
+},
 
-            {
-                "title": "Iron Foundation",
-                "items": [
-                    "Structural iron work for building foundations",
-                    "Column and beam fabrication with precision welding",
-                    "Load-bearing frameworks for multi-story construction",
-                    "Certified materials with quality assurance",
-                ],
-                "images": ["/static/images/ir7.jpg","/static/images/ir8.jpg","/static/images/ir9.jpg"]
-            },
-        ],
-    },
+"water-systems": {
+    "intro": "Complete water solutions including submersible pumps, handpump setups, and long-term plumbing systems.",
+
+    "sections": [
+        {
+            "title": "Submersible Pump Installation",
+            "items": [
+                "Precision Boring – Deep drilling for clean water",
+                "Load Calculation – Correct HP pump selection",
+                "Smart Integration – Tank automation systems",
+            ],
+            "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
+        },
+        {
+            "title": "Traditional Handpump Setup",
+            "items": [
+                "Expert Setup – Durable manual pumps (India Mark II)",
+                "Platform Construction – Proper drainage base",
+                "Backup Solutions – Emergency water source",
+            ],
+            "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
+        },
+        {
+            "title": "Maintenance & Plumbing Layouts",
+            "items": [
+                "Source-to-Tank Piping – Leak-proof CPVC/UPVC systems",
+                "System Diagnostics – Repair and servicing",
+            ],
+            "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
+        },
+    ],
+
+    "highlights": [
+        "Local Expertise – Darbhanga & Benipur groundwater knowledge",
+        "Quality First – Premium materials",
+        "Turnkey Service – End-to-end execution",
+    ]
+},
 }
