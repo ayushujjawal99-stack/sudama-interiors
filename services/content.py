@@ -100,7 +100,11 @@ SERVICE_CONTENT = {
                     "Highly optimized for storage and workflow",
                     "Most popular modular solution in Indian homes",
                 ],
-                "images": ["/static/images/m1.jpg","/static/images/m2.jpg","/static/images/m3.jpg"]
+                "images": [
+    "/static/images/services/modular-solutions/modular-solutions_kitchen_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_kitchen_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_kitchen_3.jpg",
+],
             },
 
             {
@@ -112,7 +116,11 @@ SERVICE_CONTENT = {
                     "Custom sizes based on room dimensions",
                     "Modern look with efficient storage",
                 ],
-                "images": ["/static/images/m4.jpg","/static/images/m5.jpg","/static/images/m6.jpg"]
+                "images": [
+    "/static/images/services/modular-solutions/modular-solutions_wardrobe_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_wardrobe_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_wardrobe_3.jpg",
+],
             },
 
             {
@@ -123,7 +131,11 @@ SERVICE_CONTENT = {
                     "Concealed wiring systems for clean finish",
                     "Designed for modern living room aesthetics",
                 ],
-                "images": ["/static/images/m7.jpg","/static/images/m8.jpg","/static/images/m9.jpg"]
+                "images": [
+    "/static/images/services/modular-solutions/modular-solutions_tv-unit_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_tv-unit_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_tv-unit_3.jpg",
+],
             },
 
             {
@@ -135,7 +147,11 @@ SERVICE_CONTENT = {
                     "Multi-purpose cabinets",
                     "Flexible and reconfigurable systems",
                 ],
-                "images": ["/static/images/m10.jpg","/static/images/m11.jpg","/static/images/m12.jpg"]
+                "images": [
+    "/static/images/services/modular-solutions/modular-solutions_storage_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_storage_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_storage_3.jpg",
+],
             },
 
             {
@@ -147,7 +163,11 @@ SERVICE_CONTENT = {
                     "Storage pedestals",
                     "Used in corporate and co-working spaces",
                 ],
-                "images": ["/static/images/m13.jpg","/static/images/m14.jpg","/static/images/m15.jpg"]
+               "images": [
+    "/static/images/services/modular-solutions/modular-solutions_office_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_office_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_office_3.jpg",
+],
             },
 
             {
@@ -158,7 +178,11 @@ SERVICE_CONTENT = {
                     "Mirror cabinets",
                     "Compact and space-saving solutions",
                 ],
-                "images": ["/static/images/m16.jpg","/static/images/m17.jpg","/static/images/m18.jpg"]
+                "images": [
+    "/static/images/services/modular-solutions/modular-solutions_bathroom_1.jpeg",
+    "/static/images/services/modular-solutions/modular-solutions_bathroom_2.jpeg",
+    "/static/images/services/modular-solutions/modular-solutions_bathroom_3.jpeg",
+],
             },
 
             {
@@ -169,7 +193,11 @@ SERVICE_CONTENT = {
                     "Demountable walls",
                     "Common in offices and modern homes",
                 ],
-                "images": ["/static/images/m19.jpg","/static/images/m20.jpg","/static/images/m21.jpg"]
+               "images": [
+    "/static/images/services/modular-solutions/modular-solutions_partition_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_partition_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_partition_3.jpg",
+],
             },
 
             {
@@ -180,7 +208,11 @@ SERVICE_CONTENT = {
                     "Smart lighting setups",
                     "Flexible placement and easy upgrades",
                 ],
-                "images": ["/static/images/m22.jpg","/static/images/m23.jpg","/static/images/m24.jpg"]
+                "images": [
+    "/static/images/services/modular-solutions/modular-solutions_lighting_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_lighting_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_lighting_3.jpg",
+],
             },
 
             {
@@ -191,7 +223,11 @@ SERVICE_CONTENT = {
                     "Outdoor seating systems",
                     "Used in balconies, terraces, cafes",
                 ],
-                "images": ["/static/images/m25.jpg","/static/images/m26.jpg","/static/images/m27.jpg"]
+                "images": [
+    "/static/images/services/modular-solutions/modular-solutions_outdoor_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_outdoor_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_outdoor_3.jpg",
+],
             },
 
             {
@@ -203,7 +239,11 @@ SERVICE_CONTENT = {
                     "Clean and modern finish",
                     "Highly customizable designs",
                 ],
-                "images": ["/static/images/m28.jpg","/static/images/m29.jpg","/static/images/m30.jpg"]
+               "images": [
+    "/static/images/services/modular-solutions/modular-solutions_trending_1.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_trending_2.jpg",
+    "/static/images/services/modular-solutions/modular-solutions_trending_3.jpg",
+],
             },
         ],
     },
