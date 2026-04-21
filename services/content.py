@@ -16,7 +16,11 @@ SERVICE_CONTENT = {
                     "Aluminium Doors – Lightweight, corrosion-resistant, modern profiles",
                     "Standard Thickness – 25mm, 30mm",
                 ],
-                "images": ["/static/images/d1.jpg","/static/images/d2.jpg","/static/images/d3.jpg"]
+             "images": [
+    "/static/images/services/doors-windows/doors-windows_interior-doors_1.jpeg",
+    "/static/images/services/doors-windows/doors-windows_interior-doors_2.jpeg",
+    "/static/images/services/doors-windows/doors-windows_interior-doors_3.jpeg",
+]
             },
 
             {
