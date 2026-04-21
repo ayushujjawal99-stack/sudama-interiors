@@ -1,21 +1,21 @@
 :root {
-  --color-bg: #f7f8f4;
-  --color-bg-soft: #eef3ec;
+  --color-bg: #f8f5f0;
+  --color-bg-soft: #f0ebe3;
   --color-surface: #ffffff;
-  --color-surface-2: #f9faf7;
-  --color-ink: #17211c;
-  --color-muted: #617067;
-  --color-subtle: #8a978f;
-  --color-line: #dfe7df;
-  --color-brand: #245c45;
-  --color-brand-dark: #143c2c;
-  --color-accent: #b8794c;
-  --color-accent-soft: #f0dfd2;
+  --color-surface-2: #faf8f5;
+  --color-ink: #3d2817;
+  --color-muted: #7d6b5d;
+  --color-subtle: #a89888;
+  --color-line: #e8e0d5;
+  --color-brand: #8b5a2b;
+  --color-brand-dark: #5c3a1e;
+  --color-accent: #c49a6c;
+  --color-accent-soft: #f5e6d3;
   --color-white: #ffffff;
-  --shadow-xs: 0 1px 2px rgba(23, 33, 28, 0.05);
-  --shadow-sm: 0 8px 22px rgba(23, 33, 28, 0.07);
-  --shadow-md: 0 18px 44px rgba(23, 33, 28, 0.1);
-  --shadow-lg: 0 28px 70px rgba(23, 33, 28, 0.14);
+  --shadow-xs: 0 1px 2px rgba(61, 40, 23, 0.05);
+  --shadow-sm: 0 8px 22px rgba(61, 40, 23, 0.07);
+  --shadow-md: 0 18px 44px rgba(61, 40, 23, 0.1);
+  --shadow-lg: 0 28px 70px rgba(61, 40, 23, 0.14);
   --radius-xs: 8px;
   --radius-sm: 12px;
   --radius-md: 18px;
@@ -53,10 +53,10 @@ body {
     sans-serif;
   color: var(--color-ink);
   background:
-    radial-gradient(circle at 8% 8%, rgba(36, 92, 69, 0.08), transparent 30%),
+    radial-gradient(circle at 8% 8%, rgba(139, 90, 43, 0.06), transparent 30%),
     radial-gradient(
       circle at 92% 18%,
-      rgba(184, 121, 76, 0.08),
+      rgba(196, 154, 108, 0.08),
       transparent 26%
     ),
     var(--color-bg);

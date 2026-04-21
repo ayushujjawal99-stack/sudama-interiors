@@ -75,10 +75,14 @@ def _related_services(service):
 
 
 def service_detail(request, slug):
+    # Try to get service from DB, fallback to hardcoded content if not found
     service = Service.objects.select_related("category").filter(slug=slug).first()
-    fallback_service = None if service else find_fallback_service(slug)
-    if not service and not fallback_service:
-        raise Http404("Service not found")
+    fallback_service = None
+    
+    if not service:
+        fallback_service = find_fallback_service(slug)
+        if not fallback_service:
+            raise Http404("Service not found")
 
     content = SERVICE_CONTENT.get(slug) or {}
 
