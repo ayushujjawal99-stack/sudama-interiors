@@ -224,7 +224,11 @@ SERVICE_CONTENT = {
                     "Fire-resistant and lightweight",
                     "Best for living rooms, bedrooms, offices",
                 ],
-                "images": ["/static/images/f1.jpg","/static/images/f2.jpg","/static/images/f3.jpg"]
+                "images": [
+    "/static/images/services/false-ceiling/false-ceiling_gypsum_1.jpg",
+    "/static/images/services/false-ceiling/false-ceiling_gypsum_2.jpg",
+    "/static/images/services/false-ceiling/false-ceiling_gypsum_3.jpg",
+],
             },
 
             {
@@ -234,7 +238,11 @@ SERVICE_CONTENT = {
                     "Used for cornices and decorative patterns",
                     "More durable but time-consuming installation",
                 ],
-                "images": ["/static/images/f4.jpg","/static/images/f5.jpg","/static/images/f6.jpg"]
+               "images": [
+    "/static/images/services/false-ceiling/false-ceiling_pop_1.jpeg",
+    "/static/images/services/false-ceiling/false-ceiling_pop_2.jpg",
+    "/static/images/services/false-ceiling/false-ceiling_pop_3.jpg",
+],
             },
 
             {
@@ -275,7 +283,11 @@ SERVICE_CONTENT = {
                     "Coffered ceiling grids",
                     "Peripheral/border ceilings",
                 ],
-                "images": ["/static/images/f13.jpg","/static/images/f14.jpg","/static/images/f15.jpg"]
+                "images": [
+    "/static/images/services/false-ceiling/false-ceiling_designs_1.jpg",
+    "/static/images/services/false-ceiling/false-ceiling_designs_2.jpg",
+    "/static/images/services/false-ceiling/false-ceiling_designs_3.jpg",
+],
             },
         ],
     },
