@@ -310,7 +310,11 @@ SERVICE_CONTENT = {
                     "Lightweight yet strong",
                     "Corrosion-resistant and durable",
                 ],
-                "images": ["/static/images/a4.jpg","/static/images/a5.jpg","/static/images/a6.jpg"]
+                "images": [
+        "/static/images/services/acp-cladding/acp-cladding_material_1.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_material_2.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_material_3.jpg",
+    ]
             },
 
             {
@@ -321,7 +325,11 @@ SERVICE_CONTENT = {
                     "Fire-retardant variants available",
                     "Low maintenance",
                 ],
-                "images": ["/static/images/a7.jpg","/static/images/a8.jpg","/static/images/a9.jpg"]
+                "images": [
+        "/static/images/services/acp-cladding/acp-cladding_features_1.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_features_2.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_features_3.jpg",
+    ]
             },
 
             {
@@ -333,7 +341,11 @@ SERVICE_CONTENT = {
                     "Metallic finish",
                     "Stone texture finish",
                 ],
-                "images": ["/static/images/a10.jpg","/static/images/a11.jpg","/static/images/a12.jpg"]
+               "images": [
+        "/static/images/services/acp-cladding/acp-cladding_finishes_1.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_finishes_2.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_finishes_3.jpg",
+    ]
             },
 
             {
@@ -344,7 +356,11 @@ SERVICE_CONTENT = {
                     "Long-lasting performance",
                     "Cost-effective solution",
                 ],
-                "images": ["/static/images/a13.jpg","/static/images/a14.jpg","/static/images/a15.jpg"]
+                 "images": [
+        "/static/images/services/acp-cladding/acp-cladding_why_1.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_why_2.jpg",
+        "/static/images/services/acp-cladding/acp-cladding_why_3.jpg",
+    ]
             },
         ],
     },
