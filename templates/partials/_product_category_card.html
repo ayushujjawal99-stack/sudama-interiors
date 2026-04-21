@@ -2,18 +2,21 @@
 {# Receives: category (ProductCategory instance)   #}
 {# Shows image + name + first 3 product tags       #}
 {# ─────────────────────────────────────────────── #}
+
+
 <article class="product-category-card">
     <a href="{{ category.get_absolute_url }}">
 
-        <div class="product-card-image">
-            {% if category.image %}
-                <img src="{{ category.image.url }}"
-                     alt="{{ category.name }}"
-                     loading="lazy">
-            {% else %}
-                <div class="product-card-image-placeholder"></div>
-            {% endif %}
-        </div>
+{% load static %}
+
+{% if category.slug %}
+{% with 'images/products/'|add:category.slug|add:'.png' as img_path %}
+<div class="product-card-image"
+     style="background-image: url('{% static img_path %}')">
+</div>
+{% endwith %}
+{% endif %}
+
 
         <div class="product-card-body">
             <h3>{{ category.name }}</h3>
