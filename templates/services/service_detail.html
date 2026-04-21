@@ -1,19 +1,22 @@
-{% extends 'base.html' %} {% block title %}{{ meta_title }}{% endblock %} {%
-block meta_description %}{{ meta_description }}{% endblock %} {% block content
-%}
+{% extends 'base.html' %}
+{% block title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+
 <section class="page-hero service-hero">
   <div class="container page-hero-grid">
     <div>
       <p class="eyebrow js-hero-item">{{ service.category_name }}</p>
       <h1 class="js-hero-item">{{ service.name }}</h1>
       <p class="js-hero-item">{{ hero_description }}</p>
+
       <div class="hero-actions js-hero-item">
         <a href="{% url 'contact' %}" class="btn btn-primary">Get Quote</a>
-        <a href="{% url 'services:services_home' %}" class="btn btn-outline"
-          >All Services</a
-        >
+        <a href="{% url 'services:services_home' %}" class="btn btn-outline">All Services</a>
       </div>
     </div>
+
     <div class="detail-visual js-hero-item" aria-hidden="true">
       <div></div>
       <div></div>
@@ -22,6 +25,7 @@ block meta_description %}{{ meta_description }}{% endblock %} {% block content
   </div>
 </section>
 
+<!-- OVERVIEW -->
 <section class="section">
   <div class="container two-column js-split">
     <div>
@@ -32,137 +36,182 @@ block meta_description %}{{ meta_description }}{% endblock %} {% block content
   </div>
 </section>
 
+<!-- 🔥 MAIN SECTIONS (FIXED LOOP + IMAGES) -->
 {% if detail_sections %}
 <section class="section section-soft">
   <div class="container">
+
     <div class="section-header js-section">
       <p class="eyebrow">Service details</p>
       <h2>What this service can include</h2>
     </div>
 
     <div class="detail-section-list">
+
       {% for section in detail_sections %}
       <article class="detail-block js-split">
+
+        <!-- TEXT -->
         <div class="detail-block-copy">
-          <span class="detail-index"
-            >{{ forloop.counter|stringformat:"02d" }}</span
-          >
+          <span class="detail-index">{{ forloop.counter|stringformat:"02d" }}</span>
           <h3>{{ section.title }}</h3>
+
           {% if section.content %}
           <div class="rich-text">{{ section.content|linebreaks }}</div>
-          {% endif %} {% if section.items %}
+          {% endif %}
+
+          {% if section.items %}
           <ul class="check-list">
             {% for item in section.items %}
-            <li>{{ item }}</li>
+              <li>{{ item }}</li>
             {% endfor %}
           </ul>
           {% endif %}
         </div>
-        <div class="detail-block-media" aria-hidden="true">
-          <div class="media-tile"></div>
-          <div class="media-tile"></div>
+
+        <!-- ✅ IMAGES (FIXED) -->
+        <div class="detail-block-media">
+
+          {% if section.images %}
+            {% for img in section.images %}
+              <div class="media-tile">
+                <img src="{{ img }}" alt="{{ service.name }}">
+              </div>
+            {% endfor %}
+          {% else %}
+            <!-- fallback -->
+            <div class="media-tile"></div>
+            <div class="media-tile"></div>
+            <div class="media-tile"></div>
+          {% endif %}
+
         </div>
+
       </article>
       {% endfor %}
+
     </div>
   </div>
 </section>
 {% endif %}
 
+<!-- CONSTRUCTION -->
 {% if construction_layout %}
 <section class="section section-soft">
-    <div class="container">
-        <div class="section-header js-section">
-            <p class="eyebrow">Project planning</p>
-            <h2>Structured construction approach.</h2>
-        </div>
-        <div class="construction-layout js-grid">
-            <div class="construction-block js-card">
-                <h3>Planning & Layout</h3>
-                <ul>
-                    {% for item in construction_layout.planning %}
-                        <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="construction-block js-card">
-                <h3>Vastu Integration</h3>
-                <p>{{ construction_layout.vastu }}</p>
-            </div>
-            <div class="construction-block js-card">
-                <h3>Technical Layouts</h3>
-                <ul>
-                    {% for item in construction_layout.technical %}
-                        <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+  <div class="container">
+
+    <div class="section-header js-section">
+      <p class="eyebrow">Project planning</p>
+      <h2>Structured construction approach.</h2>
     </div>
+
+    <div class="construction-layout js-grid">
+
+      <div class="construction-block js-card">
+        <h3>Planning & Layout</h3>
+        <ul>
+          {% for item in construction_layout.planning %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="construction-block js-card">
+        <h3>Vastu Integration</h3>
+        <p>{{ construction_layout.vastu }}</p>
+      </div>
+
+      <div class="construction-block js-card">
+        <h3>Technical Layouts</h3>
+        <ul>
+          {% for item in construction_layout.technical %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
 </section>
 {% endif %}
 
+<!-- DOOR SPECS -->
 {% if door_specs %}
 <section class="section">
-    <div class="container">
-        <div class="section-header js-section">
-            <p class="eyebrow">Specifications</p>
-            <h2>Door options & finishes.</h2>
-        </div>
-        <div class="door-specs js-grid">
-            <div class="door-block js-card">
-                <h4>Interior Doors</h4>
-                <p>{{ door_specs.interior|join:", " }}</p>
-                <span class="door-size">Sizes: {{ door_specs.sizes.interior|join:", " }}</span>
-            </div>
-            <div class="door-block js-card">
-                <h4>Exterior Doors</h4>
-                <p>{{ door_specs.exterior|join:", " }}</p>
-                <span class="door-size">Sizes: {{ door_specs.sizes.exterior|join:", " }}</span>
-            </div>
-            <div class="door-block js-card">
-                <h4>Finishes</h4>
-                <div class="finish-tags">
-                    {% for finish in door_specs.finishes %}
-                        <span class="finish-tag">{{ finish }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+  <div class="container">
+
+    <div class="section-header js-section">
+      <p class="eyebrow">Specifications</p>
+      <h2>Door options & finishes.</h2>
     </div>
+
+    <div class="door-specs js-grid">
+
+      <div class="door-block js-card">
+        <h4>Interior Doors</h4>
+        <p>{{ door_specs.interior|join:", " }}</p>
+        <span class="door-size">Sizes: {{ door_specs.sizes.interior|join:", " }}</span>
+      </div>
+
+      <div class="door-block js-card">
+        <h4>Exterior Doors</h4>
+        <p>{{ door_specs.exterior|join:", " }}</p>
+        <span class="door-size">Sizes: {{ door_specs.sizes.exterior|join:", " }}</span>
+      </div>
+
+      <div class="door-block js-card">
+        <h4>Finishes</h4>
+        <div class="finish-tags">
+          {% for finish in door_specs.finishes %}
+            <span class="finish-tag">{{ finish }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 {% endif %}
 
+<!-- HIGHLIGHTS -->
 <section class="section">
   <div class="container">
     <div class="section-header section-header-center js-section">
       <p class="eyebrow">Why it matters</p>
       <h2>Quality decisions that improve everyday performance.</h2>
     </div>
+
     <div class="highlight-grid js-grid">
       {% for highlight in service_highlights %}
-      <article class="highlight-card js-card">{{ highlight }}</article>
+        <article class="highlight-card js-card">{{ highlight }}</article>
       {% endfor %}
     </div>
   </div>
 </section>
 
+<!-- RELATED -->
 {% if related_services %}
 <section class="section section-soft">
   <div class="container">
+
     <div class="section-header section-header-split js-section">
       <div>
         <p class="eyebrow">Related services</p>
         <h2>More ways we can support your project.</h2>
       </div>
-      <a href="{% url 'services:services_home' %}" class="btn btn-outline"
-        >View All</a
-      >
+      <a href="{% url 'services:services_home' %}" class="btn btn-outline">View All</a>
     </div>
+
     <div class="card-grid js-grid">
-      {% for service in related_services %} {% include
-      'partials/_service_card.html' with service=service %} {% endfor %}
+      {% for service in related_services %}
+        {% include 'partials/_service_card.html' with service=service %}
+      {% endfor %}
     </div>
+
   </div>
 </section>
-{% endif %} {% include 'partials/get_started.html' %} {% endblock %}
+{% endif %}
+
+{% include 'partials/get_started.html' %}
+
+{% endblock %}
