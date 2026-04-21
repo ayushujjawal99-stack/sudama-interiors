@@ -2090,3 +2090,34 @@ section[id] {
         grid-template-columns: 1fr;
     }
 }
+
+.nav-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.navbar {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-height: 60px;
+    overflow: hidden;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+}
