@@ -1,117 +1,92 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Sudama Interiors — Crafting Spaces That Inspire Living{% endblock %}
+{% block title %}Sudama Construction & Interiors | Premium Interiors, Materials & Construction{% endblock %}
+{% block meta_description %}Plan interiors, materials, construction support, doors, windows, and modular systems with Sudama Construction & Interiors in Darbhanga.{% endblock %}
 
 {% block content %}
-
-{# ══════════════════════════════════════════ #}
-{# HERO                                       #}
-{# ══════════════════════════════════════════ #}
 <section class="hero" id="home">
-
-    <div class="hero-bg">
-        <img src="{% static 'images/hero.jpg' %}"
-             alt="Luxury interior by Sudama Interiors"
-             loading="eager">
+    <div class="hero-visual" aria-hidden="true">
+        <div class="hero-panel hero-panel-main">
+            <img src="{% static 'images/products/panels-louvers.png' %}" alt="" loading="eager">
+        </div>
+        <div class="hero-panel hero-panel-top">
+            <img src="{% static 'images/products/laminates.png' %}" alt="" loading="eager">
+        </div>
+        <div class="hero-panel hero-panel-bottom">
+            <img src="{% static 'images/products/plywood.png' %}" alt="" loading="eager">
+        </div>
     </div>
 
-    <div class="hero-text">
-        <div class="container hero-content">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <p class="eyebrow js-hero-item">Interior design, materials, and execution</p>
+            <h1 class="hero-title js-hero-item">Spaces that feel considered from structure to finish.</h1>
+            <p class="hero-lede js-hero-item">
+                Sudama Construction & Interiors brings premium materials, clean detailing, and practical site execution
+                into one dependable workflow for homes and commercial spaces.
+            </p>
+            <div class="hero-actions js-hero-item">
+                <a href="{% url 'contact' %}" class="btn btn-primary">Start a Project</a>
+                <a href="{% url 'services:services_home' %}" class="btn btn-secondary">Explore Services</a>
+            </div>
+            <div class="hero-metrics js-hero-item">
+                <span><strong>15+</strong> years experience</span>
+                <span><strong>500+</strong> projects handled</span>
+                <span><strong>98%</strong> client satisfaction</span>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <h1>Crafting Spaces<br>That Inspire Living</h1>
-
+<section class="section section-soft" id="services">
+    <div class="container">
+        <div class="section-header section-header-center js-section">
+            <p class="eyebrow">Services</p>
+            <h2>Complete project support, from design direction to site execution.</h2>
             <p>
-                We transform ordinary spaces into extraordinary experiences.
-                Expert craftsmanship, premium materials, and design that speaks
-                to your unique style.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#get-started" class="btn btn-primary">Start Your Project →</a>
-                <a href="{% url 'services:services_home' %}" class="btn btn-secondary">View Our Work</a>
-            </div>
-
-            <div class="stats">
-                <div class="stat-item">
-                    <h3>15+</h3>
-                    <p>Years Experience</p>
-                </div>
-                <div class="stat-item">
-                    <h3>500+</h3>
-                    <p>Projects Done</p>
-                </div>
-                <div class="stat-item">
-                    <h3>98%</h3>
-                    <p>Happy Clients</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</section>
-
-{# ══════════════════════════════════════════ #}
-{# SERVICES — fully dynamic from DB           #}
-{# ══════════════════════════════════════════ #}
-<section class="services-section" id="services">
-    <div class="container">
-
-        <div class="section-header">
-            <p class="section-subtitle">OUR SERVICES</p>
-            <h2 class="section-title">Complete Interior Solutions</h2>
-            <p class="section-desc">
-                From concept to completion, we deliver exceptional interiors
-                tailored to your lifestyle and preferences.
+                Choose a focused service or combine design, materials, and construction support into one coordinated plan.
             </p>
         </div>
 
-        {% for category in service_categories %}
-        <div class="services-group">
-            <p class="category-eyebrow">{{ category.name }}</p>
-            <div class="services-grid">
-                {% for service in category.services.all %}
-                    {% include 'partials/_service_card.html' with service=service %}
-                {% endfor %}
-            </div>
+        <div class="service-groups">
+            {% for group in service_groups %}
+                <div class="service-group js-section">
+                    <div class="group-heading">
+                        <p class="eyebrow">{{ group.name }}</p>
+                        {% if group.summary %}<p>{{ group.summary }}</p>{% endif %}
+                    </div>
+                    <div class="card-grid js-grid">
+                        {% for service in group.services %}
+                            {% include 'partials/_service_card.html' with service=service %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-
     </div>
 </section>
 
-{# ══════════════════════════════════════════ #}
-{# PRODUCTS — category cards from DB          #}
-{# ══════════════════════════════════════════ #}
-<section class="products-section" id="products">
+<section class="section" id="products">
     <div class="container">
-
-        <div class="products-header">
+        <div class="section-header section-header-split js-section">
             <div>
-                <p class="section-subtitle">OUR PRODUCTS</p>
-                <h2 class="section-title">Premium Materials &amp; Finishes</h2>
+                <p class="eyebrow">Products</p>
+                <h2>Premium materials selected for durability, finish, and daily use.</h2>
             </div>
-            <a href="{% url 'products:products_home' %}" class="btn btn-outline">
-                View All Products →
-            </a>
+            <a href="{% url 'products:products_home' %}" class="btn btn-outline">View Products</a>
         </div>
 
-        <div class="products-grid">
-            {% for category in product_categories %}
+        <div class="product-grid js-grid">
+            {% for category in product_groups %}
                 {% include 'partials/_product_category_card.html' with category=category %}
             {% endfor %}
         </div>
-
     </div>
 </section>
 
-{# ══════════════════════════════════════════ #}
-{# STATIC SECTIONS — loaded as partials       #}
-{# ══════════════════════════════════════════ #}
 {% include 'partials/about.html' %}
 {% include 'partials/why_choose.html' %}
 {% include 'partials/testimonials.html' %}
 {% include 'partials/get_started.html' %}
-
 {% endblock %}

@@ -1,86 +1,83 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ meta_title }}{% endblock %}
-{% block meta_description %}{{ meta_description }}{% endblock %}
-
-{% block content %}
-
-<!-- 🔶 HERO -->
-<section class="service-detail-hero">
-    <div class="container service-detail-hero__inner">
-        <p class="service-detail-hero__eyebrow">{{ service.category.name }}</p>
-        <h1>{{ service.name }}</h1>
-        <p class="service-detail-hero__summary">{{ hero_description }}</p>
-
-        <div class="service-detail-hero__actions">
-            <a href="{% url 'home' %}#get-started" class="btn btn-primary">Get Quote</a>
-            <a href="{% url 'services:services_home' %}" class="btn btn-outline">View All Services</a>
-        </div>
+{% extends 'base.html' %} {% block title %}{{ meta_title }}{% endblock %} {%
+block meta_description %}{{ meta_description }}{% endblock %} {% block content
+%}
+<section class="page-hero service-hero">
+  <div class="container page-hero-grid">
+    <div>
+      <p class="eyebrow js-hero-item">{{ service.category_name }}</p>
+      <h1 class="js-hero-item">{{ service.name }}</h1>
+      <p class="js-hero-item">{{ hero_description }}</p>
+      <div class="hero-actions js-hero-item">
+        <a href="{% url 'contact' %}" class="btn btn-primary">Get Quote</a>
+        <a href="{% url 'services:services_home' %}" class="btn btn-outline"
+          >All Services</a
+        >
+      </div>
     </div>
+    <div class="detail-visual js-hero-item" aria-hidden="true">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </section>
 
-<!-- 🔶 INTRO -->
-{% if intro %}
-<section class="service-detail-content">
-    <div class="container">
-        <p class="section-subtitle">OVERVIEW</p>
-        <h2 class="section-title">Understanding the Service</h2>
-
-        <p class="service-intro">{{ intro }}</p>
+<section class="section">
+  <div class="container two-column js-split">
+    <div>
+      <p class="eyebrow">Overview</p>
+      <h2>Planned for real use, clean finish, and long-term dependability.</h2>
     </div>
+    <p class="lead-copy">{{ intro }}</p>
+  </div>
+</section>
+
+{% if detail_sections %}
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-header js-section">
+      <p class="eyebrow">Service details</p>
+      <h2>What this service can include</h2>
+    </div>
+
+    <div class="detail-section-list">
+      {% for section in detail_sections %}
+      <article class="detail-block js-split">
+        <div class="detail-block-copy">
+          <span class="detail-index"
+            >{{ forloop.counter|stringformat:"02d" }}</span
+          >
+          <h3>{{ section.title }}</h3>
+          {% if section.content %}
+          <div class="rich-text">{{ section.content|linebreaks }}</div>
+          {% endif %} {% if section.items %}
+          <ul class="check-list">
+            {% for item in section.items %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        <div class="detail-block-media" aria-hidden="true">
+          <div class="media-tile"></div>
+          <div class="media-tile"></div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 {% endif %}
 
-<!-- 🔥 MAIN DYNAMIC CONTENT -->
-{% if sections %}
-<section class="service-detail-dynamic">
-    <div class="container">
-
-        {% for section in sections %}
-        <div class="service-block">
-
-            <!-- 🔹 LEFT CONTENT -->
-            <div class="service-block__content">
-                <h2>{{ section.title }}</h2>
-
-                <ul class="service-list">
-                    {% for item in section.items %}
-                        <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <!-- 🔹 RIGHT IMAGES -->
-            <div class="service-block__image">
-
-                {% if section.images %}
-                    {% for img in section.images %}
-                        <img src="{{ img }}" alt="{{ section.title }}">
-                    {% endfor %}
-                {% else %}
-                    {% for i in "123" %}
-                        <div class="image-placeholder"></div>
-                    {% endfor %}
-                {% endif %}
-
-            </div>
-
-        </div>
-        {% endfor %}
-
-    </div>
-</section>
-{% endif %}
-
-<!-- 🔶 CONSTRUCTION LAYOUT (for construction services) -->
 {% if construction_layout %}
-<section class="service-detail-construction">
+<section class="section section-soft">
     <div class="container">
-        <p class="section-subtitle">PROJECT PLANNING</p>
-        <h2 class="section-title">Structured Construction Approach</h2>
-
-        <div class="construction-layout">
-            <div class="construction-block">
+        <div class="section-header js-section">
+            <p class="eyebrow">Project planning</p>
+            <h2>Structured construction approach.</h2>
+        </div>
+        <div class="construction-layout js-grid">
+            <div class="construction-block js-card">
                 <h3>Planning & Layout</h3>
                 <ul>
                     {% for item in construction_layout.planning %}
@@ -88,13 +85,11 @@
                     {% endfor %}
                 </ul>
             </div>
-
-            <div class="construction-block">
+            <div class="construction-block js-card">
                 <h3>Vastu Integration</h3>
                 <p>{{ construction_layout.vastu }}</p>
             </div>
-
-            <div class="construction-block">
+            <div class="construction-block js-card">
                 <h3>Technical Layouts</h3>
                 <ul>
                     {% for item in construction_layout.technical %}
@@ -107,27 +102,25 @@
 </section>
 {% endif %}
 
-<!-- 🔶 DOOR SPECIFICATIONS (for doors-windows service) -->
 {% if door_specs %}
-<section class="service-detail-door-specs">
+<section class="section">
     <div class="container">
-        <p class="section-subtitle">SPECIFICATIONS</p>
-        <h2 class="section-title">Door Options & Finishes</h2>
-
-        <div class="door-specs">
-            <div class="door-block">
+        <div class="section-header js-section">
+            <p class="eyebrow">Specifications</p>
+            <h2>Door options & finishes.</h2>
+        </div>
+        <div class="door-specs js-grid">
+            <div class="door-block js-card">
                 <h4>Interior Doors</h4>
                 <p>{{ door_specs.interior|join:", " }}</p>
                 <span class="door-size">Sizes: {{ door_specs.sizes.interior|join:", " }}</span>
             </div>
-
-            <div class="door-block">
+            <div class="door-block js-card">
                 <h4>Exterior Doors</h4>
                 <p>{{ door_specs.exterior|join:", " }}</p>
                 <span class="door-size">Sizes: {{ door_specs.sizes.exterior|join:", " }}</span>
             </div>
-
-            <div class="door-block">
+            <div class="door-block js-card">
                 <h4>Finishes</h4>
                 <div class="finish-tags">
                     {% for finish in door_specs.finishes %}
@@ -140,33 +133,36 @@
 </section>
 {% endif %}
 
-<!-- 🔶 WHY CHOOSE -->
-<section class="service-detail-highlights">
-    <div class="container">
-        <p class="section-subtitle">WHY IT MATTERS</p>
-        <h2 class="section-title">Performance That Improves Daily Use</h2>
-
-        <ul class="service-detail-highlights__list">
-            {% for highlight in service_highlights %}
-                <li>{{ highlight }}</li>
-            {% endfor %}
-        </ul>
+<section class="section">
+  <div class="container">
+    <div class="section-header section-header-center js-section">
+      <p class="eyebrow">Why it matters</p>
+      <h2>Quality decisions that improve everyday performance.</h2>
     </div>
+    <div class="highlight-grid js-grid">
+      {% for highlight in service_highlights %}
+      <article class="highlight-card js-card">{{ highlight }}</article>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
-<!-- 🔶 CTA -->
-<section class="service-detail-cta">
-    <div class="container">
-        <div class="service-detail-cta__panel">
-            <p class="section-subtitle">NEXT STEP</p>
-            <h2>Plan your space with the right materials</h2>
-            <p>
-                Our team helps you align product choice with design goals,
-                daily usage, and long-term durability.
-            </p>
-            <a href="{% url 'home' %}#get-started" class="btn btn-primary">Discuss Your Project</a>
-        </div>
+{% if related_services %}
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-header section-header-split js-section">
+      <div>
+        <p class="eyebrow">Related services</p>
+        <h2>More ways we can support your project.</h2>
+      </div>
+      <a href="{% url 'services:services_home' %}" class="btn btn-outline"
+        >View All</a
+      >
     </div>
+    <div class="card-grid js-grid">
+      {% for service in related_services %} {% include
+      'partials/_service_card.html' with service=service %} {% endfor %}
+    </div>
+  </div>
 </section>
-
-{% endblock %}
+{% endif %} {% include 'partials/get_started.html' %} {% endblock %}

@@ -36,18 +36,23 @@ class Command(BaseCommand):
                     name=name,
                     defaults={
                         "category": cat,
-                        "description": desc,
                         "short_description": desc,
+                        "full_description": desc,
                     },
                 )
                 if created:
                     created_services += 1
                     self.stdout.write(f"    Created service: {name} [{svc.slug}]")
                 else:
-                    # Update description if service already exists
-                    svc.description = desc
-                    svc.short_description = desc
-                    svc.save()
+                    updated = False
+                    if not svc.short_description:
+                        svc.short_description = desc
+                        updated = True
+                    if not svc.full_description:
+                        svc.full_description = desc
+                        updated = True
+                    if updated:
+                        svc.save(update_fields=["short_description", "full_description", "updated_at"])
 
         self.stdout.write(self.style.SUCCESS(
             f"\nDone: {created_cats} categories, {created_services} services created."

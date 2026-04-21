@@ -1,22 +1,33 @@
-# products/views.py
-from django.views.generic import ListView, DetailView
+from django.http import Http404
+from django.shortcuts import render
+from django.views import View
+
+from core.site_content import (
+    fallback_product_cards,
+    find_fallback_product,
+    find_fallback_product_category,
+    product_card_from_model,
+    product_groups_from_queryset,
+)
 from .models import ProductCategory, Product
 
 
-class ProductsHomeView(ListView):
-    template_name = 'products/products_home.html'
-    context_object_name = 'categories'
-
-    def get_queryset(self):
-        return (
+class ProductsHomeView(View):
+    def get(self, request):
+        groups = product_groups_from_queryset(
             ProductCategory.objects
-            .prefetch_related('products')
-            .order_by('name')
+            .prefetch_related("products")
+            .order_by("name")
+        )
+        return render(
+            request,
+            "products/products_home.html",
+            {"product_groups": groups or fallback_product_cards()},
         )
 
 
 def _category_sections(category):
-    name = category.name.strip()
+    name = (category.get("name") if isinstance(category, dict) else category.name).strip()
     handcrafted = {
         "Curtain": {
             "intro": "Curtain materials define how a room feels through light control, privacy, and softness. This category supports both decorative layering and practical coverage. It helps interiors feel complete without visual heaviness.",
@@ -120,7 +131,7 @@ def _category_sections(category):
 
 
 def _product_sections(product):
-    name = product.name.strip()
+    name = (product.get("name") if isinstance(product, dict) else product.name).strip()
     handcrafted = {
         "Acrylic Laminates": {
             "intro": "Acrylic Laminates are selected when you want a crisp, modern surface that stays visually clean in daily use. They give shutters a reflective finish that instantly brightens the room. In active homes, they balance style with practical wipe-and-go maintenance.",
@@ -250,48 +261,58 @@ def _product_sections(product):
     }
 
 
-class ProductCategoryView(DetailView):
-    model = ProductCategory
-    template_name = "products/category_detail.html"
-    context_object_name = "category"
-    slug_field = "slug"
-    slug_url_kwarg = "category_slug"
-
-    def get_queryset(self):
-        return ProductCategory.objects.prefetch_related("products")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        category = self.object
-        context["meta_title"] = f"{category.name} | Product Category | Sudama Interiors"
-        context["meta_description"] = (
-            f"Explore the {category.name} category at Sudama Interiors with applications, benefits, "
-            f"and material options for practical and premium spaces."
+class ProductCategoryView(View):
+    def get(self, request, category_slug):
+        category = (
+            ProductCategory.objects.prefetch_related("products")
+            .filter(slug=category_slug)
+            .first()
         )
-        context.update(_category_sections(category))
-        return context
+        if category:
+            category_data = product_groups_from_queryset([category])[0]
+        else:
+            category_data = find_fallback_product_category(category_slug)
+
+        if not category_data:
+            raise Http404("Product category not found")
+
+        context = {
+            "category": category_data,
+            "meta_title": f"{category_data['name']} | Product Category | Sudama Interiors",
+            "meta_description": (
+                f"Explore the {category_data['name']} category at Sudama Interiors with applications, "
+                "benefits, and material options for practical and premium spaces."
+            ),
+        }
+        context.update(_category_sections(category_data))
+        return render(request, "products/category_detail.html", context)
 
 
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = "products/product_detail.html"
-    context_object_name = "product"
-    slug_field = "slug"
-    slug_url_kwarg = "product_slug"
-
-    def get_queryset(self):
-        return Product.objects.select_related("category").filter(
-            category__slug=self.kwargs.get("category_slug")
+class ProductDetailView(View):
+    def get(self, request, category_slug, product_slug):
+        product = (
+            Product.objects.select_related("category")
+            .filter(category__slug=category_slug, slug=product_slug)
+            .first()
         )
+        category_data = None
+        if product:
+            product_data = product_card_from_model(product)
+            category_data = product_groups_from_queryset([product.category])[0]
+        else:
+            category_data, product_data = find_fallback_product(category_slug, product_slug)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        product = self.object
-        section_copy = _product_sections(product)
-        context["meta_title"] = f"{product.name} | Sudama Interiors"
-        context["meta_description"] = (
-            f"Explore {product.name} from Sudama Interiors with practical guidance on usage, "
-            f"benefits, finish outcomes, and long-term performance."
-        )
-        context.update(section_copy)
-        return context
+        if not category_data or not product_data:
+            raise Http404("Product not found")
+
+        context = {
+            "category": category_data,
+            "product": product_data,
+            "meta_title": f"{product_data['name']} | Sudama Interiors",
+            "meta_description": (
+                f"Explore {product_data['name']} from Sudama Interiors with practical guidance on usage, "
+                "benefits, finish outcomes, and long-term performance."
+            ),
+        }
+        context.update(_product_sections(product_data))
+        return render(request, "products/product_detail.html", context)

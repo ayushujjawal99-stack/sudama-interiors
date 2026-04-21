@@ -79,4 +79,6 @@ def _from_keywords(name: str) -> str:
 
 @register.simple_tag
 def product_microcopy(product):
+    if isinstance(product, dict):
+        return _from_keywords(product.get("name", ""))
     return _from_keywords(getattr(product, "name", ""))

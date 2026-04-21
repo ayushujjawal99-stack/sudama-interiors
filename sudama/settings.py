@@ -1,15 +1,43 @@
 from pathlib import Path
 import os
+import sys
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-temp-key')
-
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+IS_TESTING = 'test' in sys.argv
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'local-dev-only-key-9b7c1f4e8a2356d0a17c4f89b63e21a5b8d24c70e6f193ad',
+)
 
-ALLOWED_HOSTS = ['*']  # change later to your domain
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        'ALLOWED_HOSTS',
+        'localhost,127.0.0.1,testserver,.onrender.com',
+    ).split(',')
+    if host.strip()
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get(
+        'CSRF_TRUSTED_ORIGINS',
+        'https://*.onrender.com',
+    ).split(',')
+    if origin.strip()
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False if (DEBUG or IS_TESTING) else os.environ.get('SECURE_SSL_REDIRECT', 'True') == 'True'
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_HSTS_SECONDS = 0 if (DEBUG or IS_TESTING) else int(os.environ.get('SECURE_HSTS_SECONDS', '31536000'))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG and SECURE_HSTS_SECONDS > 0
+SECURE_HSTS_PRELOAD = not DEBUG and SECURE_HSTS_SECONDS > 0
 
 # APPLICATIONS
 INSTALLED_APPS = [

@@ -1,32 +1,29 @@
 {% load static %}
 
-<article class="product-category-card">
-    <a href="{{ category.get_absolute_url }}">
+<article class="product-category-card js-card">
+    <a href="{{ category.url }}">
+        <span class="product-media">
+            {% if category.image %}
+                <img src="{% static category.image %}" alt="{{ category.name }}" loading="lazy">
+            {% else %}
+                <span class="product-media-placeholder">{{ category.name }}</span>
+            {% endif %}
+        </span>
 
-        {% if category.slug %}
-            {% with 'images/products/'|add:category.slug|add:'.png' as img_path %}
-                <div class="product-card-image"
-                     style="background-image: url('{% static img_path %}')">
-                </div>
-            {% endwith %}
-        {% else %}
-            <div class="product-card-image no-image">
-                <span>{{ category.name }}</span>
-            </div>
-        {% endif %}
-
-        <div class="product-card-body">
-            <h3>{{ category.name }}</h3>
-            <p>{{ category.description|truncatewords:12 }}</p>
-
-            <div class="product-tags">
-                {% for product in category.products.all|slice:":3" %}
-                    <span class="product-tag">{{ product.name }}</span>
+        <span class="product-card-body">
+            <span class="card-kicker">Material category</span>
+            <span class="product-card-title">{{ category.name }}</span>
+            <span class="card-copy">{{ category.summary }}</span>
+            <span class="product-tags">
+                {% for product in category.products|slice:":3" %}
+                    <span>{{ product.name }}</span>
+                {% empty %}
+                    <span>Consultation</span>
+                    <span>Selection</span>
+                    <span>Installation</span>
                 {% endfor %}
-            </div>
-
-            <span class="explore-link">Explore Category →</span>
-        </div>
-
+            </span>
+            <span class="card-action" aria-hidden="true">Explore category</span>
+        </span>
     </a>
 </article>

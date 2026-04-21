@@ -1,7 +1,6 @@
-<a href="{{ service.get_absolute_url }}" class="service-card">
-    <div class="card-content">
-        <p>{{ service.category.name }}</p>
-        <h3>{{ service.name }}</h3>
-        <p>{{ service.short_description|default:service.description }}</p>
-    </div>
+<a href="{{ service.url }}" class="service-card premium-card js-card">
+    <span class="card-kicker">{{ service.category_name }}</span>
+    <span class="card-title">{{ service.name }}</span>
+    <span class="card-copy">{{ service.summary|default:"Thoughtfully planned service with reliable execution and refined finishing." }}</span>
+    <span class="card-action" aria-hidden="true">View service</span>
 </a>

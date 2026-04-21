@@ -4,95 +4,68 @@
 {% block meta_description %}{{ meta_description }}{% endblock %}
 
 {% block content %}
-<section class="service-detail-hero">
-    <div class="container service-detail-hero__inner">
-        <p class="service-detail-hero__eyebrow">{{ product.category.name }}</p>
-        <h1>{{ product.name }}</h1>
-        <p class="service-detail-hero__summary">{{ intro }}</p>
-        <div class="service-detail-hero__actions">
-            <a href="/static/pdfs/sample.pdf" class="btn btn-primary" download>View Full Catalog</a>
-            <a href="{{ product.category.get_absolute_url }}" class="btn btn-outline">Back To {{ product.category.name }}</a>
-            <a href="{% url 'products:products_home' %}" class="btn btn-outline">View All Products</a>
+<section class="page-hero">
+    <div class="container page-hero-grid">
+        <div>
+            <p class="eyebrow js-hero-item">{{ product.category_name }}</p>
+            <h1 class="js-hero-item">{{ product.name }}</h1>
+            <p class="js-hero-item">{{ intro }}</p>
+            <div class="hero-actions js-hero-item">
+                <a href="{% url 'contact' %}" class="btn btn-primary">Discuss Requirement</a>
+                <a href="{{ category.url }}" class="btn btn-outline">Back to {{ category.name }}</a>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="service-detail-content">
-    <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHAT IT IS</p>
-            <h2 class="section-title">Simple Product Understanding</h2>
-        </div>
-        <div class="service-detail-content__body">
+<section class="section">
+    <div class="container detail-grid js-split">
+        <article>
+            <p class="eyebrow">What it is</p>
+            <h2>Simple product understanding</h2>
             <p>{{ what_it_is }}</p>
-        </div>
-    </div>
-</section>
-
-<section class="service-detail-process">
-    <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHERE IT IS USED</p>
-            <h2 class="section-title">Real Applications In Interior Spaces</h2>
-        </div>
-        <div class="service-detail-content__body">
+        </article>
+        <article>
+            <p class="eyebrow">Where it is used</p>
+            <h2>Real interior applications</h2>
             <p>{{ where_used }}</p>
-        </div>
-    </div>
-</section>
-
-<section class="service-detail-highlights">
-    <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHY IT MATTERS</p>
-            <h2 class="section-title">Performance That Improves Daily Use</h2>
-        </div>
-        <div class="service-detail-content__body">
+        </article>
+        <article>
+            <p class="eyebrow">Why it matters</p>
+            <h2>Performance in daily use</h2>
             <p>{{ why_it_matters }}</p>
+        </article>
+    </div>
+</section>
+
+<section class="section section-soft">
+    <div class="container">
+        <div class="section-header section-header-center js-section">
+            <p class="eyebrow">Material preview</p>
+            <h2>Placeholder visuals ready for real project images.</h2>
+            <p>These reserved frames keep the layout complete until final photography is added.</p>
+        </div>
+        <div class="gallery-grid js-grid" aria-label="Product image placeholders">
+            <div class="gallery-tile js-card"></div>
+            <div class="gallery-tile js-card"></div>
+            <div class="gallery-tile js-card"></div>
         </div>
     </div>
 </section>
 
-<section class="service-detail-related">
+<section class="section">
     <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">PRODUCT GALLERY</p>
-            <h2 class="section-title">Material Gallery Preview</h2>
+        <div class="section-header section-header-center js-section">
+            <p class="eyebrow">Why choose us</p>
+            <h2>Material guidance with execution discipline.</h2>
         </div>
-        <div class="services-grid services-grid--products services-grid--gallery">
-            <article class="service-card"><div class="card-content"><h3>Gallery Frame 01</h3><p>Reserved for product installation visual.</p></div></article>
-            <article class="service-card"><div class="card-content"><h3>Gallery Frame 02</h3><p>Reserved for close-up material finish shot.</p></div></article>
-            <article class="service-card"><div class="card-content"><h3>Gallery Frame 03</h3><p>Reserved for usage context image.</p></div></article>
-            <article class="service-card"><div class="card-content"><h3>Gallery Frame 04</h3><p>Reserved for edge and detailing image.</p></div></article>
-            <article class="service-card"><div class="card-content"><h3>Gallery Frame 05</h3><p>Reserved for completed project visual.</p></div></article>
+        <div class="highlight-grid js-grid">
+            {% for point in choose_us_points %}
+                <article class="highlight-card js-card">{{ point }}</article>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<section class="service-detail-highlights">
-    <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHY CHOOSE US</p>
-            <h2 class="section-title">Execution You Can Depend On</h2>
-        </div>
-        <div class="service-detail-highlights__panel">
-            <ul class="service-detail-highlights__list">
-                {% for point in choose_us_points %}
-                    <li>{{ point }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</section>
-
-<section class="service-detail-cta" id="service-detail-cta">
-    <div class="container">
-        <div class="service-detail-cta__panel">
-            <p class="section-subtitle">NEXT STEP</p>
-            <h2>Plan your space with the right materials</h2>
-            <p>Our team helps you align product choice with finish goals, daily usage, and long-term upkeep.</p>
-            <a href="{% url 'home' %}#get-started" class="btn btn-primary">Discuss Your Project</a>
-        </div>
-    </div>
-</section>
+{% include 'partials/get_started.html' %}
 {% endblock %}

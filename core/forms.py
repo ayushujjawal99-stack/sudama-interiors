@@ -7,13 +7,13 @@ from services.models import Service, ServiceCategory
 class ContactLeadForm(forms.ModelForm):
     category = forms.ModelChoiceField(
         queryset=ServiceCategory.objects.order_by("name"),
-        empty_label="Select category",
-        required=True,
+        empty_label="Project category",
+        required=False,
     )
     subcategory = forms.ModelChoiceField(
-        queryset=Service.objects.none(),
-        empty_label="Select subcategory",
-        required=True,
+        queryset=Service.objects.select_related("category").order_by("category__name", "name"),
+        empty_label="Specific service",
+        required=False,
     )
 
     class Meta:
@@ -22,7 +22,21 @@ class ContactLeadForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["subcategory"].queryset = Service.objects.none()
+        self.fields["subcategory"].queryset = Service.objects.select_related("category").order_by(
+            "category__name",
+            "name",
+        )
+        placeholders = {
+            "name": "Full name",
+            "phone": "Phone number",
+            "email": "Email address",
+            "message": "Tell us about your project",
+        }
+        for name, field in self.fields.items():
+            field.widget.attrs["class"] = "form-control"
+            if name in placeholders:
+                field.widget.attrs["placeholder"] = placeholders[name]
+        self.fields["message"].widget.attrs["rows"] = 5
 
         category_id = self.data.get("category") or self.initial.get("category")
         if category_id:
@@ -54,11 +68,7 @@ class ContactLeadForm(forms.ModelForm):
         category = cleaned_data.get("category")
         subcategory = cleaned_data.get("subcategory")
 
-        if category is None:
-            self.add_error("category", "Please select a category.")
-        if subcategory is None:
-            self.add_error("subcategory", "Please select a subcategory.")
-        elif category and subcategory.category_id != category.id:
+        if category and subcategory and subcategory.category_id != category.id:
             self.add_error("subcategory", "Selected subcategory does not match the category.")
 
         return cleaned_data

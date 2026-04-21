@@ -1,10 +1,14 @@
 {% load product_content %}
 
-<a href="{{ product.get_absolute_url }}" class="service-card">
-    <div class="card-content">
-        <h3>{{ product.name }}</h3>
-        <p>{% product_microcopy product %}</p>
-    </div>
-
-    <span class="arrow">&#8599;</span>
+<a href="{{ product.url }}" class="service-card product-mini-card premium-card js-card">
+    <span class="card-kicker">{{ product.category_name }}</span>
+    <span class="card-title">{{ product.name }}</span>
+    <span class="card-copy">
+        {% if product.summary %}
+            {{ product.summary }}
+        {% else %}
+            {% product_microcopy product %}
+        {% endif %}
+    </span>
+    <span class="card-action" aria-hidden="true">Explore material</span>
 </a>

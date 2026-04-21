@@ -4,62 +4,51 @@
 {% block meta_description %}{{ meta_description }}{% endblock %}
 
 {% block content %}
-<section class="service-detail-hero">
-    <div class="container service-detail-hero__inner">
-        <p class="service-detail-hero__eyebrow">PRODUCT CATEGORY</p>
-        <h1>{{ category.name }}</h1>
-        <p class="service-detail-hero__summary">{{ intro }}</p>
-        <div class="service-detail-hero__actions">
-            <a href="{% url 'products:products_home' %}" class="btn btn-outline">View All Categories</a>
+<section class="page-hero">
+    <div class="container page-hero-grid">
+        <div>
+            <p class="eyebrow js-hero-item">Product category</p>
+            <h1 class="js-hero-item">{{ category.name }}</h1>
+            <p class="js-hero-item">{{ intro }}</p>
+            <div class="hero-actions js-hero-item">
+                <a href="{% url 'contact' %}" class="btn btn-primary">Ask for Guidance</a>
+                <a href="{% url 'products:products_home' %}" class="btn btn-outline">All Products</a>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="service-detail-content">
-    <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHAT THIS CATEGORY INCLUDES</p>
-            <h2 class="section-title">Material Options At A Glance</h2>
-        </div>
-        <div class="service-detail-content__body">
+<section class="section">
+    <div class="container detail-grid js-split">
+        <article>
+            <p class="eyebrow">Includes</p>
+            <h2>Material options at a glance</h2>
             <p>{{ includes }}</p>
-        </div>
-    </div>
-</section>
-
-<section class="service-detail-process">
-    <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHERE IT IS USED</p>
-            <h2 class="section-title">Real-World Interior Applications</h2>
-        </div>
-        <div class="service-detail-content__body">
+        </article>
+        <article>
+            <p class="eyebrow">Applications</p>
+            <h2>Where it is used</h2>
             <p>{{ where_used }}</p>
-        </div>
-    </div>
-</section>
-
-<section class="service-detail-highlights">
-    <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHY IT MATTERS</p>
-            <h2 class="section-title">Design Value Meets Everyday Function</h2>
-        </div>
-        <div class="service-detail-content__body">
+        </article>
+        <article>
+            <p class="eyebrow">Value</p>
+            <h2>Why it matters</h2>
             <p>{{ why_matters }}</p>
-        </div>
+        </article>
     </div>
 </section>
 
-{% if category.products.all %}
-<section class="service-detail-related">
+{% if category.products %}
+<section class="section section-soft">
     <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">PRODUCTS IN THIS CATEGORY</p>
-            <h2 class="section-title">Explore Available Materials</h2>
+        <div class="section-header section-header-split js-section">
+            <div>
+                <p class="eyebrow">Available materials</p>
+                <h2>Explore products in {{ category.name }}.</h2>
+            </div>
         </div>
-        <div class="services-grid services-grid--products">
-            {% for product in category.products.all %}
+        <div class="card-grid js-grid">
+            {% for product in category.products %}
                 {% include 'partials/_product_card.html' with product=product %}
             {% endfor %}
         </div>
@@ -67,30 +56,19 @@
 </section>
 {% endif %}
 
-<section class="service-detail-highlights">
+<section class="section">
     <div class="container">
-        <div class="service-detail-section-heading">
-            <p class="section-subtitle">WHY CHOOSE US</p>
-            <h2 class="section-title">Category Expertise With Reliable Delivery</h2>
+        <div class="section-header section-header-center js-section">
+            <p class="eyebrow">Why choose us</p>
+            <h2>Selection support with reliable delivery.</h2>
         </div>
-        <div class="service-detail-highlights__panel">
-            <ul class="service-detail-highlights__list">
-                {% for point in choose_us_points %}
-                    <li>{{ point }}</li>
-                {% endfor %}
-            </ul>
+        <div class="highlight-grid js-grid">
+            {% for point in choose_us_points %}
+                <article class="highlight-card js-card">{{ point }}</article>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<section class="service-detail-cta" id="service-detail-cta">
-    <div class="container">
-        <div class="service-detail-cta__panel">
-            <p class="section-subtitle">NEXT STEP</p>
-            <h2>Explore materials that fit your space</h2>
-            <p>We help you shortlist the right category options for design intent, usage needs, and project longevity.</p>
-            <a href="{% url 'home' %}#get-started" class="btn btn-primary">Discuss Your Project</a>
-        </div>
-    </div>
-</section>
+{% include 'partials/get_started.html' %}
 {% endblock %}

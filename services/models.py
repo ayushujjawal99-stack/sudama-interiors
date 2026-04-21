@@ -2,12 +2,25 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+
+# ============================= #
+# CATEGORY
+# ============================= #
+
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name_plural = "Service Categories"
 
     def __str__(self):
         return self.name
 
+
+# ============================= #
+# SERVICE
+# ============================= #
 
 class Service(models.Model):
     category = models.ForeignKey(
@@ -15,16 +28,31 @@ class Service(models.Model):
         on_delete=models.CASCADE,
         related_name='services'
     )
+
     name = models.CharField(max_length=150)
-    description = models.TextField(blank=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=170, unique=True, blank=True)
+
     short_description = models.TextField(blank=True)
     full_description = models.TextField(blank=True)
+
+    image = models.ImageField(
+        upload_to='services/',
+        blank=True,
+        null=True
+    )
+
     meta_title = models.CharField(max_length=255, blank=True)
     meta_description = models.CharField(max_length=255, blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     class Meta:
         ordering = ("name",)
+        indexes = [
+            models.Index(fields=["slug"]),
+            models.Index(fields=["name"]),
+        ]
 
     def __str__(self):
         return self.name
@@ -33,6 +61,7 @@ class Service(models.Model):
         return reverse("services:service_detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
+        # Ensure slug is always generated or updated if name changes
         if not self.slug:
             self.slug = self._generate_unique_slug()
         super().save(*args, **kwargs)
@@ -40,10 +69,54 @@ class Service(models.Model):
     def _generate_unique_slug(self):
         base_slug = slugify(self.name) or "service"
         slug = base_slug
-        suffix = 1
+        counter = 2
 
-        while Service.objects.exclude(pk=self.pk).filter(slug=slug).exists():
-            suffix += 1
-            slug = f"{base_slug}-{suffix}"
+        while Service.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
 
         return slug
+
+
+# ============================= #
+# SERVICE SECTION (Dynamic Content)
+# ============================= #
+
+class ServiceSection(models.Model):
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name='sections'
+    )
+
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+        indexes = [
+            models.Index(fields=["service", "order"], name="services_se_service_790fa8_idx"),
+        ]
+
+    def __str__(self):
+        return f"{self.service.name} - {self.title}"
+
+
+# ============================= #
+# SERVICE IMAGE (GALLERY)
+# ============================= #
+
+class ServiceImage(models.Model):
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+
+    image = models.ImageField(upload_to='services/gallery/')
+    alt_text = models.CharField(max_length=150, blank=True)
+
+    def __str__(self):
+        return f"{self.service.name} Image"

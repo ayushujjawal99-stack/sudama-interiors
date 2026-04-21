@@ -11,7 +11,7 @@ class ServiceModelTests(TestCase):
         service = Service.objects.create(
             category=category,
             name="False Ceiling",
-            description="Premium false ceiling solutions.",
+            short_description="Premium false ceiling solutions.",
         )
 
         self.assertEqual(service.slug, "false-ceiling")
@@ -23,13 +23,12 @@ class ServiceDetailViewTests(TestCase):
         service = Service.objects.create(
             category=category,
             name="Borewell / Boring",
-            description="Reliable borewell work.",
             short_description="Reliable borewell work.",
         )
         related = Service.objects.create(
             category=category,
             name="Iron Fabrication",
-            description="Custom metal fabrication.",
+            short_description="Custom metal fabrication.",
         )
 
         response = self.client.get(

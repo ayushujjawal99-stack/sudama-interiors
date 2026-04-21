@@ -1,47 +1,67 @@
-# core/views.py
-from django.shortcuts import render
 from django.contrib import messages
-from django.urls import reverse_lazy
-from django.views.generic import FormView, TemplateView
+from django.shortcuts import redirect, render
+from django.views.generic import TemplateView
 
 from .forms import ContactLeadForm
-from services.models import Service, ServiceCategory
+from .site_content import (
+    fallback_product_cards,
+    fallback_service_cards,
+    product_groups_from_queryset,
+    service_groups_from_queryset,
+)
+from services.models import ServiceCategory
 from products.models import ProductCategory
 
 
 class HomeView(TemplateView):
-    template_name = 'home.html'
+    template_name = "home.html"
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
 
-        # All service categories + their services.
-        # prefetch_related = 2 total DB queries, not N+1.
-        ctx['service_categories'] = (
+        service_categories = (
             ServiceCategory.objects
-            .prefetch_related('services')
-            .order_by('name')
+            .prefetch_related("services")
+            .order_by("name")
         )
-
-        ctx['product_categories'] = (
+        product_categories = (
             ProductCategory.objects
-            .prefetch_related('products')
-            .order_by('name')
+            .prefetch_related("products")
+            .order_by("name")
         )
 
+        service_groups = service_groups_from_queryset(service_categories)
+        product_groups = product_groups_from_queryset(product_categories)
+
+        ctx["service_groups"] = service_groups or fallback_service_cards()
+        ctx["product_groups"] = product_groups or fallback_product_cards()
         return ctx
 
 
 def contact(request):
-    service_categories = ServiceCategory.objects.prefetch_related('services').all()
-    product_categories = ProductCategory.objects.prefetch_related('products').all()
+    if request.method == "POST":
+        form = ContactLeadForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                "Thank you. Your enquiry has been received and our team will contact you shortly.",
+            )
+            return redirect("contact")
+    else:
+        form = ContactLeadForm()
+
+    service_groups = service_groups_from_queryset(
+        ServiceCategory.objects.prefetch_related("services").order_by("name")
+    )
+    product_groups = product_groups_from_queryset(
+        ProductCategory.objects.prefetch_related("products").order_by("name")
+    )
 
     context = {
-        'service_categories': service_categories,
-        'product_categories': product_categories,
+        "form": form,
+        "service_groups": service_groups or fallback_service_cards(),
+        "product_groups": product_groups or fallback_product_cards(),
     }
 
-    return render(request, 'contact.html', context)
-
-
-    
+    return render(request, "contact.html", context)

@@ -1,51 +1,41 @@
 {% extends 'base.html' %}
-{% load service_content %}
 
-{% block title %}Services | Sudama Interiors{% endblock %}
-{% block meta_description %}Explore premium interior and construction services by Sudama Interiors, organized by category for a clear and scalable browsing experience.{% endblock %}
+{% block title %}Services | Sudama Construction & Interiors{% endblock %}
+{% block meta_description %}Explore interior, construction, doors, windows, modular, ceiling, cladding, and water system services from Sudama Construction & Interiors.{% endblock %}
 
 {% block content %}
-<section class="services-listing-hero">
-    <div class="container">
-        <p class="section-subtitle">OUR SERVICES</p>
-        <h1 class="services-listing-hero__title">Complete Interior And Construction Solutions</h1>
-        <p class="services-listing-hero__description">
-            Sudama Interiors brings together interior design thinking and practical construction execution
-            so clients do not have to treat planning and delivery as separate worlds. We work across the
-            visual, functional, and technical layers of a project with a clear understanding of how spaces
-            are actually lived in, maintained, and experienced over time. From room-level refinements to
-            execution-heavy service requirements, our approach stays grounded in material quality, measured
-            detailing, and dependable site coordination. This gives homeowners and businesses a clearer path
-            from concept to completion, with services that are easier to understand and more meaningful to choose.
-        </p>
+<section class="page-hero">
+    <div class="container page-hero-grid">
+        <div>
+            <p class="eyebrow js-hero-item">Services</p>
+            <h1 class="js-hero-item">Design clarity and execution strength in one service system.</h1>
+            <p class="js-hero-item">
+                Browse focused services for interiors, construction support, door-window systems, modular planning,
+                cladding, ceiling work, and utility execution.
+            </p>
+        </div>
     </div>
 </section>
 
-<section class="services-section services-section--listing">
+<section class="section section-soft">
     <div class="container">
-        {% for category in categories %}
-            {% if category.services.all|length > 0 %}
-                <div class="services-group">
-                    <p class="category-eyebrow">{{ category.name }}</p>
-                    {% category_copy category as category_text %}
-                    <p class="services-group__intro">{{ category_text }}</p>
-                    <div class="services-grid">
-                        {% for service in category.services.all %}
+        <div class="service-groups">
+            {% for group in service_groups %}
+                <div class="service-group js-section">
+                    <div class="group-heading">
+                        <p class="eyebrow">{{ group.name }}</p>
+                        {% if group.summary %}<p>{{ group.summary }}</p>{% endif %}
+                    </div>
+                    <div class="card-grid js-grid">
+                        {% for service in group.services %}
                             {% include 'partials/_service_card.html' with service=service %}
                         {% endfor %}
                     </div>
                 </div>
-                {% if not forloop.last %}
-                    {% listing_transition_copy as transition_text %}
-                    <div class="services-transition">
-                        <p class="services-transition__eyebrow">FROM DESIGN TO EXECUTION</p>
-                        <p class="services-transition__text">{{ transition_text }}</p>
-                    </div>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 </section>
 
-
+{% include 'partials/get_started.html' %}
 {% endblock %}
