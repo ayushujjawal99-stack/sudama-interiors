@@ -31,7 +31,11 @@ SERVICE_CONTENT = {
                     "UPVC Doors – Insulated, weatherproof, energy-efficient",
                     "Standard Gauge – 16 gauge, 18 gauge, 14 gauge",
                 ],
-                "images": ["/static/images/d4.jpg","/static/images/d5.jpg","/static/images/d6.jpg"]
+                "images": [
+    "/static/images/services/doors-windows/doors-windows_exterior-doors_1.jpeg",
+    "/static/images/services/doors-windows/doors-windows_exterior-doors_2.jpeg",
+    "/static/images/services/doors-windows/doors-windows_exterior-doors_3.jpeg",
+]
             },
 
             {
@@ -44,7 +48,11 @@ SERVICE_CONTENT = {
                     "Powder Coated – Scratch and fade resistant for exteriors",
                     "Anodized – Metallic finish for aluminium, corrosion-proof",
                 ],
-                "images": ["/static/images/d7.jpg","/static/images/d8.jpg","/static/images/d9.jpg"]
+                "images": [
+    "/static/images/services/doors-windows/doors-windows_finishes_1.jpeg",
+    "/static/images/services/doors-windows/doors-windows_finishes_2.jpeg",
+    "/static/images/services/doors-windows/doors-windows_finishes_3.jpeg",
+]
             },
 
             {
@@ -56,7 +64,11 @@ SERVICE_CONTENT = {
                     "Side-hung, Top-hung, Tilt & Turn casement options",
                     "Fixed windows for maximum natural light",
                 ],
-                "images": ["/static/images/d10.jpg","/static/images/d11.jpg","/static/images/d12.jpg"]
+                "images": [
+    "/static/images/services/doors-windows/doors-windows_sliding-casement_1.jpeg",
+    "/static/images/services/doors-windows/doors-windows_sliding-casement_2.jpeg",
+    "/static/images/services/doors-windows/doors-windows_sliding-casement_3.jpeg",
+]
             },
         ],
 
@@ -233,7 +245,11 @@ SERVICE_CONTENT = {
                     "Available in multiple textures and finishes",
                     "Best for bathrooms, kitchens, damp areas",
                 ],
-                "images": ["/static/images/f7.jpg","/static/images/f8.jpg","/static/images/f9.jpg"]
+                "images": [
+    "/static/images/services/false-ceiling/false-ceiling_pvc_1.jpeg",
+    "/static/images/services/false-ceiling/false-ceiling_pvc_2.jpeg",
+    "/static/images/services/false-ceiling/false-ceiling_pvc_3.jpeg",
+]
             },
 
             {
@@ -244,7 +260,11 @@ SERVICE_CONTENT = {
                     "WPC is termite-resistant and stable",
                     "Used in luxury interiors",
                 ],
-                "images": ["/static/images/f10.jpg","/static/images/f11.jpg","/static/images/f12.jpg"]
+                "images": [
+    "/static/images/services/false-ceiling/false-ceiling_wooden_1.jpeg",
+    "/static/images/services/false-ceiling/false-ceiling_wooden_2.jpeg",
+    "/static/images/services/false-ceiling/false-ceiling_wooden_3.jpeg",
+]
             },
 
             {
@@ -276,7 +296,11 @@ SERVICE_CONTENT = {
                     "Interior feature walls",
                     "Signage and branding structures",
                 ],
-                "images": ["/static/images/a1.jpg","/static/images/a2.jpg","/static/images/a3.jpg"]
+                "images": [
+    "/static/images/services/acp-cladding/acp-cladding_applications_1.jpeg",
+    "/static/images/services/acp-cladding/acp-cladding_applications_2.jpeg",
+    "/static/images/services/acp-cladding/acp-cladding_applications_3.jpeg",
+]
             },
 
             {
