@@ -42,13 +42,39 @@
     <div class="container">
         <div class="section-header section-header-center js-section">
             <p class="eyebrow">Material preview</p>
-            <h2>Placeholder visuals ready for real project images.</h2>
-            <p>These reserved frames keep the layout complete until final photography is added.</p>
+            <h2>Real product visuals</h2>
+            <p>Actual material references for better understanding and selection.</p>
         </div>
-        <div class="gallery-grid js-grid" aria-label="Product image placeholders">
-            <div class="gallery-tile js-card"></div>
-            <div class="gallery-tile js-card"></div>
-            <div class="gallery-tile js-card"></div>
+
+        <div class="gallery-grid js-grid" aria-label="Product images">
+
+            <!-- IMAGE 1 -->
+            <div class="gallery-tile js-card">
+                <img 
+                    src="/static/images/products/{{ product.category_slug }}/{{ product.slug }}_1.jpeg"
+                    alt="{{ product.name }} image 1"
+                    loading="lazy"
+                >
+            </div>
+
+            <!-- IMAGE 2 -->
+            <div class="gallery-tile js-card">
+                <img 
+                    src="/static/images/products/{{ product.category_slug }}/{{ product.slug }}_2.jpeg"
+                    alt="{{ product.name }} image 2"
+                    loading="lazy"
+                >
+            </div>
+
+            <!-- IMAGE 3 -->
+            <div class="gallery-tile js-card">
+                <img 
+                    src="/static/images/products/{{ product.category_slug }}/{{ product.slug }}_3.jpeg"
+                    alt="{{ product.name }} image 3"
+                    loading="lazy"
+                >
+            </div>
+
         </div>
     </div>
 </section>

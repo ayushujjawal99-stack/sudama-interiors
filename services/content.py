@@ -431,7 +431,11 @@ SERVICE_CONTENT = {
                 "Driven Piles – Pre-cast piles driven into ground",
                 "Pile Caps – Structural base connecting multiple piles",
             ],
-            "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
+            "images": [
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_piling_1.jpeg",
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_piling_2.jpeg",
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_piling_3.jpeg",
+],
         },
         {
             "title": "Reinforcement & Concreting",
@@ -440,7 +444,11 @@ SERVICE_CONTENT = {
                 "Formwork (Shuttering) – Mold setup for structure",
                 "Pouring & Compacting – Dense concrete using vibrators",
             ],
-            "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
+            "images": [
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_reinforcement_1.jpeg",
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_reinforcement_2.jpeg",
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_reinforcement_3.jpeg",
+],
         },
         {
             "title": "Protection & Finishing Works",
@@ -450,7 +458,11 @@ SERVICE_CONTENT = {
                 "Backfilling – Soil compaction",
                 "Plinth Beam Construction – Ground stability",
             ],
-            "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
+            "images": [
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_protection_1.jpeg",
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_protection_2.jpeg",
+    "/static/images/services/construction-foundation-plans/construction-foundation-plans_protection_3.jpeg",
+],
         },
     ],
 },
