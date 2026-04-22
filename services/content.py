@@ -466,7 +466,11 @@ SERVICE_CONTENT = {
                 "3D Isometric Views – Visual clarity before execution",
                 "Shop-Front & Commercial Layouts – Business-focused planning",
             ],
-            "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
+           "images": [
+    "/static/images/services/layout-plans/layout-plans_floor_1.jpeg",
+    "/static/images/services/layout-plans/layout-plans_floor_2.jpeg",
+    "/static/images/services/layout-plans/layout-plans_floor_3.jpeg",
+],
         },
         {
             "title": "Vastu Integration",
@@ -475,7 +479,11 @@ SERVICE_CONTENT = {
                 "Directional Alignment – Proper room placement",
                 "Remedial Design – Fixing layout issues",
             ],
-            "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
+            "images": [
+    "/static/images/services/layout-plans/layout-plans_vastu_1.jpeg",
+    "/static/images/services/layout-plans/layout-plans_vastu_2.jpeg",
+    "/static/images/services/layout-plans/layout-plans_vastu_3.jpeg",
+],
         },
         {
             "title": "Electrical & Plumbing (MEP)",
@@ -484,7 +492,11 @@ SERVICE_CONTENT = {
                 "Plumbing & Drainage – Efficient water flow",
                 "Safety (MCB, Earthing) – Secure system",
             ],
-            "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
+           "images": [
+    "/static/images/services/layout-plans/layout-plans_mep_1.jpeg",
+    "/static/images/services/layout-plans/layout-plans_mep_2.jpeg",
+    "/static/images/services/layout-plans/layout-plans_mep_3.GIF",
+],
         },
     ],
 
@@ -506,7 +518,11 @@ SERVICE_CONTENT = {
                 "Load Calculation – Correct HP pump selection",
                 "Smart Integration – Tank automation systems",
             ],
-            "images": ["/static/images/con1.jpg","/static/images/con2.jpg","/static/images/con3.jpg"]
+            "images": [
+    "/static/images/services/submersible-handpump/submersible-handpump_installation_1.jpeg",
+    "/static/images/services/submersible-handpump/submersible-handpump_installation_2.jpeg",
+    "/static/images/services/submersible-handpump/submersible-handpump_installation_3.jpeg",
+],
         },
         {
             "title": "Traditional Handpump Setup",
@@ -515,7 +531,11 @@ SERVICE_CONTENT = {
                 "Platform Construction – Proper drainage base",
                 "Backup Solutions – Emergency water source",
             ],
-            "images": ["/static/images/con4.jpg","/static/images/con5.jpg","/static/images/con6.jpg"]
+            "images": [
+    "/static/images/services/submersible-handpump/submersible-handpump_handpump_1.jpeg",
+    "/static/images/services/submersible-handpump/submersible-handpump_handpump_2.jpeg",
+    "/static/images/services/submersible-handpump/submersible-handpump_handpump_3.jpeg",
+],
         },
         {
             "title": "Maintenance & Plumbing Layouts",
@@ -523,7 +543,7 @@ SERVICE_CONTENT = {
                 "Source-to-Tank Piping – Leak-proof CPVC/UPVC systems",
                 "System Diagnostics – Repair and servicing",
             ],
-            "images": ["/static/images/con7.jpg","/static/images/con8.jpg","/static/images/con9.jpg"]
+            
         },
     ],
 
