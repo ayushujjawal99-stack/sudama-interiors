@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}{{ meta_title }}{% endblock %}
 {% block meta_description %}{{ meta_description }}{% endblock %}
 
 {% block content %}
 
+<!-- HERO -->
 <section class="page-hero service-hero">
   <div class="container page-hero-grid">
     <div>
@@ -17,10 +20,21 @@
       </div>
     </div>
 
-    <div class="detail-visual js-hero-item" aria-hidden="true">
-      <div></div>
-      <div></div>
-      <div></div>
+    <!-- ✅ HERO IMAGES -->
+    <div class="detail-visual js-hero-item">
+
+      {% if gallery_images %}
+        {% for img in gallery_images|slice:":3" %}
+          <div class="media-tile">
+            <img src="{{ img.url }}" alt="{{ service.name }}">
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="media-tile media-placeholder"></div>
+        <div class="media-tile media-placeholder"></div>
+        <div class="media-tile media-placeholder"></div>
+      {% endif %}
+
     </div>
   </div>
 </section>
@@ -36,7 +50,7 @@
   </div>
 </section>
 
-<!-- 🔥 MAIN SECTIONS (FIXED LOOP + IMAGES) -->
+<!-- MAIN SECTIONS -->
 {% if detail_sections %}
 <section class="section section-soft">
   <div class="container">
@@ -57,7 +71,7 @@
           <h3>{{ section.title }}</h3>
 
           {% if section.content %}
-          <div class="rich-text">{{ section.content|linebreaks }}</div>
+            <div class="rich-text">{{ section.content|linebreaks }}</div>
           {% endif %}
 
           {% if section.items %}
@@ -69,7 +83,7 @@
           {% endif %}
         </div>
 
-        <!-- ✅ IMAGES (FIXED) -->
+        <!-- ✅ IMAGES -->
         <div class="detail-block-media">
 
           {% if section.images %}
@@ -78,11 +92,18 @@
                 <img src="{{ img }}" alt="{{ service.name }}">
               </div>
             {% endfor %}
+
+          {% elif gallery_images %}
+            {% for img in gallery_images|slice:":3" %}
+              <div class="media-tile">
+                <img src="{{ img.url }}" alt="{{ service.name }}">
+              </div>
+            {% endfor %}
+
           {% else %}
-            <!-- fallback -->
-            <div class="media-tile"></div>
-            <div class="media-tile"></div>
-            <div class="media-tile"></div>
+            <div class="media-tile media-placeholder"></div>
+            <div class="media-tile media-placeholder"></div>
+            <div class="media-tile media-placeholder"></div>
           {% endif %}
 
         </div>

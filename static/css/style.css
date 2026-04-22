@@ -1718,3 +1718,71 @@ img:not(.logo) {
     transform: translateY(-3px);
     transition: all 0.3s ease;
 }
+
+/* =========================================
+   FINAL OVERRIDE FIX (CRITICAL PATCH)
+   ========================================= */
+
+/* 1. FIX SERVICE HERO IMAGE SYSTEM */
+.detail-visual {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    position: relative !important;
+}
+
+.detail-visual div {
+    position: relative !important;
+    inset: auto !important;
+}
+
+/* 2. REMOVE FAKE BACKGROUND WHEN IMAGE EXISTS */
+.media-tile {
+    background: #f3efe9 !important;
+}
+
+.media-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+/* 3. CLEAN SERVICE BLOCK IMAGES */
+.detail-block-media {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.detail-block-media .media-tile {
+    height: 180px;
+}
+
+/* 4. FIX RANDOM IMAGE STRETCH ISSUES */
+img {
+    height: auto;
+}
+
+/* 5. REMOVE OVER-AGGRESSIVE GLOBAL RULE */
+img:not(.logo) {
+    object-fit: initial !important;
+}
+
+/* 6. SAFE GLOBAL IMAGE CONTROL */
+.gallery-tile img,
+.media-tile img,
+.product-media img {
+    object-fit: cover !important;
+}
+
+/* 7. MOBILE IMAGE FIX */
+@media (max-width: 640px) {
+    .detail-visual {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-block-media {
+        grid-template-columns: 1fr;
+    }
+}
