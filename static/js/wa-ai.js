@@ -9,45 +9,120 @@ const input = document.getElementById("waName");
 
 const phone = "917908529153";
 
-/* ===== CONTEXT DETECTION ===== */
-function getContextMessage() {
+/* =========================
+   STATE SYSTEM
+   ========================= */
+let step = 0;
+let userData = {
+    name: "",
+    intent: "",
+    budget: ""
+};
+
+/* =========================
+   CONTEXT DETECTION
+   ========================= */
+function getContext() {
     const title = document.title;
 
     if (location.pathname.includes("services")) {
-        return `I'm interested in your service: ${title}`;
+        return `Service: ${title}`;
     }
     if (location.pathname.includes("products")) {
-        return `I want details about: ${title}`;
+        return `Product: ${title}`;
     }
-    return "I want to discuss a project";
+    return "General Inquiry";
 }
 
-/* ===== OPEN POPUP ===== */
+/* =========================
+   MESSAGES FLOW
+   ========================= */
+function nextMessage() {
+    step++;
+
+    typing.style.display = "block";
+    msgBox.classList.add("hidden");
+
+    setTimeout(() => {
+        typing.style.display = "none";
+        msgBox.classList.remove("hidden");
+
+        if (step === 1) {
+            msgBox.innerText = "Hi 👋 What are you looking for?";
+        }
+
+        else if (step === 2) {
+            userData.intent = input.value || "Not specified";
+            input.value = "";
+            msgBox.innerText = "Got it 👍 What is your budget range?";
+        }
+
+        else if (step === 3) {
+            userData.budget = input.value || "Not specified";
+            input.value = "";
+            msgBox.innerText = "Great. Your name?";
+        }
+
+        else if (step === 4) {
+            userData.name = input.value || "Customer";
+
+            const finalMessage = `
+Hi, I'm ${userData.name}.
+${getContext()}
+Requirement: ${userData.intent}
+Budget: ${userData.budget}
+            `;
+
+            /* TRACK EVENT */
+            console.log("WA Lead:", userData);
+
+            /* OPEN WHATSAPP */
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(finalMessage)}`;
+            window.open(url, "_blank");
+
+            popup.classList.remove("active");
+        }
+
+    }, 1000);
+}
+
+/* =========================
+   BUTTON EVENTS
+   ========================= */
 btn.addEventListener("click", () => {
     popup.classList.toggle("active");
+
+    if (step === 0) {
+        setTimeout(() => nextMessage(), 500);
+    }
 });
 
-/* ===== AUTO TRIGGER ===== */
-setTimeout(() => {
-    popup.classList.add("active");
-}, 2500);
-
-/* ===== TYPING EFFECT ===== */
-setTimeout(() => {
-    typing.style.display = "none";
-    msgBox.classList.remove("hidden");
-    msgBox.innerText = "Hi 👋 How can we help you today?";
-}, 1500);
-
-/* ===== SEND ===== */
 sendBtn.addEventListener("click", () => {
-    let name = input.value.trim();
-    let msg = getContextMessage();
+    if (step < 4) nextMessage();
+});
 
-    if (name) msg = `Hi, I'm ${name}. ${msg}`;
+/* =========================
+   SMART TRIGGER
+   ========================= */
+let triggered = false;
 
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
+window.addEventListener("scroll", () => {
+    if (!triggered && window.scrollY > 300) {
+        popup.classList.add("active");
+        nextMessage();
+        triggered = true;
+    }
+});
+
+/* =========================
+   EXIT INTENT (DESKTOP)
+   ========================= */
+document.addEventListener("mouseleave", (e) => {
+    if (e.clientY < 10 && !triggered) {
+        popup.classList.add("active");
+        nextMessage();
+        triggered = true;
+    }
 });
 
 });

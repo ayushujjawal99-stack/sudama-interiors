@@ -1888,3 +1888,16 @@ img {
     padding: 6px 10px;
     cursor: pointer;
 }
+
+/* BETTER CHAT FEEL */
+.wa-msg {
+    background: #f1f1f1;
+    padding: 8px 10px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.wa-input input:focus {
+    outline: none;
+    border-color: #25D366;
+}

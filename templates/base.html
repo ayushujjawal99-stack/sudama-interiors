@@ -81,5 +81,14 @@
 </div>
 
 <script src="{% static 'js/wa-ai.js' %}"></script>
+
+<script>
+function trackWhatsAppLead(data) {
+    console.log("Lead captured:", data);
+
+    /* future: send to backend */
+    // fetch('/api/lead/', { method: 'POST', body: JSON.stringify(data) })
+}
+</script>
 </body>
 </html>
