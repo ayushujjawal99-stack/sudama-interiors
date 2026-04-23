@@ -1802,3 +1802,89 @@ img {
         height: 200px !important;
     }
 }
+
+/* ===== WHATSAPP AI SYSTEM ===== */
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 58px;
+    height: 58px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+/* POPUP */
+.wa-system {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 300px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: 0.3s ease;
+    z-index: 9999;
+}
+
+.wa-system.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.wa-header {
+    background: #25D366;
+    color: #fff;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.wa-chat {
+    padding: 12px;
+    font-size: 14px;
+    min-height: 60px;
+}
+
+.wa-typing {
+    opacity: 0.6;
+}
+
+.wa-msg {
+    margin-top: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+.wa-input {
+    display: flex;
+    gap: 6px;
+    padding: 10px;
+}
+
+.wa-input input {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #ddd;
+}
+
+.wa-input button {
+    background: #25D366;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+}

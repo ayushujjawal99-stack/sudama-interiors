@@ -54,5 +54,32 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
     <script src="{% static 'js/premium.js' %}" defer></script>
     {% block extra_scripts %}{% endblock %}
+
+    <a href="#" id="waBtn" class="whatsapp-float" aria-label="Chat on WhatsApp">
+  💬
+</a>
+
+<div id="waSystem" class="wa-system">
+  <div class="wa-box">
+
+    <div class="wa-header">
+      <strong>Sudama Interiors</strong>
+      <span>Typically replies instantly</span>
+    </div>
+
+    <div class="wa-chat">
+      <div id="waTyping" class="wa-typing">Typing...</div>
+      <div id="waMsg" class="wa-msg hidden"></div>
+    </div>
+
+    <div class="wa-input">
+      <input type="text" id="waName" placeholder="Your name (optional)">
+      <button id="waSend">Chat</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="{% static 'js/wa-ai.js' %}"></script>
 </body>
 </html>
