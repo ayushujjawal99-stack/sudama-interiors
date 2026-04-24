@@ -5,35 +5,23 @@
 {% block meta_description %}Plan interiors, materials, construction support, doors, windows, and modular systems with Sudama Construction & Interiors in Darbhanga.{% endblock %}
 
 {% block content %}
-<section class="hero" id="home">
-    <div class="hero-visual" aria-hidden="true">
-        <div class="hero-panel hero-panel-main">
-            <img src="{% static 'images/products/panels-louvers.png' %}" alt="" loading="eager">
-        </div>
-        <div class="hero-panel hero-panel-top">
-            <img src="{% static 'images/products/laminates.png' %}" alt="" loading="eager">
-        </div>
-        <div class="hero-panel hero-panel-bottom">
-            <img src="{% static 'images/products/plywood.png' %}" alt="" loading="eager">
-        </div>
-    </div>
-
-    <div class="container hero-grid">
-        <div class="hero-copy">
-            <p class="eyebrow js-hero-item">Interior design, materials, and execution</p>
-            <h1 class="hero-title js-hero-item">Spaces that feel considered from structure to finish.</h1>
-            <p class="hero-lede js-hero-item">
-                Sudama Construction & Interiors brings premium materials, clean detailing, and practical site execution
-                into one dependable workflow for homes and commercial spaces.
-            </p>
-            <div class="hero-actions js-hero-item">
-                <a href="{% url 'contact' %}" class="btn btn-primary">Start a Project</a>
-                <a href="{% url 'services:services_home' %}" class="btn btn-secondary">Explore Services</a>
+<section class="home-hero" id="home">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <p class="eyebrow">Interior design, materials, and execution</p>
+                <h1 class="hero-title">Spaces that feel considered from structure to finish.</h1>
+                <p class="lead-copy hero-lede">
+                    Sudama Construction & Interiors brings premium materials, clean detailing, and practical site execution
+                    into one dependable workflow for homes and commercial spaces.
+                </p>
+                <div class="hero-actions">
+                    <a href="{% url 'contact' %}" class="btn btn-primary">Start a Project</a>
+                    <a href="{% url 'services:services_home' %}" class="btn btn-secondary">Explore Services</a>
+                </div>
             </div>
-            <div class="hero-metrics js-hero-item">
-                <span><strong>15+</strong> years experience</span>
-                <span><strong>500+</strong> projects handled</span>
-                <span><strong>98%</strong> client satisfaction</span>
+            <div class="hero-visual">
+                <img src="{% static 'images/products/panels-louvers.png' %}" alt="Interior materials showcase" loading="eager">
             </div>
         </div>
     </div>
@@ -51,12 +39,12 @@
 
         <div class="service-groups">
             {% for group in service_groups %}
-                <div class="service-group js-section">
+                <div class="service-group">
                     <div class="group-heading">
                         <p class="eyebrow">{{ group.name }}</p>
                         {% if group.summary %}<p>{{ group.summary }}</p>{% endif %}
                     </div>
-                    <div class="card-grid js-grid">
+                    <div class="grid grid-cols-3">
                         {% for service in group.services %}
                             {% include 'partials/_service_card.html' with service=service %}
                         {% endfor %}
@@ -77,7 +65,7 @@
             <a href="{% url 'products:products_home' %}" class="btn btn-outline">View Products</a>
         </div>
 
-        <div class="product-grid js-grid">
+        <div class="grid grid-cols-3">
             {% for category in product_groups %}
                 {% include 'partials/_product_category_card.html' with category=category %}
             {% endfor %}

@@ -1,94 +1,118 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sudama Construction & Interiors{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Premium interior, construction, and material solutions for homes and commercial spaces in Darbhanga and beyond.{% endblock %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}Sudama Construction & Interiors{% endblock %}
+    </title>
+    <meta
+      name="description"
+      content="{% block meta_description %}Premium interior, construction, and material solutions for homes and commercial spaces in Darbhanga and beyond.{% endblock %}"
+    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/premium.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     {% block extra_head %}{% endblock %}
-</head>
-<body>
+  </head>
+  <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header" data-header>
-        <div class="container nav-shell">
-            <a href="{% url 'home' %}" class="brand" aria-label="Sudama Construction and Interiors home">
-                <span class="brand-mark">
-                    <img src="{% static 'images/logo/logo.png' %}" alt="" width="44" height="44">
-                </span>
-                <span class="brand-copy">
-                    <span>Sudama</span>
-                    <span>Construction & Interiors</span>
-                </span>
-            </a>
+      <div class="container nav-shell">
+        <a
+          href="{% url 'home' %}"
+          class="brand"
+          aria-label="Sudama Construction and Interiors home"
+        >
+          <span class="brand-mark">
+            <img
+              src="{% static 'images/logo/logo.png' %}"
+              alt=""
+              width="44"
+              height="44"
+            />
+          </span>
+          <span class="brand-copy">
+            <span>Sudama</span>
+            <span>Construction & Interiors</span>
+          </span>
+        </a>
 
-            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle>
-                <span></span>
-                <span></span>
-            </button>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          data-nav-toggle
+        >
+          <span></span>
+          <span></span>
+        </button>
 
-            <nav class="site-nav" aria-label="Main navigation" data-nav-menu>
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'products:products_home' %}">Products</a>
-                <a href="{% url 'services:services_home' %}">Services</a>
-                <a href="{% url 'contact' %}">Contact</a>
-                <a href="{% url 'contact' %}" class="btn btn-primary btn-small">Get Quote</a>
-            </nav>
-        </div>
+        <ul class="nav-list" aria-label="Main navigation" data-nav-menu>
+            <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+            <li><a href="{% url 'products:products_home' %}" class="nav-link">Products</a></li>
+            <li><a href="{% url 'services:services_home' %}" class="nav-link">Services</a></li>
+            <li><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+            <li><a href="{% url 'contact' %}" class="btn btn-primary btn-small">Get Quote</a></li>
+        </ul>
+      </div>
     </header>
 
-    <main id="main-content">
-        {% block content %}{% endblock %}
-    </main>
+    <main id="main-content">{% block content %}{% endblock %}</main>
 
     {% include 'partials/footer.html' %}
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"
+      defer
+    ></script>
     <script src="{% static 'js/premium.js' %}" defer></script>
     {% block extra_scripts %}{% endblock %}
 
     <a href="#" id="waBtn" class="whatsapp-float" aria-label="Chat on WhatsApp">
-  💬
-</a>
+      💬
+    </a>
 
-<div id="waSystem" class="wa-system">
-  <div class="wa-box">
+    <div id="waSystem" class="wa-system">
+      <div class="wa-box">
+        <div class="wa-header">
+          <strong>Sudama Interiors</strong>
+          <span>Typically replies instantly</span>
+        </div>
 
-    <div class="wa-header">
-      <strong>Sudama Interiors</strong>
-      <span>Typically replies instantly</span>
+        <div class="wa-chat">
+          <div id="waTyping" class="wa-typing">Typing...</div>
+          <div id="waMsg" class="wa-msg hidden"></div>
+        </div>
+
+        <div class="wa-input">
+          <input type="text" id="waName" placeholder="Your name (optional)" />
+          <button id="waSend">Chat</button>
+        </div>
+      </div>
     </div>
 
-    <div class="wa-chat">
-      <div id="waTyping" class="wa-typing">Typing...</div>
-      <div id="waMsg" class="wa-msg hidden"></div>
-    </div>
+    <script src="{% static 'js/wa-ai.js' %}"></script>
 
-    <div class="wa-input">
-      <input type="text" id="waName" placeholder="Your name (optional)">
-      <button id="waSend">Chat</button>
-    </div>
+    <script>
+      function trackWhatsAppLead(data) {
+        console.log("Lead captured:", data);
 
-  </div>
-</div>
-
-<script src="{% static 'js/wa-ai.js' %}"></script>
-
-<script>
-function trackWhatsAppLead(data) {
-    console.log("Lead captured:", data);
-
-    /* future: send to backend */
-    // fetch('/api/lead/', { method: 'POST', body: JSON.stringify(data) })
-}
-</script>
-</body>
+        /* future: send to backend */
+        // fetch('/api/lead/', { method: 'POST', body: JSON.stringify(data) })
+      }
+    </script>
+  </body>
 </html>
