@@ -1,6 +1,23 @@
-<a href="{{ service.url }}" class="service-card premium-card js-card">
-    <span class="card-kicker">{{ service.category_name }}</span>
-    <span class="card-title">{{ service.name }}</span>
-    <span class="card-copy">{{ service.summary|default:"Thoughtfully planned service with reliable execution and refined finishing." }}</span>
-    <span class="card-action" aria-hidden="true">View service</span>
+<a href="{{ service.url }}" class="service-card js-card">
+
+    <!-- Kicker -->
+    <span class="card-kicker">
+        {{ service.category_name }}
+    </span>
+
+    <!-- Title -->
+    <h3 class="card-title">
+        {{ service.name }}
+    </h3>
+
+    <!-- Copy -->
+    <p class="card-copy">
+        {{ service.summary|default:"Thoughtfully planned service with reliable execution and refined finishing." }}
+    </p>
+
+    <!-- Action -->
+    <span class="card-action">
+        View Service
+    </span>
+
 </a>

@@ -1,14 +1,29 @@
 {% load product_content %}
 
-<a href="{{ product.url }}" class="service-card product-mini-card premium-card js-card">
-    <span class="card-kicker">{{ product.category_name }}</span>
-    <span class="card-title">{{ product.name }}</span>
-    <span class="card-copy">
+<a href="{{ product.url }}" class="service-card product-mini-card js-card">
+
+    <!-- Kicker -->
+    <span class="card-kicker">
+        {{ product.category_name }}
+    </span>
+
+    <!-- Title -->
+    <h3 class="card-title">
+        {{ product.name }}
+    </h3>
+
+    <!-- Copy -->
+    <p class="card-copy">
         {% if product.summary %}
             {{ product.summary }}
         {% else %}
             {% product_microcopy product %}
         {% endif %}
+    </p>
+
+    <!-- Action -->
+    <span class="card-action">
+        Explore Material
     </span>
-    <span class="card-action" aria-hidden="true">Explore material</span>
+
 </a>

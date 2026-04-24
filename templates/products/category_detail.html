@@ -4,71 +4,112 @@
 {% block meta_description %}{{ meta_description }}{% endblock %}
 
 {% block content %}
-<section class="page-hero">
+
+<!-- HERO -->
+<section class="page-hero js-section">
     <div class="container page-hero-grid">
+
         <div>
-            <p class="eyebrow js-hero-item">Product category</p>
-            <h1 class="js-hero-item">{{ category.name }}</h1>
-            <p class="js-hero-item">{{ intro }}</p>
+            <p class="eyebrow js-hero-item">
+                Product Category
+            </p>
+
+            <h1 class="js-hero-item">
+                {{ category.name }}
+            </h1>
+
+            <p class="js-hero-item">
+                {{ intro }}
+            </p>
+
             <div class="hero-actions js-hero-item">
-                <a href="{% url 'contact' %}" class="btn btn-primary">Ask for Guidance</a>
-                <a href="{% url 'products:products_home' %}" class="btn btn-outline">All Products</a>
+                <a href="{% url 'contact' %}" class="btn btn-primary">
+                    Ask for Guidance
+                </a>
+
+                <a href="{% url 'products:products_home' %}" class="btn btn-outline">
+                    All Products
+                </a>
             </div>
         </div>
+
     </div>
 </section>
 
-<section class="section">
-    <div class="container detail-grid js-split">
-        <article>
+<!-- DETAILS -->
+<section class="section js-section">
+    <div class="container detail-grid">
+
+        <article class="js-split">
             <p class="eyebrow">Includes</p>
             <h2>Material options at a glance</h2>
             <p>{{ includes }}</p>
         </article>
-        <article>
+
+        <article class="js-split">
             <p class="eyebrow">Applications</p>
             <h2>Where it is used</h2>
             <p>{{ where_used }}</p>
         </article>
-        <article>
+
+        <article class="js-split">
             <p class="eyebrow">Value</p>
             <h2>Why it matters</h2>
             <p>{{ why_matters }}</p>
         </article>
+
     </div>
 </section>
 
 {% if category.products %}
-<section class="section section-soft">
+
+<!-- PRODUCTS -->
+<section class="section section-soft js-section">
     <div class="container">
-        <div class="section-header section-header-split js-section">
+
+        <div class="section-header section-header-split">
             <div>
-                <p class="eyebrow">Available materials</p>
+                <p class="eyebrow">Available Materials</p>
                 <h2>Explore products in {{ category.name }}.</h2>
             </div>
         </div>
+
         <div class="card-grid js-grid">
             {% for product in category.products %}
                 {% include 'partials/_product_card.html' with product=product %}
             {% endfor %}
         </div>
+
     </div>
 </section>
+
 {% endif %}
 
-<section class="section">
+<!-- WHY CHOOSE -->
+<section class="section js-section">
     <div class="container">
-        <div class="section-header section-header-center js-section">
-            <p class="eyebrow">Why choose us</p>
-            <h2>Selection support with reliable delivery.</h2>
+
+        <div class="section-header section-header-center">
+            <p class="eyebrow">
+                Why Choose Us
+            </p>
+
+            <h2>
+                Selection support with reliable delivery.
+            </h2>
         </div>
+
         <div class="highlight-grid js-grid">
             {% for point in choose_us_points %}
-                <article class="highlight-card js-card">{{ point }}</article>
+                <article class="highlight-card js-card">
+                    {{ point }}
+                </article>
             {% endfor %}
         </div>
+
     </div>
 </section>
 
 {% include 'partials/get_started.html' %}
+
 {% endblock %}

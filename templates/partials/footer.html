@@ -1,31 +1,46 @@
 <footer class="site-footer">
     <div class="container footer-grid">
+
+        <!-- Brand -->
         <div class="footer-brand">
-            <a href="{% url 'home' %}" class="footer-logo">Sudama Construction & Interiors</a>
+
+            <a href="{% url 'home' %}" class="footer-logo">
+                Sudama Construction & Interiors
+            </a>
+
             <p>
                 Premium interior, construction, and material solutions with disciplined execution,
                 refined finishes, and practical guidance from planning to handover.
             </p>
+
             <div class="footer-contact">
                 <a href="tel:+918757477519">+91 8757477519</a>
                 <a href="mailto:enterprisessudama734@gmail.com">enterprisessudama734@gmail.com</a>
                 <span>M.R.M College Road, Lalbagh, Darbhanga, Bihar</span>
             </div>
+
         </div>
 
+        <!-- Links -->
         <div class="footer-links">
+
+            <!-- Services -->
             <div>
                 <h2>Services</h2>
                 {% for service in footer_services %}
                     <a href="{{ service.url }}">{{ service.name }}</a>
                 {% endfor %}
             </div>
+
+            <!-- Products -->
             <div>
                 <h2>Products</h2>
                 {% for category in footer_product_categories|slice:":6" %}
                     <a href="{{ category.url }}">{{ category.name }}</a>
                 {% endfor %}
             </div>
+
+            <!-- Company -->
             <div>
                 <h2>Company</h2>
                 <a href="{% url 'home' %}#about">About</a>
@@ -33,10 +48,21 @@
                 <a href="{% url 'products:products_home' %}">Products</a>
                 <a href="{% url 'contact' %}">Contact</a>
             </div>
+
         </div>
+
     </div>
+
+    <!-- Bottom -->
     <div class="container footer-bottom">
-        <p>Copyright 2026 Sudama Construction & Interiors. All rights reserved.</p>
-        <a href="{% url 'contact' %}">Request consultation</a>
+
+        <p>
+            © 2026 Sudama Construction & Interiors. All rights reserved.
+        </p>
+
+        <a href="{% url 'contact' %}">
+            Request Consultation
+        </a>
+
     </div>
 </footer>

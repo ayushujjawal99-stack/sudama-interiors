@@ -4,38 +4,62 @@
 {% block meta_description %}Explore interior, construction, doors, windows, modular, ceiling, cladding, and water system services from Sudama Construction & Interiors.{% endblock %}
 
 {% block content %}
-<section class="page-hero">
+
+<!-- HERO -->
+<section class="page-hero js-section">
     <div class="container page-hero-grid">
+
         <div>
-            <p class="eyebrow js-hero-item">Services</p>
-            <h1 class="js-hero-item">Design clarity and execution strength in one service system.</h1>
+            <p class="eyebrow js-hero-item">
+                Services
+            </p>
+
+            <h1 class="js-hero-item">
+                Design clarity with execution strength.
+            </h1>
+
             <p class="js-hero-item">
-                Browse focused services for interiors, construction support, door-window systems, modular planning,
-                cladding, ceiling work, and utility execution.
+                Explore focused services across interiors, construction, modular systems, surface finishes,
+                and utility execution — all structured into one coordinated workflow.
             </p>
         </div>
+
     </div>
 </section>
 
-<section class="section section-soft">
+<!-- SERVICES -->
+<section class="section section-soft js-section">
     <div class="container">
+
         <div class="service-groups">
+
             {% for group in service_groups %}
-                <div class="service-group js-section">
-                    <div class="group-heading">
-                        <p class="eyebrow">{{ group.name }}</p>
-                        {% if group.summary %}<p>{{ group.summary }}</p>{% endif %}
+                <div class="service-group">
+
+                    <div class="group-heading js-split">
+                        <p class="eyebrow">
+                            {{ group.name }}
+                        </p>
+
+                        {% if group.summary %}
+                            <p>{{ group.summary }}</p>
+                        {% endif %}
                     </div>
+
                     <div class="card-grid js-grid">
                         {% for service in group.services %}
                             {% include 'partials/_service_card.html' with service=service %}
                         {% endfor %}
                     </div>
+
                 </div>
             {% endfor %}
+
         </div>
+
     </div>
 </section>
 
 {% include 'partials/get_started.html' %}
+
 {% endblock %}

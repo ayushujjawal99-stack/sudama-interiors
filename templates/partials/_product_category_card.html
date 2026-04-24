@@ -2,19 +2,34 @@
 
 <article class="product-category-card js-card">
     <a href="{{ category.url }}">
-        <span class="product-media">
+
+        <!-- Media -->
+        <div class="product-media">
             {% if category.image %}
                 <img src="{% static category.image %}" alt="{{ category.name }}" loading="lazy">
             {% else %}
-                <span class="product-media-placeholder">{{ category.name }}</span>
+                <div class="product-media-placeholder">
+                    {{ category.name }}
+                </div>
             {% endif %}
-        </span>
+        </div>
 
-        <span class="product-card-body">
-            <span class="card-kicker">Material category</span>
-            <span class="product-card-title">{{ category.name }}</span>
-            <span class="card-copy">{{ category.summary }}</span>
-            <span class="product-tags">
+        <!-- Body -->
+        <div class="product-card-body">
+
+            <span class="card-kicker">
+                Material category
+            </span>
+
+            <h3 class="product-card-title">
+                {{ category.name }}
+            </h3>
+
+            <p class="card-copy">
+                {{ category.summary }}
+            </p>
+
+            <div class="product-tags">
                 {% for product in category.products|slice:":3" %}
                     <span>{{ product.name }}</span>
                 {% empty %}
@@ -22,8 +37,13 @@
                     <span>Selection</span>
                     <span>Installation</span>
                 {% endfor %}
+            </div>
+
+            <span class="card-action">
+                Explore Category
             </span>
-            <span class="card-action" aria-hidden="true">Explore category</span>
-        </span>
+
+        </div>
+
     </a>
 </article>

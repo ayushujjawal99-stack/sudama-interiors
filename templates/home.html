@@ -5,31 +5,46 @@
 {% block meta_description %}Plan interiors, materials, construction support, doors, windows, and modular systems with Sudama Construction & Interiors in Darbhanga.{% endblock %}
 
 {% block content %}
-<section class="home-hero" id="home">
+
+<!-- HERO -->
+<section class="home-hero js-section" id="home">
     <div class="container">
         <div class="hero-grid">
+
             <div class="hero-content">
-                <p class="eyebrow">Interior design, materials, and execution</p>
-                <h1 class="hero-title">Spaces that feel considered from structure to finish.</h1>
-                <p class="lead-copy hero-lede">
+                <p class="eyebrow js-hero-item">
+                    Interior design, materials, and execution
+                </p>
+
+                <h1 class="hero-title js-hero-item">
+                    Spaces that feel considered from structure to finish.
+                </h1>
+
+                <p class="lead-copy hero-lede js-hero-item">
                     Sudama Construction & Interiors brings premium materials, clean detailing, and practical site execution
                     into one dependable workflow for homes and commercial spaces.
                 </p>
-                <div class="hero-actions">
+
+                <div class="hero-actions js-hero-item">
                     <a href="{% url 'contact' %}" class="btn btn-primary">Start a Project</a>
                     <a href="{% url 'services:services_home' %}" class="btn btn-secondary">Explore Services</a>
                 </div>
             </div>
-            <div class="hero-visual">
+
+            <div class="hero-visual js-hero-item">
                 <img src="{% static 'images/products/panels-louvers.png' %}" alt="Interior materials showcase" loading="eager">
             </div>
+
         </div>
     </div>
 </section>
 
-<section class="section section-soft" id="services">
+<!-- SERVICES -->
+<section class="section section-soft js-section" id="services">
     <div class="container">
-        <div class="section-header section-header-center js-section">
+
+        <!-- FIX: js-section removed from header (correct placement is section) -->
+        <div class="section-header section-header-center">
             <p class="eyebrow">Services</p>
             <h2>Complete project support, from design direction to site execution.</h2>
             <p>
@@ -39,37 +54,54 @@
 
         <div class="service-groups">
             {% for group in service_groups %}
+
                 <div class="service-group">
+
                     <div class="group-heading">
                         <p class="eyebrow">{{ group.name }}</p>
-                        {% if group.summary %}<p>{{ group.summary }}</p>{% endif %}
+                        {% if group.summary %}
+                            <p>{{ group.summary }}</p>
+                        {% endif %}
                     </div>
-                    <div class="grid grid-cols-3">
+
+                    <!-- FIX: grid → card-grid + js-grid -->
+                    <div class="card-grid js-grid">
                         {% for service in group.services %}
                             {% include 'partials/_service_card.html' with service=service %}
                         {% endfor %}
                     </div>
+
                 </div>
+
             {% endfor %}
         </div>
+
     </div>
 </section>
 
-<section class="section" id="products">
+<!-- PRODUCTS -->
+<section class="section js-section" id="products">
     <div class="container">
-        <div class="section-header section-header-split js-section">
+
+        <!-- FIX: js-section removed from header -->
+        <div class="section-header section-header-split">
             <div>
                 <p class="eyebrow">Products</p>
                 <h2>Premium materials selected for durability, finish, and daily use.</h2>
             </div>
-            <a href="{% url 'products:products_home' %}" class="btn btn-outline">View Products</a>
+
+            <a href="{% url 'products:products_home' %}" class="btn btn-outline">
+                View Products
+            </a>
         </div>
 
-        <div class="grid grid-cols-3">
+        <!-- FIX: grid → card-grid + js-grid -->
+        <div class="card-grid js-grid">
             {% for category in product_groups %}
                 {% include 'partials/_product_category_card.html' with category=category %}
             {% endfor %}
         </div>
+
     </div>
 </section>
 
@@ -77,4 +109,5 @@
 {% include 'partials/why_choose.html' %}
 {% include 'partials/testimonials.html' %}
 {% include 'partials/get_started.html' %}
+
 {% endblock %}

@@ -7,26 +7,39 @@
 {% block content %}
 
 <!-- HERO -->
-<section class="page-hero service-hero">
+<section class="page-hero service-hero js-section">
   <div class="container page-hero-grid">
+
     <div>
-      <p class="eyebrow js-hero-item">{{ service.category_name }}</p>
-      <h1 class="js-hero-item">{{ service.name }}</h1>
-      <p class="js-hero-item">{{ hero_description }}</p>
+      <p class="eyebrow js-hero-item">
+        {{ service.category_name }}
+      </p>
+
+      <h1 class="js-hero-item">
+        {{ service.name }}
+      </h1>
+
+      <p class="js-hero-item">
+        {{ hero_description }}
+      </p>
 
       <div class="hero-actions js-hero-item">
-        <a href="{% url 'contact' %}" class="btn btn-primary">Get Quote</a>
-        <a href="{% url 'services:services_home' %}" class="btn btn-outline">All Services</a>
+        <a href="{% url 'contact' %}" class="btn btn-primary">
+          Get Quote
+        </a>
+        <a href="{% url 'services:services_home' %}" class="btn btn-outline">
+          All Services
+        </a>
       </div>
     </div>
 
-    <!-- ✅ HERO IMAGES -->
+    <!-- IMAGE DIRECTION FIX -->
     <div class="detail-visual js-hero-item">
 
       {% if gallery_images %}
         {% for img in gallery_images|slice:":3" %}
           <div class="media-tile">
-            <img src="{{ img.url }}" alt="{{ service.name }}">
+            <img src="{{ img.url }}" alt="{{ service.name }} view {{ forloop.counter }}">
           </div>
         {% endfor %}
       {% else %}
@@ -36,42 +49,53 @@
       {% endif %}
 
     </div>
+
   </div>
 </section>
 
 <!-- OVERVIEW -->
-<section class="section">
-  <div class="container two-column js-split">
-    <div>
+<section class="section js-section">
+  <div class="container two-column">
+
+    <div class="js-split">
       <p class="eyebrow">Overview</p>
-      <h2>Planned for real use, clean finish, and long-term dependability.</h2>
+      <h2>Designed for real use, finished for long-term performance.</h2>
     </div>
-    <p class="lead-copy">{{ intro }}</p>
+
+    <p class="lead-copy js-split">
+      {{ intro }}
+    </p>
+
   </div>
 </section>
 
 <!-- MAIN SECTIONS -->
 {% if detail_sections %}
-<section class="section section-soft">
+<section class="section section-soft js-section">
   <div class="container">
 
-    <div class="section-header js-section">
-      <p class="eyebrow">Service details</p>
-      <h2>What this service can include</h2>
+    <div class="section-header">
+      <p class="eyebrow">Service Details</p>
+      <h2>What this service includes</h2>
     </div>
 
     <div class="detail-section-list">
 
       {% for section in detail_sections %}
-      <article class="detail-block js-split">
+      <article class="detail-block">
 
         <!-- TEXT -->
-        <div class="detail-block-copy">
-          <span class="detail-index">{{ forloop.counter|stringformat:"02d" }}</span>
+        <div class="detail-block-copy js-split">
+          <span class="detail-index">
+            {{ forloop.counter|stringformat:"02d" }}
+          </span>
+
           <h3>{{ section.title }}</h3>
 
           {% if section.content %}
-            <div class="rich-text">{{ section.content|linebreaks }}</div>
+            <div class="rich-text">
+              {{ section.content|linebreaks }}
+            </div>
           {% endif %}
 
           {% if section.items %}
@@ -83,20 +107,20 @@
           {% endif %}
         </div>
 
-        <!-- ✅ IMAGES -->
-        <div class="detail-block-media">
+        <!-- IMAGE DIRECTION FIX -->
+        <div class="detail-block-media js-split">
 
           {% if section.images %}
             {% for img in section.images %}
               <div class="media-tile">
-                <img src="{{ img }}" alt="{{ service.name }}">
+                <img src="{{ img }}" alt="{{ section.title }} image {{ forloop.counter }}">
               </div>
             {% endfor %}
 
           {% elif gallery_images %}
             {% for img in gallery_images|slice:":3" %}
               <div class="media-tile">
-                <img src="{{ img.url }}" alt="{{ service.name }}">
+                <img src="{{ img.url }}" alt="{{ service.name }} detail {{ forloop.counter }}">
               </div>
             {% endfor %}
 
@@ -118,11 +142,11 @@
 
 <!-- CONSTRUCTION -->
 {% if construction_layout %}
-<section class="section section-soft">
+<section class="section section-soft js-section">
   <div class="container">
 
-    <div class="section-header js-section">
-      <p class="eyebrow">Project planning</p>
+    <div class="section-header">
+      <p class="eyebrow">Project Planning</p>
       <h2>Structured construction approach.</h2>
     </div>
 
@@ -158,12 +182,12 @@
 
 <!-- DOOR SPECS -->
 {% if door_specs %}
-<section class="section">
+<section class="section js-section">
   <div class="container">
 
-    <div class="section-header js-section">
+    <div class="section-header">
       <p class="eyebrow">Specifications</p>
-      <h2>Door options & finishes.</h2>
+      <h2>Door options and finishes.</h2>
     </div>
 
     <div class="door-specs js-grid">
@@ -171,13 +195,17 @@
       <div class="door-block js-card">
         <h4>Interior Doors</h4>
         <p>{{ door_specs.interior|join:", " }}</p>
-        <span class="door-size">Sizes: {{ door_specs.sizes.interior|join:", " }}</span>
+        <span class="door-size">
+          Sizes: {{ door_specs.sizes.interior|join:", " }}
+        </span>
       </div>
 
       <div class="door-block js-card">
         <h4>Exterior Doors</h4>
         <p>{{ door_specs.exterior|join:", " }}</p>
-        <span class="door-size">Sizes: {{ door_specs.sizes.exterior|join:", " }}</span>
+        <span class="door-size">
+          Sizes: {{ door_specs.sizes.exterior|join:", " }}
+        </span>
       </div>
 
       <div class="door-block js-card">
@@ -195,32 +223,39 @@
 {% endif %}
 
 <!-- HIGHLIGHTS -->
-<section class="section">
+<section class="section js-section">
   <div class="container">
-    <div class="section-header section-header-center js-section">
-      <p class="eyebrow">Why it matters</p>
-      <h2>Quality decisions that improve everyday performance.</h2>
+
+    <div class="section-header section-header-center">
+      <p class="eyebrow">Why It Matters</p>
+      <h2>Decisions that improve everyday performance.</h2>
     </div>
 
     <div class="highlight-grid js-grid">
       {% for highlight in service_highlights %}
-        <article class="highlight-card js-card">{{ highlight }}</article>
+        <article class="highlight-card js-card">
+          {{ highlight }}
+        </article>
       {% endfor %}
     </div>
+
   </div>
 </section>
 
 <!-- RELATED -->
 {% if related_services %}
-<section class="section section-soft">
+<section class="section section-soft js-section">
   <div class="container">
 
-    <div class="section-header section-header-split js-section">
+    <div class="section-header section-header-split">
       <div>
-        <p class="eyebrow">Related services</p>
+        <p class="eyebrow">Related Services</p>
         <h2>More ways we can support your project.</h2>
       </div>
-      <a href="{% url 'services:services_home' %}" class="btn btn-outline">View All</a>
+
+      <a href="{% url 'services:services_home' %}" class="btn btn-outline">
+        View All
+      </a>
     </div>
 
     <div class="card-grid js-grid">

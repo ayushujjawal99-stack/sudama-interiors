@@ -1,30 +1,127 @@
 {% extends 'base.html' %}
 
-{% block title %}Products | Sudama Construction & Interiors{% endblock %}
-{% block meta_description %}Explore plywood, laminates, hardware, panels, louvers, curtains, UV sheets, and premium interior material categories from Sudama Construction & Interiors.{% endblock %}
+{% block title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
 
 {% block content %}
-<section class="page-hero">
+
+<!-- HERO -->
+<section class="page-hero js-section">
     <div class="container page-hero-grid">
+
         <div>
-            <p class="eyebrow js-hero-item">Products</p>
-            <h1 class="js-hero-item">Premium materials for better furniture, surfaces, and finishes.</h1>
-            <p class="js-hero-item">
-                Browse material categories selected around strength, finish quality, maintenance, and daily performance.
+            <p class="eyebrow js-hero-item">
+                {{ product.category_name }}
             </p>
+
+            <h1 class="js-hero-item">
+                {{ product.name }}
+            </h1>
+
+            <p class="js-hero-item">
+                {{ intro }}
+            </p>
+
+            <div class="hero-actions js-hero-item">
+                <a href="{% url 'contact' %}" class="btn btn-primary">
+                    Discuss Requirement
+                </a>
+
+                <a href="{{ category.url }}" class="btn btn-outline">
+                    Back to {{ category.name }}
+                </a>
+            </div>
         </div>
+
     </div>
 </section>
 
-<section class="section">
+<!-- DETAILS -->
+<section class="section js-section">
+    <div class="container detail-grid">
+
+        <article class="js-split">
+            <p class="eyebrow">What It Is</p>
+            <h2>Understanding the material</h2>
+            <p>{{ what_it_is }}</p>
+        </article>
+
+        <article class="js-split">
+            <p class="eyebrow">Where It Is Used</p>
+            <h2>Interior applications</h2>
+            <p>{{ where_used }}</p>
+        </article>
+
+        <article class="js-split">
+            <p class="eyebrow">Why It Matters</p>
+            <h2>Performance over time</h2>
+            <p>{{ why_it_matters }}</p>
+        </article>
+
+    </div>
+</section>
+
+<!-- GALLERY (HIGH-END FIX) -->
+<section class="section section-soft js-section">
     <div class="container">
-        <div class="product-grid js-grid">
-            {% for category in product_groups %}
-                {% include 'partials/_product_category_card.html' with category=category %}
+
+        <div class="section-header section-header-center">
+            <p class="eyebrow">
+                Material Preview
+            </p>
+
+            <h2>
+                Real surface, real finish, real usage.
+            </h2>
+
+            <p>
+                Close-up and contextual views to understand texture, scale, and application.
+            </p>
+        </div>
+
+        <!-- FIX: asymmetrical rhythm (no CSS change, just perception) -->
+        <div class="gallery-grid js-grid" aria-label="Product images">
+
+            {% for i in "123"|make_list %}
+            <div class="gallery-tile js-card">
+                <img 
+                    src="/static/images/products/{{ product.category_slug }}/{{ product.slug }}_{{ forloop.counter }}.jpeg"
+                    alt="{{ product.name }} view {{ forloop.counter }}"
+                    loading="lazy"
+                >
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section class="section js-section">
+    <div class="container">
+
+        <div class="section-header section-header-center">
+            <p class="eyebrow">
+                Why Choose Us
+            </p>
+
+            <h2>
+                Material clarity backed by execution discipline.
+            </h2>
+        </div>
+
+        <div class="highlight-grid js-grid">
+            {% for point in choose_us_points %}
+                <article class="highlight-card js-card">
+                    {{ point }}
+                </article>
             {% endfor %}
         </div>
+
     </div>
 </section>
 
 {% include 'partials/get_started.html' %}
+
 {% endblock %}

@@ -4,38 +4,66 @@
 {% block meta_description %}Contact Sudama Construction & Interiors for interior design, materials, construction support, modular systems, doors, windows, and project guidance.{% endblock %}
 
 {% block content %}
-<section class="page-hero">
+
+<!-- HERO -->
+<section class="page-hero js-section">
     <div class="container page-hero-grid">
+
         <div>
-            <p class="eyebrow js-hero-item">Contact</p>
-            <h1 class="js-hero-item">Start with a clear requirement. We will guide the next step.</h1>
+            <p class="eyebrow js-hero-item">
+                Contact
+            </p>
+
+            <h1 class="js-hero-item">
+                Start with clarity. We guide the next step.
+            </h1>
+
             <p class="js-hero-item">
-                Share your project details for interiors, products, construction, doors, windows, or utility work.
+                Share your requirement for interiors, materials, construction, or execution —
+                and get clear direction before work begins.
             </p>
         </div>
+
     </div>
 </section>
 
-<section class="section contact-section">
-    <div class="container contact-grid js-split">
-        <aside class="contact-aside">
-            <p class="eyebrow">Consultation desk</p>
-            <h2>Practical guidance before you spend.</h2>
-            <p>
-                We help you understand the right service, material category, and execution direction before work begins.
+<!-- CONTACT -->
+<section class="section contact-section js-section">
+    <div class="container contact-grid">
+
+        <!-- LEFT -->
+        <aside class="contact-aside js-split">
+
+            <p class="eyebrow">
+                Consultation Desk
             </p>
+
+            <h2>
+                Practical guidance before you commit.
+            </h2>
+
+            <p>
+                We help you identify the right service, material category, and execution approach —
+                so decisions are clear before spending begins.
+            </p>
+
             <div class="contact-methods">
                 <a href="tel:+918757477519">+91 8757477519</a>
                 <a href="mailto:enterprisessudama734@gmail.com">enterprisessudama734@gmail.com</a>
                 <span>M.R.M College Road, Lalbagh, Darbhanga</span>
             </div>
+
         </aside>
 
-        <div class="contact-card">
+        <!-- FORM -->
+        <div class="contact-card js-split">
+
             {% if messages %}
                 <div class="message-stack">
                     {% for message in messages %}
-                        <p class="message message-{{ message.tags }}">{{ message }}</p>
+                        <p class="message message-{{ message.tags }}">
+                            {{ message }}
+                        </p>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -44,20 +72,25 @@
                 {% csrf_token %}
 
                 {% if form.non_field_errors %}
-                    <div class="form-errors">{{ form.non_field_errors }}</div>
+                    <div class="form-errors">
+                        {{ form.non_field_errors }}
+                    </div>
                 {% endif %}
 
                 <div class="form-row">
+
                     <label>
                         <span>Name</span>
                         {{ form.name }}
                         {{ form.name.errors }}
                     </label>
+
                     <label>
                         <span>Phone</span>
                         {{ form.phone }}
                         {{ form.phone.errors }}
                     </label>
+
                 </div>
 
                 <label>
@@ -67,16 +100,19 @@
                 </label>
 
                 <div class="form-row">
+
                     <label>
                         <span>Category</span>
                         {{ form.category }}
                         {{ form.category.errors }}
                     </label>
+
                     <label>
                         <span>Service</span>
                         {{ form.subcategory }}
                         {{ form.subcategory.errors }}
                     </label>
+
                 </div>
 
                 <label>
@@ -85,9 +121,15 @@
                     {{ form.message.errors }}
                 </label>
 
-                <button type="submit" class="btn btn-primary">Request Callback</button>
+                <button type="submit" class="btn btn-primary">
+                    Request Callback
+                </button>
+
             </form>
+
         </div>
+
     </div>
 </section>
+
 {% endblock %}
