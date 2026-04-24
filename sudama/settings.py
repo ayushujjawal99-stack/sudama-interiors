@@ -6,7 +6,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = True
 IS_TESTING = 'test' in sys.argv
 SECRET_KEY = os.environ.get(
     'SECRET_KEY',
@@ -128,23 +128,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # DEFAULT FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import logging
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'ERROR',
-        },
-    },
-}
 
 import logging
 

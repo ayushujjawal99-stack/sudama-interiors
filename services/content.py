@@ -12,7 +12,7 @@ SERVICE_CONTENT = {
                 "title": "Interior Doors",
                 "items": [
                     "WPC Doors – Termite-proof, moisture-resistant, long-lasting",
-                    "Plywood Doors – Classic solid core with natural wood veneer options",
+                
                     "Aluminium Doors – Lightweight, corrosion-resistant, modern profiles",
                     "Standard Thickness – 25mm, 30mm",
                 ],
