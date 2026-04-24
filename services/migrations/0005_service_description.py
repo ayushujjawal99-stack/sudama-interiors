@@ -9,10 +9,4 @@ class Migration(migrations.Migration):
         ('services', '0004_rename_services_se_service_790fa8_idx_services_se_service_dc9624_idx_and_more'),
     ]
 
-    operations = [
-        migrations.AddField(
-            model_name='service',
-            name='description',
-            field=models.TextField(blank=True, null=True),
-        ),
-    ]
+    
