@@ -4,8 +4,6 @@ from django.views import View
 
 from core.site_content import (
     fallback_product_cards,
-    find_fallback_product,
-    find_fallback_product_category,
     product_card_from_model,
     product_groups_from_queryset,
 )
@@ -20,7 +18,7 @@ def _safe(val):
 
 
 # ============================= #
-# CATEGORY CONTENT (PREMIUM)
+# CATEGORY CONTENT (UNCHANGED)
 # ============================= #
 def _category_sections(category):
     name = (category.get("name") if isinstance(category, dict) else (category.name or "")).strip()
@@ -39,6 +37,7 @@ def _category_sections(category):
                 "Execution from measurement to final installation.",
             ],
         },
+
         "Frames": {
             "intro": "Frame systems define alignment and structural clarity for doors, partitions, and openings.",
             "includes": "Door frames, partition frames, profile systems across materials and finishes.",
@@ -51,6 +50,7 @@ def _category_sections(category):
                 "Durable performance over time.",
             ],
         },
+
         "Hardware": {
             "intro": "Hardware determines how smoothly a space functions—every movement, closure, and adjustment depends on it.",
             "includes": "Hinges, locks, handles, channels, and motion systems.",
@@ -63,6 +63,7 @@ def _category_sections(category):
                 "Accurate fitting and alignment.",
             ],
         },
+
         "Laminates": {
             "intro": "Laminates define the visible surface quality—color, texture, and reflection shape the perception of the entire space.",
             "includes": "Gloss, matte, textured, and specialty laminates.",
@@ -75,6 +76,7 @@ def _category_sections(category):
                 "Application precision for clean outcomes.",
             ],
         },
+
         "Panels & Louvers": {
             "intro": "Panels and louvers introduce depth, rhythm, and visual layering without clutter.",
             "includes": "Decorative wall panels, fluted systems, louvers in wood and composite finishes.",
@@ -87,6 +89,7 @@ def _category_sections(category):
                 "Integration with lighting and furniture.",
             ],
         },
+
         "Plywood": {
             "intro": "Plywood is the structural backbone of interior work, defining strength, stability, and longevity.",
             "includes": "MR, BWR, BWP, calibrated and marine-grade boards.",
@@ -99,6 +102,7 @@ def _category_sections(category):
                 "Execution aligned with real site conditions.",
             ],
         },
+
         "UV Sheets": {
             "intro": "UV sheets deliver high-gloss, mirror-like finishes for contemporary interiors.",
             "includes": "High-gloss panels and UV-coated surfaces.",
@@ -132,7 +136,7 @@ def _category_sections(category):
 
 
 # ============================= #
-# PRODUCT CONTENT (PREMIUM)
+# PRODUCT CONTENT (UNCHANGED)
 # ============================= #
 def _product_sections(product):
     name = (product.get("name") if isinstance(product, dict) else (product.name or "")).strip()
@@ -151,6 +155,7 @@ def _product_sections(product):
                 "Balanced cost-performance approach.",
             ],
         },
+
         "bwr": {
             "intro": "BWR plywood offers a balanced solution for areas exposed to moderate moisture.",
             "what_it_is": "Boiling water resistant plywood for semi-moist conditions.",
@@ -163,6 +168,7 @@ def _product_sections(product):
                 "Reliable execution standards.",
             ],
         },
+
         "bwp": {
             "intro": "BWP plywood is engineered for high-moisture environments where long-term durability is critical.",
             "what_it_is": "Boiling water proof plywood suitable for wet areas.",
@@ -175,6 +181,7 @@ def _product_sections(product):
                 "Long-term performance assurance.",
             ],
         },
+
         "mica": {
             "intro": "Mica laminates define the visible finish of interiors, balancing aesthetics with protection.",
             "what_it_is": "Decorative laminate applied over base boards.",
@@ -221,7 +228,7 @@ class ProductsHomeView(View):
 
 
 # ============================= #
-# CATEGORY VIEW
+# CATEGORY VIEW (FIXED)
 # ============================= #
 class ProductCategoryView(View):
     def get(self, request, category_slug):
@@ -230,7 +237,8 @@ class ProductCategoryView(View):
         if category:
             category_data = product_groups_from_queryset([category])[0]
         else:
-            category_data = find_fallback_product_category(category_slug)
+            fallback_groups = fallback_product_cards()
+            category_data = next((g for g in fallback_groups if g.get("slug") == category_slug), None)
 
         if not category_data:
             raise Http404("Product category not found")
@@ -241,7 +249,7 @@ class ProductCategoryView(View):
 
 
 # ============================= #
-# PRODUCT DETAIL
+# PRODUCT DETAIL (FIXED)
 # ============================= #
 class ProductDetailView(View):
     def get(self, request, category_slug, product_slug):
@@ -254,7 +262,17 @@ class ProductDetailView(View):
             product_data = product_card_from_model(product)
             category_data = product_groups_from_queryset([product.category])[0]
         else:
-            category_data, product_data = find_fallback_product(category_slug, product_slug)
+            fallback_groups = fallback_product_cards()
+            product_data = None
+            category_data = None
+
+            for group in fallback_groups:
+                if group.get("slug") == category_slug:
+                    category_data = group
+                    for p in group.get("products", []):
+                        if p.get("slug") == product_slug:
+                            product_data = p
+                            break
 
         if not product_data:
             raise Http404("Product not found")
