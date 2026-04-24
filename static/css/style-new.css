@@ -1142,3 +1142,186 @@ textarea.form-control {
   outline: 2px solid var(--color-brand);
   outline-offset: 2px;
 }
+
+/* ===== ULTRA POLISH LAYER (AGENCY LEVEL) ===== */
+
+/* ---- GLOBAL RHYTHM IMPROVEMENT ---- */
+.section {
+  padding: clamp(80px, 10vw, 140px) 0;
+}
+
+.section-header {
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+
+/* ---- HERO PREMIUM FIX ---- */
+.hero-content {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.hero-title {
+  letter-spacing: -0.02em;
+}
+
+.hero-visual {
+  position: relative;
+}
+
+.hero-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.08));
+  pointer-events: none;
+}
+
+/* ---- BUTTON PREMIUM FEEL ---- */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+/* ---- CARD UPGRADE ---- */
+.premium-card {
+  border: 1px solid var(--color-line);
+}
+
+.premium-card:hover {
+  transform: translateY(-10px) scale(1.01);
+}
+
+/* ---- SERVICE GRID IMPROVEMENT ---- */
+.grid {
+  gap: clamp(20px, 3vw, 40px);
+}
+
+/* ---- IMAGE CONSISTENCY FIX ---- */
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.image-container {
+  aspect-ratio: 4/3;
+}
+
+/* ---- PRODUCT CARD IMAGE FIX ---- */
+.product-category-card .product-media {
+  height: 240px;
+}
+
+@media (max-width: 768px) {
+  .product-category-card .product-media {
+    height: 200px;
+  }
+}
+
+/* ---- MOBILE UX FIX (MOST IMPORTANT) ---- */
+@media (max-width: 768px) {
+
+  body {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .hero-grid {
+    gap: 40px;
+  }
+
+  .hero-title {
+    font-size: clamp(32px, 6vw, 42px);
+  }
+
+  .hero-actions {
+    gap: 12px;
+  }
+
+  .premium-card {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 20px;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  /* REMOVE STACKED LOOK */
+  .grid {
+    gap: 20px;
+  }
+
+}
+
+/* ---- TABLET FIX ---- */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-grid {
+    gap: 60px;
+  }
+
+}
+
+/* ---- SMOOTH ENTRY ANIMATION ---- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- SCROLL MICRO INTERACTION ---- */
+.card,
+.premium-card,
+.product-category-card {
+  will-change: transform;
+}
+
+/* ---- CHAT BUTTON FIX ---- */
+iframe, .chat-widget {
+  z-index: 999 !important;
+}
+
+/* ---- TYPOGRAPHY POLISH ---- */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* ---- REMOVE CHEAP LOOK ---- */
+.card,
+.product-category-card {
+  border: 1px solid var(--color-line);
+}
+
+/* ---- PREMIUM DEPTH ---- */
+.card:hover,
+.product-category-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
