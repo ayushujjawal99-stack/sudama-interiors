@@ -32,10 +32,14 @@ class Service(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=170, unique=True, blank=True)
 
+    # 🔥 FIX: ADD BACK DESCRIPTION (DB NEEDS THIS)
+    description = models.TextField(blank=True, null=True)
+
+    # Your new fields (keep them)
     short_description = models.TextField(blank=True)
     full_description = models.TextField(blank=True)
 
-    # ✅ SAFE IMAGE FIELD
+    # Image (safe)
     image = models.ImageField(
         upload_to='services/',
         blank=True,
@@ -58,7 +62,6 @@ class Service(models.Model):
     def __str__(self):
         return self.name
 
-    # ✅ SAFE URL (NO CRASH IF ROUTE MISSING)
     def get_absolute_url(self):
         try:
             return reverse("services:service_detail", kwargs={"slug": self.slug})
@@ -66,9 +69,8 @@ class Service(models.Model):
             return "#"
 
     def save(self, *args, **kwargs):
-        # ✅ ALWAYS GENERATE SAFE SLUG
-        if not self.slug:
-            self.slug = self._generate_unique_slug()
+        # 🔥 ALWAYS ensure slug is safe
+        self.slug = self._generate_unique_slug()
         super().save(*args, **kwargs)
 
     def _generate_unique_slug(self):
@@ -84,7 +86,7 @@ class Service(models.Model):
 
 
 # ============================= #
-# SERVICE SECTION (Dynamic Content)
+# SERVICE SECTION
 # ============================= #
 
 class ServiceSection(models.Model):
@@ -120,7 +122,6 @@ class ServiceImage(models.Model):
         related_name='images'
     )
 
-    # ✅ FIXED (NO 500 IF IMAGE NOT PROVIDED)
     image = models.ImageField(
         upload_to='services/gallery/',
         blank=True,
