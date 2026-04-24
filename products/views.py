@@ -12,351 +12,221 @@ from core.site_content import (
 from .models import ProductCategory, Product
 
 
-class ProductsHomeView(View):
-    def get(self, request):
-        groups = product_groups_from_queryset(
-            ProductCategory.objects
-            .prefetch_related("products")
-            .order_by("name")
-        )
-        return render(
-            request,
-            "products/products_home.html",
-            {"product_groups": groups or fallback_product_cards()},
-        )
+# ============================= #
+# SAFE NORMALIZER
+# ============================= #
+def _safe(val):
+    return (val or "").strip().lower()
 
 
+# ============================= #
+# CATEGORY CONTENT (PREMIUM)
+# ============================= #
 def _category_sections(category):
-    name = (category.get("name") if isinstance(category, dict) else category.name).strip()
+    name = (category.get("name") if isinstance(category, dict) else (category.name or "")).strip()
+    key = _safe(name)
+
     handcrafted = {
         "Curtain": {
-            "intro": "Curtain materials define how a room feels through light control, privacy, and softness. This category supports both decorative layering and practical coverage. It helps interiors feel complete without visual heaviness.",
-            "includes": "This category can include blackout options, sheers, textured drapes, stitched panel systems, and supporting accessories based on room requirement.",
-            "where_used": "Commonly used in bedrooms, living rooms, office cabins, lounge areas, and glazing-heavy spaces that need comfort with controlled daylight.",
-            "why_matters": "The right curtain selection improves ambience, reduces glare, supports privacy, and adds warmth to otherwise hard-surfaced interiors.",
+            "intro": "Curtain systems shape how a space feels—controlling light, privacy, and softness with precision. The right fabric and fall can elevate a room without overpowering it.",
+            "includes": "Blackout drapes, sheers, layered combinations, stitched panels, track systems, and hardware tailored to room conditions.",
+            "where_used": "Bedrooms, living areas, offices, lounges, and glazing-heavy spaces where light and privacy need careful balance.",
+            "why_matters": "A well-chosen curtain system reduces glare, improves comfort, and completes the visual language of the space.",
             "choose_us_points": [
-                "Fabric recommendations based on light, usage, and room character.",
-                "Neat stitching and finish quality for a premium fall and drape.",
-                "Practical selection support across style and maintenance needs.",
-                "Reliable execution from planning to final installation.",
+                "Fabric selection aligned with light, privacy, and maintenance.",
+                "Clean stitching and fall for a controlled, premium look.",
+                "Practical guidance across styles and budgets.",
+                "Execution from measurement to final installation.",
             ],
         },
         "Frames": {
-            "intro": "Frame systems hold key interior and architectural elements in place with visual precision. This category focuses on profiles that combine strength and clean detailing. It supports both structural confidence and finished appearance.",
-            "includes": "Depending on project scope, this can include door frames, partition frames, profile systems, trim supports, and utility frame assemblies.",
-            "where_used": "Used in door openings, partition layouts, glass enclosures, modular furniture boundaries, and transition points between wall and joinery.",
-            "why_matters": "Well-built frames improve alignment, support long-term fit, and prevent finishing issues that usually appear when foundational support is weak.",
+            "intro": "Frame systems define alignment and structural clarity for doors, partitions, and openings.",
+            "includes": "Door frames, partition frames, profile systems across materials and finishes.",
+            "where_used": "Doors, partitions, enclosures, and transition points within interiors.",
+            "why_matters": "Accurate framing ensures long-term alignment, stability, and finish consistency.",
             "choose_us_points": [
-                "Dimension-accurate frame planning for cleaner final fit.",
-                "Material selection matched to load and environment.",
-                "Execution quality focused on line consistency and stability.",
-                "Dependable site coordination for smoother installation flow.",
+                "Precision measurement and planning.",
+                "Material selection based on load and environment.",
+                "Clean installation with alignment control.",
+                "Durable performance over time.",
             ],
         },
         "Hardware": {
-            "intro": "Hardware brings motion, grip, and control to interior components that users touch every day. This category covers the functional layer that makes furniture and doors feel dependable. It is essential for long-term usability.",
-            "includes": "Includes hinges, channels, slides, locks, handles, connectors, and other fittings that support opening, closing, and secure operation.",
-            "where_used": "Applied across kitchens, wardrobes, bathroom storage, doors, modular systems, and custom furniture in both residential and commercial spaces.",
-            "why_matters": "Good hardware improves movement quality, lowers maintenance issues, and keeps fitted components aligned through repeated daily cycles.",
+            "intro": "Hardware determines how smoothly a space functions—every movement, closure, and adjustment depends on it.",
+            "includes": "Hinges, locks, handles, channels, and motion systems.",
+            "where_used": "Doors, cabinets, drawers, and modular furniture.",
+            "why_matters": "Good hardware ensures reliability, reduces wear, and improves everyday usability.",
             "choose_us_points": [
-                "Application-based hardware matching for lasting performance.",
-                "Installation accuracy that protects smooth movement.",
-                "Specification support balancing comfort, function, and budget.",
-                "Execution reliability with consistent quality checks.",
+                "Right hardware for usage intensity.",
+                "Smooth operation with long cycle life.",
+                "Compatibility with materials and design.",
+                "Accurate fitting and alignment.",
             ],
         },
         "Laminates": {
-            "intro": "Laminate materials shape the visible finish language of an interior while protecting base boards underneath. This category combines aesthetics with practical surface performance. It is central to modern cabinetry and panel work.",
-            "includes": "Can include matte and glossy laminates, textured sheets, decorative surfaces, and functional variants selected for different room conditions.",
-            "where_used": "Used on kitchen shutters, wardrobes, storage fronts, wall cladding panels, furniture tops, and interior joinery faces.",
-            "why_matters": "A suitable laminate system improves stain resistance, keeps cleaning simple, and helps visual themes stay consistent across multiple rooms.",
+            "intro": "Laminates define the visible surface quality—color, texture, and reflection shape the perception of the entire space.",
+            "includes": "Gloss, matte, textured, and specialty laminates.",
+            "where_used": "Cabinets, wardrobes, panels, and furniture fronts.",
+            "why_matters": "They protect the base material while delivering a consistent, durable finish.",
             "choose_us_points": [
-                "Finish curation based on usage, lighting, and design intent.",
-                "Precise application workflows for long-lasting surface behavior.",
-                "Edge detailing standards that improve overall visual quality.",
-                "Reliable guidance from sample selection to completion.",
+                "Finish curation based on lighting and usage.",
+                "Edge detailing and joint consistency.",
+                "Surface durability and maintenance guidance.",
+                "Application precision for clean outcomes.",
             ],
         },
         "Panels & Louvers": {
-            "intro": "Panels and louvers add depth, rhythm, and controlled texture to walls and furniture faces. This category is used when interiors need a refined design statement with practical build compatibility. It bridges aesthetics and function.",
-            "includes": "May include decorative panels, linear louvers, fluted profiles, acoustic-friendly options, and cladding-ready systems for feature surfaces.",
-            "where_used": "Widely applied in TV backdrops, bedroom feature walls, reception zones, corridor highlights, and selected modular furniture elevations.",
-            "why_matters": "It helps define focal points, improves spatial character, and upgrades plain surfaces into intentional design elements.",
+            "intro": "Panels and louvers introduce depth, rhythm, and visual layering without clutter.",
+            "includes": "Decorative wall panels, fluted systems, louvers in wood and composite finishes.",
+            "where_used": "Feature walls, partitions, and accent zones.",
+            "why_matters": "They create focal points while maintaining a controlled design language.",
             "choose_us_points": [
-                "Design-aligned panel planning for balanced visual composition.",
-                "Installation precision that preserves line continuity.",
-                "Material choices suited to maintenance and durability goals.",
-                "Execution support tailored to project finish standards.",
+                "Layout planning for visual balance.",
+                "Material selection for durability and finish.",
+                "Precision installation for alignment.",
+                "Integration with lighting and furniture.",
             ],
         },
         "Plywood": {
-            "intro": "Plywood forms the structural backbone of most interior furniture and joinery systems. This category focuses on board grades chosen for strength, stability, and long service life. It is where functional durability begins.",
-            "includes": "This can include MR, BWR, BWP, and other grade-specific boards selected according to moisture exposure and load requirements.",
-            "where_used": "Used in kitchen carcasses, wardrobes, loft units, bed frames, storage systems, panel bases, and custom interior furniture.",
-            "why_matters": "Right plywood selection prevents early deformation, improves screw-holding performance, and supports better finish outcomes over time.",
+            "intro": "Plywood is the structural backbone of interior work, defining strength, stability, and longevity.",
+            "includes": "MR, BWR, BWP, calibrated and marine-grade boards.",
+            "where_used": "Furniture carcasses, kitchens, wardrobes, and partitions.",
+            "why_matters": "Correct grade selection prevents failure, improves load handling, and extends life.",
             "choose_us_points": [
-                "Grade recommendations based on actual site conditions.",
-                "Fabrication methods that protect board integrity.",
-                "Build quality controls for stronger furniture life.",
-                "Clear execution process from cutting to installation.",
+                "Grade selection based on moisture and usage.",
+                "Structural planning for durability.",
+                "Compatibility with laminates and finishes.",
+                "Execution aligned with real site conditions.",
             ],
         },
         "UV Sheets": {
-            "intro": "UV sheets are chosen when interiors need a sharp reflective look with fast cleanability. This category supports contemporary design language while keeping surface upkeep practical. It is ideal for visible premium fronts.",
-            "includes": "Can include high-gloss UV-coated boards, decorative finish sheets, and front-facing panel options tuned for modern interior palettes.",
-            "where_used": "Typically used on wardrobes, kitchen shutters, vertical panel highlights, display units, and feature furniture fronts.",
-            "why_matters": "They provide a sleek premium finish, maintain visual brightness, and simplify routine maintenance in high-visibility areas.",
+            "intro": "UV sheets deliver high-gloss, mirror-like finishes for contemporary interiors.",
+            "includes": "High-gloss panels and UV-coated surfaces.",
+            "where_used": "Wardrobes, shutters, and modern furniture systems.",
+            "why_matters": "They create a clean, reflective finish while maintaining surface durability.",
             "choose_us_points": [
-                "Finish selection guidance for cohesive contemporary styling.",
-                "Surface-safe handling and installation standards.",
-                "Detailing quality that avoids mismatch across panel sets.",
-                "Dependable delivery for polished final presentation.",
+                "Finish selection aligned with lighting.",
+                "Careful handling to avoid surface damage.",
+                "Clean edge detailing and alignment.",
+                "Consistent installation quality.",
             ],
         },
     }
-    if name in handcrafted:
-        return handcrafted[name]
+
+    for k in handcrafted:
+        if _safe(k) == key:
+            return handcrafted[k]
+
     return {
-        "intro": f"{name} represents a focused material category used to improve how interiors perform and look in everyday use. It supports both practical planning and better finish outcomes across different project types.",
-        "includes": f"This category can include multiple product options under {name}, selected to match function, design direction, and durability needs.",
-        "where_used": f"{name} materials are generally used in homes, offices, modular setups, and custom interior zones where performance and finish must stay balanced.",
-        "why_matters": f"Choosing the right {name} solution helps improve usability, maintainability, and long-term quality in completed interiors.",
+        "intro": f"{name} contributes to both performance and finish quality across interior systems.",
+        "includes": f"This category includes multiple material options under {name}.",
+        "where_used": f"{name} is used across residential and commercial interiors.",
+        "why_matters": f"Correct selection improves durability, usability, and long-term consistency.",
         "choose_us_points": [
-            "Practical category guidance based on room and usage needs.",
-            "Material selection support with clear functional reasoning.",
-            "Execution quality focused on finish consistency.",
-            "Reliable project handling from planning through delivery.",
+            "Practical selection based on real usage.",
+            "Material compatibility and finish control.",
+            "Execution aligned with site conditions.",
+            "Long-term performance focus.",
         ],
     }
 
 
+# ============================= #
+# PRODUCT CONTENT (PREMIUM)
+# ============================= #
 def _product_sections(product):
-    name = (product.get("name") if isinstance(product, dict) else product.name).strip()
-    category_name = ""
-    if isinstance(product, dict):
-        category_name = product.get("category_name", "")
-    else:
-        category_name = product.category.name if product.category else ""
-    
+    name = (product.get("name") if isinstance(product, dict) else (product.name or "")).strip()
+    key = _safe(name)
+
     handcrafted = {
-        "Acrylic Laminates": {
-            "intro": "Acrylic Laminates are selected when you want a crisp, modern surface that stays visually clean in daily use. They give shutters a reflective finish that instantly brightens the room. In active homes, they balance style with practical wipe-and-go maintenance.",
-            "what_it_is": "Acrylic laminate is a decorative surface sheet with a glossy top layer applied on board panels. In simple terms, it is what gives cabinets and wardrobes that smooth, mirror-like front.",
-            "where_used": "Most commonly used on kitchen shutters, wardrobe doors, loft panels, and display furniture where a premium polished look is expected.",
-            "why_it_matters": "It helps interiors look sharper, reduces effort in routine cleaning, and keeps visible surfaces consistent even with frequent touch and handling.",
+        "mr": {
+            "intro": "MR plywood is a practical base choice for dry interior applications where cost efficiency and structural stability are priorities.",
+            "what_it_is": "Moisture-resistant plywood designed for low-humidity environments.",
+            "where_used": "Wardrobes, beds, storage units, and general furniture.",
+            "why_it_matters": "Delivers reliable performance for indoor use without unnecessary cost escalation.",
             "choose_us_points": [
-                "Finish-focused panel selection for a uniform gloss outcome.",
-                "Precise edge detailing that avoids patchy visual breaks.",
-                "Skilled installation workflow for clean front-line alignment.",
-                "Reliable execution support from sampling to final fitting.",
+                "Correct grade selection based on usage.",
+                "Clean fabrication for structural stability.",
+                "Execution aligned with design intent.",
+                "Balanced cost-performance approach.",
             ],
         },
-        "BWP": {
-            "intro": "BWP is preferred for spaces where moisture exposure is part of normal use, especially around sinks and utility zones. It forms a strong base that stays stable under damp conditions. This makes it a dependable choice for long-life cabinetry.",
-            "what_it_is": "BWP means Boiling Water Proof grade plywood designed for high moisture resistance. It is the core material used when furniture needs stronger protection against water impact.",
-            "where_used": "Used in kitchen carcasses, sink units, utility cabinets, bathroom-adjacent storage, and service counters where humidity is persistent.",
-            "why_it_matters": "It supports structural life in demanding zones, lowers risk of warping, and protects the finish from premature failures caused by moisture.",
+        "bwr": {
+            "intro": "BWR plywood offers a balanced solution for areas exposed to moderate moisture.",
+            "what_it_is": "Boiling water resistant plywood for semi-moist conditions.",
+            "where_used": "Kitchen cabinets, storage units, and utility zones.",
+            "why_it_matters": "Reduces the risk of swelling and extends furniture life compared to MR grade.",
             "choose_us_points": [
-                "Correct grade recommendation based on actual usage conditions.",
-                "Joinery methods that preserve board strength over time.",
-                "Execution standards tuned for wet-area durability.",
-                "Clear quality checks before and during installation.",
+                "Material planning based on environment.",
+                "Joint strength and durability focus.",
+                "Cost vs performance optimization.",
+                "Reliable execution standards.",
             ],
         },
-        "BWR": {
-            "intro": "BWR is ideal when interiors need reliable moisture resistance without moving into heavy-duty wet-zone specifications. It offers a practical balance between performance and budget. For most residential furniture, it delivers dependable day-to-day stability.",
-            "what_it_is": "BWR stands for Boiling Water Resistant plywood, built to handle moderate moisture exposure. It is commonly chosen as a practical structural board for general interior furniture.",
-            "where_used": "Applied in wardrobes, bedroom furniture, study units, living room storage, and dry kitchen sections requiring stronger longevity than basic grades.",
-            "why_it_matters": "It improves furniture life, keeps panel behavior predictable, and helps maintain finish quality through changing seasonal conditions.",
+        "bwp": {
+            "intro": "BWP plywood is engineered for high-moisture environments where long-term durability is critical.",
+            "what_it_is": "Boiling water proof plywood suitable for wet areas.",
+            "where_used": "Kitchen sink units, bathrooms, and utility areas.",
+            "why_it_matters": "Prevents warping, swelling, and structural degradation over time.",
             "choose_us_points": [
-                "Material planning that matches product grade to usage zone.",
-                "Neat fabrication with attention to load-bearing joints.",
-                "Balanced specification guidance for cost and durability.",
-                "Consistent on-site execution with dependable follow-through.",
+                "Grade selection for wet zones.",
+                "Durability-focused installation.",
+                "Quality checks during execution.",
+                "Long-term performance assurance.",
             ],
         },
-        "Channels": {
-            "intro": "Channels are used to create clean, handle-free storage lines while keeping access easy and comfortable. They help modern interiors feel uncluttered without sacrificing daily usability. In compact spaces, they also reduce visual noise.",
-            "what_it_is": "A channel is a profile system fitted into shutters or drawer lines to enable grip without external handles. It allows opening movement while preserving a minimal front elevation.",
-            "where_used": "Installed in contemporary kitchens, wardrobes, utility cabinets, vanity units, and media consoles where straight-line design is preferred.",
-            "why_it_matters": "It improves user comfort, keeps layouts visually lighter, and supports a more seamless finish language across full-height storage units.",
+        "mica": {
+            "intro": "Mica laminates define the visible finish of interiors, balancing aesthetics with protection.",
+            "what_it_is": "Decorative laminate applied over base boards.",
+            "where_used": "Wardrobes, cabinets, panels, and furniture surfaces.",
+            "why_it_matters": "Enhances durability while delivering a refined visual finish.",
             "choose_us_points": [
-                "Exact profile selection for smooth hand movement and aesthetics.",
-                "Fine alignment control across long shutter runs.",
-                "Installation precision that preserves linear consistency.",
-                "Execution reliability for contemporary handle-less systems.",
-            ],
-        },
-        "Door handles & Locks": {
-            "intro": "Door handles and locks shape both convenience and security in everyday movement through a space. The right set feels natural in hand while still giving dependable control. They are small components with a major user experience impact.",
-            "what_it_is": "This includes handle hardware for opening and lock systems for controlled access. In simple terms, these fittings determine how comfortably and securely doors are used.",
-            "where_used": "Used on main doors, bedroom entries, bathroom doors, utility access points, and selected storage areas requiring privacy or restricted entry.",
-            "why_it_matters": "Good hardware improves grip comfort, supports smoother operation cycles, and prevents early wear that usually appears in high-touch locations.",
-            "choose_us_points": [
-                "Ergonomic hardware options matched to door type and usage.",
-                "Reliable locking systems selected for practical safety needs.",
-                "Clean fitting standards for stable and silent operation.",
-                "Execution discipline that avoids misalignment and rework.",
-            ],
-        },
-        "Hinges": {
-            "intro": "Hinges define how smoothly shutters move, close, and hold alignment over years of use. A well-selected hinge setup makes furniture feel refined in everyday interaction. It is a core performance layer behind visual cabinetry quality.",
-            "what_it_is": "A hinge is the movement joint that connects shutters to cabinet bodies. It controls opening angle, closing behavior, and long-term door stability.",
-            "where_used": "Found in kitchen shutters, wardrobe doors, overhead cabinets, bathroom vanities, and storage units that open multiple times a day.",
-            "why_it_matters": "It protects shutter alignment, improves user comfort, and reduces maintenance issues caused by sagging, friction, or uneven closure.",
-            "choose_us_points": [
-                "Hinge selection based on shutter weight and opening frequency.",
-                "Precise boring and mounting for balanced movement control.",
-                "Adjustment-focused installation to maintain long-term fit.",
-                "Quality-first execution across complete cabinetry systems.",
-            ],
-        },
-        "MR": {
-            "intro": "MR grade is a practical base choice for interior areas that stay mostly dry during regular use. It supports clean furniture execution where water contact is limited. For many standard rooms, it offers efficient and stable performance.",
-            "what_it_is": "MR stands for Moisture Resistant plywood, intended for interior dry applications. It is a commonly used board for furniture that does not face persistent damp exposure.",
-            "where_used": "Used in wardrobes, bedroom units, study tables, paneling, loft storage, and living room furniture in low-moisture zones.",
-            "why_it_matters": "It provides dependable structural behavior for dry interiors while helping keep project specifications aligned with practical budget planning.",
-            "choose_us_points": [
-                "Application-led grade planning to avoid over or under specification.",
-                "Careful board handling and fabrication for cleaner output.",
-                "Well-controlled installation process for consistent panel behavior.",
-                "Project guidance focused on value and execution quality.",
-            ],
-        },
-        "Mica": {
-            "intro": "Mica is chosen when surfaces need a neat finish with robust day-to-day practicality. It offers broad design flexibility across colors and textures while remaining easy to maintain. This makes it a strong option for active household furniture.",
-            "what_it_is": "Mica is a decorative laminate sheet applied over plywood or board surfaces. In simple terms, it is the visible finishing layer that defines look, touch, and surface behavior.",
-            "where_used": "Applied on kitchen shutters, wardrobes, storage fronts, wall panels, table tops, and custom furniture that need durable finish coverage.",
-            "why_it_matters": "It improves stain resistance, protects base boards from surface wear, and allows interior themes to stay visually consistent across rooms.",
-            "choose_us_points": [
-                "Finish selection support across textures, tones, and use cases.",
-                "Edge and joint detailing for cleaner visual continuity.",
-                "Accurate lamination workflow to prevent bubbling or mismatch.",
-                "Dependable delivery from sampling through final installation.",
-            ],
-        },
-        "PVC Laminates": {
-            "intro": "PVC Laminates are selected where moisture safety and low-maintenance surfaces are equally important. They help keep panels looking neat even in utility-heavy spaces. For practical interiors, they offer resilient finish performance with simple upkeep.",
-            "what_it_is": "PVC laminate is a polymer-based surface layer used on boards for protective finishing. It acts as a shield that supports water tolerance and routine cleanability.",
-            "where_used": "Typically used in kitchens, utility cabinets, bathroom-adjacent furniture, service counters, and storage units that face regular cleaning cycles.",
-            "why_it_matters": "It reduces moisture-related surface stress, keeps maintenance straightforward, and preserves finish quality in spaces with frequent contact.",
-            "choose_us_points": [
-                "Usage-specific surface recommendations for wet and active zones.",
-                "Installation quality focused on stable adhesion and clean edges.",
-                "Execution checks that protect long-term finish durability.",
-                "Reliable coordination from selection to on-site completion.",
+                "Finish selection based on design intent.",
+                "Edge detailing and surface alignment.",
+                "Clean lamination process.",
+                "Consistent installation quality.",
             ],
         },
     }
 
-    if name in handcrafted:
-        return handcrafted[name]
+    for k in handcrafted:
+        if _safe(k) == key:
+            return handcrafted[k]
 
-    # Category-based dynamic content generation for unique product descriptions
-    category_content = {
-        "Panels & Louvers": {
-            "intro": f"{name} brings architectural depth and rhythm to interior elevations. Designed for feature walls and furniture faces, it transforms flat surfaces into layered design statements.",
-            "what_it_is": f"{name} is a profiled surface system that adds three-dimensional texture to vertical and horizontal planes. The linear patterns create shadow lines and visual interest across large surfaces.",
-            "where_used": f"{name} is applied on TV backdrops, bedroom feature walls, reception area highlights, corridor transitions, and wardrobe elevations where design impact matters.",
-            "why_it_matters": f"{name} elevates ordinary walls into focal points. The textured surface breaks visual monotony while maintaining clean, contemporary lines that complement modern interiors.",
-            "choose_us_points": [
-                "Design-aligned panel planning for balanced wall composition.",
-                "Precision installation preserving line continuity across joints.",
-                "Material grades selected for durability and maintenance ease.",
-                "Finish coordination with surrounding surfaces and lighting."
-            ],
-        },
-        "Curtain": {
-            "intro": f"{name} controls how natural light enters and shapes a room's atmosphere. The right fabric weight and opacity balance privacy needs with ambient brightness.",
-            "what_it_is": f"{name} is a soft furnishing layer that filters daylight, provides privacy, and adds textural warmth to interior spaces. It hangs in controlled folds that respond to air movement.",
-            "where_used": f"{name} hangs in bedrooms, living rooms, dining areas, and office spaces with glazing. It frames views while managing heat, light, and outside visibility.",
-            "why_it_matters": f"{name} completes rooms that otherwise feel hard and unfinished. It softens acoustics, controls temperature, and provides the privacy essential for comfortable living.",
-            "choose_us_points": [
-                "Fabric selection matched to light control and privacy needs.",
-                "Accurate measurement for proper fullness and floor clearance.",
-                "Quality stitching and heading for lasting drapery performance.",
-                "Installation hardware chosen for wall type and weight load."
-            ],
-        },
-        "Hardware": {
-            "intro": f"{name} determines how doors feel when opened and how drawers glide when pulled. Quality fittings make daily interactions with furniture feel smooth and reliable.",
-            "what_it_is": f"{name} comprises the mechanical fittings that enable movement, support weight, and provide security in interior installations. These small components carry significant functional loads.",
-            "where_used": f"{name} installs on kitchen cabinets, wardrobes, bathroom vanities, main doors, and storage units. Every opening and closing action depends on these precision components.",
-            "why_it_matters": f"{name} directly impacts user experience and furniture longevity. Poor fittings create misalignment and friction; quality hardware maintains smooth operation for years.",
-            "choose_us_points": [
-                "Load-appropriate fitting selection for each application type.",
-                "Brand quality that ensures consistent performance cycles.",
-                "Precise installation protecting alignment and movement.",
-                "Adjustment capabilities for long-term maintenance access."
-            ],
-        },
-        "Plywood": {
-            "intro": f"{name} forms the structural foundation beneath every visible surface. Board quality determines how furniture withstands daily loads and seasonal moisture changes.",
-            "what_it_is": f"{name} is an engineered wood panel built from thin veneer layers cross-bonded for strength. The grade indicates moisture resistance and structural integrity levels.",
-            "where_used": f"{name} builds kitchen carcasses, wardrobe boxes, bed frames, storage units, and panel substrates. It provides the hidden structure that supports visible finishes.",
-            "why_it_matters": f"{name} quality affects screw holding, warping resistance, and furniture lifespan. Correct grade selection prevents failures in demanding moisture conditions.",
-            "choose_us_points": [
-                "Grade-matched specification for each application zone.",
-                "Certified board quality with verified core construction.",
-                "Protected edge sealing preventing moisture ingress.",
-                "Responsible sourcing with consistent thickness tolerance."
-            ],
-        },
-        "Laminates": {
-            "intro": f"{name} defines the visible personality of furniture surfaces. From matte textures to high gloss, the finish layer creates the tactile and visual impression of every piece.",
-            "what_it_is": f"{name} is a decorative surface film applied under heat and pressure to board substrates. It provides color, texture, and protective wear resistance in one layer.",
-            "where_used": f"{name} covers kitchen shutters, wardrobe doors, tabletops, wall panels, and storage fronts. It is the skin that meets the eye and hand in every interaction.",
-            "why_it_matters": f"{name} protects base materials while establishing design character. Quality application prevents peeling and bubbling; correct selection ensures color stability.",
-            "choose_us_points": [
-                "Finish curation aligned to lighting and design direction.",
-                "Premium substrate preparation for flawless adhesion.",
-                "Edge-banding coordination for seamless corner treatment.",
-                "Quality pressing that eliminates air pockets and weak bonds."
-            ],
-        },
-        "UV Sheets": {
-            "intro": f"{name} delivers mirror-like reflectivity for contemporary interiors. The cured coating creates a hard, glossy surface that amplifies light and adds visual luxury.",
-            "what_it_is": f"{name} are pre-finished boards with ultraviolet-cured coating that creates a glass-smooth surface. The factory finish surpasses what site painting can achieve.",
-            "where_used": f"{name} feature on wardrobe shutters, kitchen units, display cabinets, and vanity areas. They provide the high-impact finish that defines premium residential interiors.",
-            "why_it_matters": f"{name} offer unmatched gloss consistency and scratch resistance. The factory-cured surface eliminates brush marks and provides washability that painted surfaces cannot match.",
-            "choose_us_points": [
-                "Color-matched edge treatment for invisible seams.",
-                "Protective handling protocols preventing surface damage.",
-                "Precision cutting and joining preserving factory edges.",
-                "Installation sequencing that protects finished surfaces."
-            ],
-        },
-    }
-    
-    # Use category-specific content if available
-    if category_name in category_content:
-        content = category_content[category_name].copy()
-        # Personalize with product name where appropriate
-        content["intro"] = content["intro"].replace(f"{name} brings", f"{name} brings").replace(f"{name} controls", f"{name} controls").replace(f"{name} determines", f"{name} determines").replace(f"{name} forms", f"{name} forms").replace(f"{name} defines", f"{name} defines").replace(f"{name} delivers", f"{name} delivers")
-        return content
-    
-    # Ultimate fallback for uncategorized products - truly generic but professional
     return {
-        "intro": f"{name} is selected to enhance specific interior applications with targeted performance characteristics. It integrates into broader design schemes while addressing functional requirements.",
-        "what_it_is": f"{name} is a specialized interior material designed for particular applications. Its composition and finish properties suit the demands of residential and commercial environments.",
-        "where_used": f"{name} installs where project specifications demand its particular properties. Application contexts vary based on design intent and performance requirements.",
-        "why_it_matters": f"{name} contributes to overall project quality through its specific performance profile. Correct application ensures intended outcomes in finished spaces.",
+        "intro": f"{name} supports both functional performance and finish quality in interior applications.",
+        "what_it_is": f"{name} is used as part of structured interior systems.",
+        "where_used": "Furniture, cabinetry, and interior panels.",
+        "why_it_matters": "Improves usability, durability, and overall project quality.",
         "choose_us_points": [
-            "Specification guidance based on project requirements.",
-            "Quality sourcing from verified manufacturing sources.",
-            "Installation protocols ensuring intended performance.",
-            "Integration support with related material systems."
+            "Material selection based on actual usage.",
+            "Execution aligned with design intent.",
+            "Balanced performance and cost.",
+            "Long-term reliability focus.",
         ],
     }
 
 
+# ============================= #
+# PRODUCTS HOME
+# ============================= #
+class ProductsHomeView(View):
+    def get(self, request):
+        groups = product_groups_from_queryset(
+            ProductCategory.objects.prefetch_related("products").order_by("name")
+        )
+        return render(request, "products/products_home.html", {
+            "product_groups": groups or fallback_product_cards()
+        })
+
+
+# ============================= #
+# CATEGORY VIEW
+# ============================= #
 class ProductCategoryView(View):
     def get(self, request, category_slug):
-        category = (
-            ProductCategory.objects.prefetch_related("products")
-            .filter(slug=category_slug)
-            .first()
-        )
+        category = ProductCategory.objects.prefetch_related("products").filter(slug=category_slug).first()
+
         if category:
             category_data = product_groups_from_queryset([category])[0]
         else:
@@ -365,43 +235,34 @@ class ProductCategoryView(View):
         if not category_data:
             raise Http404("Product category not found")
 
-        context = {
-            "category": category_data,
-            "meta_title": f"{category_data['name']} | Product Category | Sudama Interiors",
-            "meta_description": (
-                f"Explore the {category_data['name']} category at Sudama Interiors with applications, "
-                "benefits, and material options for practical and premium spaces."
-            ),
-        }
+        context = {"category": category_data}
         context.update(_category_sections(category_data))
         return render(request, "products/category_detail.html", context)
 
 
+# ============================= #
+# PRODUCT DETAIL
+# ============================= #
 class ProductDetailView(View):
     def get(self, request, category_slug, product_slug):
-        product = (
-            Product.objects.select_related("category")
-            .filter(category__slug=category_slug, slug=product_slug)
-            .first()
-        )
-        category_data = None
+        product = Product.objects.select_related("category").filter(
+            category__slug=category_slug,
+            slug=product_slug
+        ).first()
+
         if product:
             product_data = product_card_from_model(product)
             category_data = product_groups_from_queryset([product.category])[0]
         else:
             category_data, product_data = find_fallback_product(category_slug, product_slug)
 
-        if not category_data or not product_data:
+        if not product_data:
             raise Http404("Product not found")
 
         context = {
             "category": category_data,
             "product": product_data,
-            "meta_title": f"{product_data['name']} | Sudama Interiors",
-            "meta_description": (
-                f"Explore {product_data['name']} from Sudama Interiors with practical guidance on usage, "
-                "benefits, finish outcomes, and long-term performance."
-            ),
         }
+
         context.update(_product_sections(product_data))
         return render(request, "products/product_detail.html", context)
