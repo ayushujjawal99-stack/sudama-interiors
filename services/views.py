@@ -3,17 +3,21 @@ from django.shortcuts import render
 
 from core.site_content import (
     fallback_service_cards,
-    find_fallback_service,
     service_groups_from_queryset,
 )
 from .content import SERVICE_CONTENT
 from .models import ServiceCategory
 
 
+# ============================= #
+# SERVICES HOME
+# ============================= #
+
 def services_home(request):
     groups = service_groups_from_queryset(
         ServiceCategory.objects.prefetch_related("services").order_by("name")
     )
+
     return render(
         request,
         "services/services_home.html",
@@ -22,11 +26,12 @@ def services_home(request):
 
 
 # ============================= #
-# SAFE SECTION BUILDER (FROM content.py)
+# SAFE SECTION BUILDER
 # ============================= #
 
 def _build_sections(content):
     sections = []
+
     for index, section in enumerate(content.get("sections", []), start=1):
         sections.append({
             "title": section.get("title") or f"Section {index}",
@@ -34,68 +39,89 @@ def _build_sections(content):
             "images": section.get("images", []),
             "order": index,
         })
+
     return sections
 
 
 # ============================= #
-# MAIN VIEW
+# SERVICE DETAIL (FIXED)
 # ============================= #
 
 def service_detail(request, slug):
-    # PRIMARY: content.py
-    content = SERVICE_CONTENT.get(slug)
+    # =============================
+    # 1. GET SERVICE FROM DB PIPELINE
+    # =============================
+    categories = ServiceCategory.objects.prefetch_related("services")
+    groups = service_groups_from_queryset(categories)
 
-    # SECONDARY: fallback cards
-    fallback_service = find_fallback_service(slug)
+    all_services = [
+        s for g in groups for s in g.get("services", [])
+    ]
 
-    if not content and not fallback_service:
+    service = next((s for s in all_services if s["slug"] == slug), None)
+
+    # =============================
+    # 2. FALLBACK (IF NOT FOUND)
+    # =============================
+    if not service:
+        fallback_groups = fallback_service_cards()
+
+        all_services = [
+            s for g in fallback_groups for s in g.get("services", [])
+        ]
+
+        service = next((s for s in all_services if s["slug"] == slug), None)
+
+    if not service:
         raise Http404("Service not found")
 
-    # BASIC SERVICE DATA
-    if fallback_service:
-        service_name = fallback_service["name"]
-        category_name = fallback_service["category_name"]
-    else:
-        # fallback minimal
-        service_name = slug.replace("-", " ").title()
-        category_name = "Service"
+    # =============================
+    # 3. CONTENT (FROM content.py)
+    # =============================
+    content = SERVICE_CONTENT.get(slug, {})
 
-    # CONTENT (100% from content.py)
-    intro = content.get("intro", "") if content else ""
-    sections = _build_sections(content or {})
+    intro = content.get("intro", "")
+    sections = _build_sections(content)
 
-    # GALLERY (collect from sections)
+    # =============================
+    # 4. GALLERY BUILD
+    # =============================
     gallery_images = []
+
     for sec in sections:
         for img in sec.get("images", []):
             gallery_images.append({
                 "url": img,
-                "alt": service_name
+                "alt": service["name"]
             })
 
-    # LIMIT images (clean UI)
     gallery_images = gallery_images[:6]
 
-    # META
-    meta_title = f"{service_name} | Sudama Interiors"
-    meta_description = intro or f"Explore professional {service_name.lower()} services with premium execution."
+    # =============================
+    # 5. META
+    # =============================
+    meta_title = f"{service['name']} | Sudama Interiors"
+    meta_description = (
+        intro
+        or f"Explore professional {service['name'].lower()} services with premium execution."
+    )
 
+    # =============================
+    # 6. RENDER
+    # =============================
     return render(
         request,
         "services/service_detail.html",
         {
-            "service": {
-                "name": service_name,
-                "category_name": category_name,
-            },
+            "service": service,
             "hero_description": intro,
             "meta_title": meta_title,
             "meta_description": meta_description,
             "intro": intro,
             "detail_sections": sections,
             "gallery_images": gallery_images,
-            "construction_layout": content.get("construction_layout") if content else None,
-            "door_specs": content.get("door_specs") if content else None,
-            "service_highlights": content.get("highlights", []) if content else [],
+            "construction_layout": content.get("construction_layout"),
+            "door_specs": content.get("door_specs"),
+            "service_highlights": content.get("highlights", []),
         },
     )
