@@ -2284,3 +2284,16 @@ p {
 .site-header[data-scrolled] {
   box-shadow: var(--shadow-sm);
 }
+
+/* =========================
+   FAILSAFE: FORCE VISIBILITY
+   ========================= */
+
+.js-section,
+.js-split,
+.js-cta,
+.js-card,
+.js-hero-item {
+  opacity: 1 !important;
+  transform: none !important;
+}
