@@ -844,15 +844,10 @@ p {
 
 /* ─── ABOUT SECTION ──────────────────────────────────────── */
 .about-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  background: var(--ink);
+  color: var(--paper);
 }
 
-.about-content {
-  max-width: 800px;
-}
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
