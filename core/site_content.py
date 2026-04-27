@@ -164,6 +164,7 @@ def service_card_from_model(service):
         "category_name": service.category.name if service.category_id else "",
         "summary": service.short_description or service.full_description or "",
         "url": service.get_absolute_url() if service.slug else safe_reverse("services:services_home"),
+        "hero_images": service.hero_images or [],
         "is_fallback": False,
     }
 

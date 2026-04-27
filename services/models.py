@@ -45,6 +45,7 @@ class Service(models.Model):
         blank=True,
         null=True
     )
+    hero_images = models.JSONField(default=list, blank=True)
 
     meta_title = models.CharField(max_length=255, blank=True)
     meta_description = models.CharField(max_length=255, blank=True)

@@ -33,13 +33,12 @@
       </div>
     </div>
 
-    <!-- IMAGE DIRECTION FIX -->
     <div class="detail-visual js-hero-item">
 
-      {% if gallery_images %}
-        {% for img in gallery_images|slice:":3" %}
+      {% if hero_images %}
+        {% for img in hero_images %}
           <div class="media-tile">
-            <img src="{{ img.url }}" alt="{{ service.name }} view {{ forloop.counter }}">
+            <img src="{{ img.url }}" alt="{{ img.alt }}">
           </div>
         {% endfor %}
       {% else %}
@@ -105,31 +104,6 @@
             {% endfor %}
           </ul>
           {% endif %}
-        </div>
-
-        <!-- IMAGE DIRECTION FIX -->
-        <div class="detail-block-media js-split">
-
-          {% if section.images %}
-            {% for img in section.images %}
-              <div class="media-tile">
-                <img src="{{ img }}" alt="{{ section.title }} image {{ forloop.counter }}">
-              </div>
-            {% endfor %}
-
-          {% elif gallery_images %}
-            {% for img in gallery_images|slice:":3" %}
-              <div class="media-tile">
-                <img src="{{ img.url }}" alt="{{ service.name }} detail {{ forloop.counter }}">
-              </div>
-            {% endfor %}
-
-          {% else %}
-            <div class="media-tile media-placeholder"></div>
-            <div class="media-tile media-placeholder"></div>
-            <div class="media-tile media-placeholder"></div>
-          {% endif %}
-
         </div>
 
       </article>

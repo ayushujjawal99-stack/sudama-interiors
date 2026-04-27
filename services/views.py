@@ -1,3 +1,5 @@
+import random
+
 from django.http import Http404
 from django.shortcuts import render
 
@@ -36,11 +38,67 @@ def _build_sections(content):
         sections.append({
             "title": section.get("title") or f"Section {index}",
             "items": section.get("items", []),
-            "images": section.get("images", []),
             "order": index,
         })
 
     return sections
+
+
+def _section_images(content):
+    images = []
+
+    for section in content.get("sections", []):
+        for image in section.get("images", []):
+            if image and image not in images:
+                images.append(image)
+
+    return images
+
+
+def _global_hero_pool(current_slug):
+    images = []
+
+    for slug, content in SERVICE_CONTENT.items():
+        if slug == current_slug:
+            continue
+
+        source_images = content.get("hero_images") or _section_images(content)
+
+        for image in source_images:
+            if image and image not in images:
+                images.append(image)
+
+    return images
+
+
+def _build_hero_images(slug, content, service_name, model_hero_images=None):
+    service_images = set(_section_images(content))
+    curated_images = [
+        image for image in (model_hero_images or content.get("hero_images", []))
+        if image and image not in service_images
+    ]
+
+    if len(curated_images) >= 3:
+        hero_urls = curated_images[:3]
+    else:
+        fallback_pool = _global_hero_pool(slug)
+        randomizer = random.Random(slug)
+        randomizer.shuffle(fallback_pool)
+        hero_urls = curated_images[:]
+
+        for image in fallback_pool:
+            if image not in hero_urls:
+                hero_urls.append(image)
+            if len(hero_urls) == 3:
+                break
+
+    return [
+        {
+            "url": image,
+            "alt": f"{service_name} premium project view {index}",
+        }
+        for index, image in enumerate(hero_urls[:3], start=1)
+    ]
 
 
 # ============================= #
@@ -84,18 +142,15 @@ def service_detail(request, slug):
     sections = _build_sections(content)
 
     # =============================
-    # 4. GALLERY BUILD
+    # 4. IMAGE SOURCES
     # =============================
-    gallery_images = []
-
-    for sec in sections:
-        for img in sec.get("images", []):
-            gallery_images.append({
-                "url": img,
-                "alt": service["name"]
-            })
-
-    gallery_images = gallery_images[:6]
+    hero_images = _build_hero_images(
+        slug,
+        content,
+        service["name"],
+        service.get("hero_images"),
+    )
+    content_images = _section_images(content)
 
     # =============================
     # 5. META
@@ -119,7 +174,8 @@ def service_detail(request, slug):
             "meta_description": meta_description,
             "intro": intro,
             "detail_sections": sections,
-            "gallery_images": gallery_images,
+            "hero_images": hero_images,
+            "content_images": content_images,
             "construction_layout": content.get("construction_layout"),
             "door_specs": content.get("door_specs"),
             "service_highlights": content.get("highlights", []),
