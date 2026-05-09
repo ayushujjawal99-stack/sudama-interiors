@@ -1,31 +1,37 @@
 from django.contrib import admin
-from .models import Service, ServiceCategory, ServiceImage, ServiceSection
+from django.utils.html import format_html
 
-
-@admin.register(ServiceCategory)
-class ServiceCategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-    search_fields = ("name",)
+from .models import Service
 
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "slug")
-    list_filter = ("category",)
-    search_fields = ("name", "slug", "short_description", "meta_title")
-    prepopulated_fields = {"slug": ("name",)}
+    list_display = ("preview", "title", "slug", "created_at")
+    list_display_links = ("preview", "title")
+    readonly_fields = ("image_preview", "created_at")
+    prepopulated_fields = {"slug": ("title",)}
+    search_fields = ("title", "slug", "short_description", "description")
+    ordering = ("title",)
+    fieldsets = (
+        ("Studio Service", {"fields": ("title", "slug", "short_description", "description")}),
+        ("Cinematic Image", {"fields": ("image", "image_preview")}),
+        ("System", {"fields": ("created_at",), "classes": ("collapse",)}),
+    )
 
+    @admin.display(description="Image")
+    def preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="width:76px;height:52px;object-fit:cover;border-radius:8px;" />',
+                obj.image.url,
+            )
+        return "No image"
 
-@admin.register(ServiceSection)
-class ServiceSectionAdmin(admin.ModelAdmin):
-    list_display = ("title", "service", "order")
-    list_filter = ("service__category", "service")
-    search_fields = ("title", "content", "service__name")
-    ordering = ("service__name", "order")
-
-
-@admin.register(ServiceImage)
-class ServiceImageAdmin(admin.ModelAdmin):
-    list_display = ("service", "alt_text")
-    list_filter = ("service__category", "service")
-    search_fields = ("alt_text", "service__name")
+    @admin.display(description="Current preview")
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="max-width:420px;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.22);" />',
+                obj.image.url,
+            )
+        return "Upload a service image to see the preview."

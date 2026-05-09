@@ -1,135 +1,29 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
-{% block title %}Contact | Sudama Construction & Interiors{% endblock %}
-{% block meta_description %}Contact Sudama Construction & Interiors for interior design, materials, construction support, modular systems, doors, windows, and project guidance.{% endblock %}
-
+{% block title %}Contact | Sudama Interiors{% endblock %}
 {% block content %}
-
-<!-- HERO -->
-<section class="page-hero js-section">
-    <div class="container page-hero-grid">
-
-        <div>
-            <p class="eyebrow js-hero-item">
-                Contact
-            </p>
-
-            <h1 class="js-hero-item">
-                Start with clarity. We guide the next step.
-            </h1>
-
-            <p class="js-hero-item">
-                Share your requirement for interiors, materials, construction, or execution —
-                and get clear direction before work begins.
-            </p>
-        </div>
-
+<section class="contact-shell">
+  <div class="contact-copy reveal">
+    <p class="eyebrow">Private Consultation</p>
+    <h1>Tell us what your space should feel like.</h1>
+    <p>Share a few details and our studio will help you shape the next step with clarity, taste, and a premium eye for execution.</p>
+    <div class="contact-lines">
+      <a href="tel:+919876543210">{{ brand_phone }}</a>
+      <a href="mailto:{{ brand_email }}">{{ brand_email }}</a>
+      <span>{{ brand_location }}</span>
     </div>
+  </div>
+  <form class="contact-form glass reveal" method="post">
+    {% csrf_token %}
+    {% if messages %}
+      {% for message in messages %}<p class="form-message">{{ message }}</p>{% endfor %}
+    {% endif %}
+    <label>Name<input name="name" type="text" required></label>
+    <label>Phone<input name="phone" type="tel" required></label>
+    <label>Project Type<select name="service">{% for service in services %}<option>{{ service.title }}</option>{% endfor %}</select></label>
+    <label>Vision<textarea name="message" rows="5" placeholder="A 3BHK with warm lighting, modular kitchen, wardrobe planning..."></textarea></label>
+    <button class="button button-primary magnetic" type="submit">Request Consultation</button>
+  </form>
 </section>
-
-<!-- CONTACT -->
-<section class="section contact-section js-section">
-    <div class="container contact-grid">
-
-        <!-- LEFT -->
-        <aside class="contact-aside js-split">
-
-            <p class="eyebrow">
-                Consultation Desk
-            </p>
-
-            <h2>
-                Practical guidance before you commit.
-            </h2>
-
-            <p>
-                We help you identify the right service, material category, and execution approach —
-                so decisions are clear before spending begins.
-            </p>
-
-            <div class="contact-methods">
-                <a href="tel:+918757477519">+91 8757477519</a>
-                <a href="mailto:enterprisessudama734@gmail.com">enterprisessudama734@gmail.com</a>
-                <span>M.R.M College Road, Lalbagh, Darbhanga</span>
-            </div>
-
-        </aside>
-
-        <!-- FORM -->
-        <div class="contact-card js-split">
-
-            {% if messages %}
-                <div class="message-stack">
-                    {% for message in messages %}
-                        <p class="message message-{{ message.tags }}">
-                            {{ message }}
-                        </p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            <form method="post" class="contact-form" novalidate>
-                {% csrf_token %}
-
-                {% if form.non_field_errors %}
-                    <div class="form-errors">
-                        {{ form.non_field_errors }}
-                    </div>
-                {% endif %}
-
-                <div class="form-row">
-
-                    <label>
-                        <span>Name</span>
-                        {{ form.name }}
-                        {{ form.name.errors }}
-                    </label>
-
-                    <label>
-                        <span>Phone</span>
-                        {{ form.phone }}
-                        {{ form.phone.errors }}
-                    </label>
-
-                </div>
-
-                <label>
-                    <span>Email</span>
-                    {{ form.email }}
-                    {{ form.email.errors }}
-                </label>
-
-                <div class="form-row">
-
-                    <label>
-                        <span>Category</span>
-                        {{ form.category }}
-                        {{ form.category.errors }}
-                    </label>
-
-                    <label>
-                        <span>Service</span>
-                        {{ form.subcategory }}
-                        {{ form.subcategory.errors }}
-                    </label>
-
-                </div>
-
-                <label>
-                    <span>Requirement</span>
-                    {{ form.message }}
-                    {{ form.message.errors }}
-                </label>
-
-                <button type="submit" class="btn btn-primary">
-                    Request Callback
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-</section>
-
 {% endblock %}

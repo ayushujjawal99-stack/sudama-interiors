@@ -1,0 +1,29 @@
+<header class="site-header" data-nav>
+  <a class="brand" href="{% url 'home' %}" aria-label="Sudama Interiors home">
+    <span class="brand-mark">SI</span>
+    <span class="brand-copy">Sudama Interiors</span>
+  </a>
+  <nav class="desktop-nav" aria-label="Primary navigation">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'services:services_home' %}">Services</a>
+    <a href="{% url 'about' %}">About</a>
+    <a href="{% url 'contact' %}">Contact</a>
+  </nav>
+  <a class="nav-cta magnetic" href="{% url 'contact' %}">Book Consultation</a>
+  <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
+    <span></span><span></span>
+  </button>
+</header>
+<aside class="mobile-drawer" data-mobile-menu aria-hidden="true">
+  <div class="drawer-glow"></div>
+  <nav aria-label="Mobile navigation">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'services:services_home' %}">Services</a>
+    <a href="{% url 'about' %}">About Studio</a>
+    <a href="{% url 'contact' %}">Contact</a>
+  </nav>
+  <div class="drawer-contact">
+    <span>{{ brand_location }}</span>
+    <a href="tel:+919876543210">{{ brand_phone }}</a>
+  </div>
+</aside>

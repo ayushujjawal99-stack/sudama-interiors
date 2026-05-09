@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+{% block content %}
+<section class="detail-hero">
+  <div class="detail-copy reveal">
+    <p class="eyebrow">Sudama Service</p>
+    <h1>{{ service.title }}</h1>
+    <p>{{ service.short_description }}</p>
+  </div>
+  <div class="detail-image reveal">
+    <img src="{{ service.image.url }}" alt="{{ service.title }}" loading="eager">
+  </div>
+</section>
+
+<section class="detail-body section-wrap">
+  <div class="studio-note reveal">
+    <span>Design Direction</span>
+    <p>{{ service.description }}</p>
+  </div>
+  <div class="process-grid">
+    <div class="process-card reveal"><span>01</span><h3>Listen</h3><p>We decode lifestyle, rituals, constraints, and the desired emotional tone of the space.</p></div>
+    <div class="process-card reveal"><span>02</span><h3>Compose</h3><p>Plans, materials, lighting, and storage are shaped as one immersive interior language.</p></div>
+    <div class="process-card reveal"><span>03</span><h3>Execute</h3><p>Details are refined on site with disciplined coordination and premium finish control.</p></div>
+  </div>
+</section>
+
+{% if related_services %}
+<section class="section-wrap related">
+  <div class="section-heading reveal">
+    <p class="eyebrow">Continue Exploring</p>
+    <h2>More ways to shape your home.</h2>
+  </div>
+  <div class="related-grid">
+    {% for item in related_services %}
+      <a class="related-card reveal" href="{{ item.get_absolute_url }}">
+        <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+        <h3>{{ item.title }}</h3>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% include "partials/cta.html" %}
+{% endblock %}

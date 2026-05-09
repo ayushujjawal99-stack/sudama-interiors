@@ -1,163 +1,89 @@
-(function () {
-    "use strict";
+const nav = document.querySelector("[data-nav]");
+const menuToggle = document.querySelector("[data-menu-toggle]");
+const mobileMenu = document.querySelector("[data-mobile-menu]");
+const cursorLight = document.querySelector(".cursor-light");
 
-    var doc = document;
-    var body = doc.body;
-    var header = doc.querySelector("[data-header]");
-    var navToggle = doc.querySelector("[data-nav-toggle]");
-    var navMenu = doc.querySelector("[data-nav-menu]");
-    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const setNavState = () => {
+  nav?.classList.toggle("is-scrolled", window.scrollY > 24);
+};
 
-    function closeNav() {
-        body.classList.remove("nav-open");
-        if (navToggle) {
-            navToggle.setAttribute("aria-expanded", "false");
-        }
+setNavState();
+window.addEventListener("scroll", setNavState, { passive: true });
+
+menuToggle?.addEventListener("click", () => {
+  const isOpen = menuToggle.classList.toggle("is-open");
+  mobileMenu?.classList.toggle("is-open", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  mobileMenu?.setAttribute("aria-hidden", String(!isOpen));
+});
+
+mobileMenu?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    menuToggle?.classList.remove("is-open");
+    mobileMenu.classList.remove("is-open");
+    document.body.classList.remove("menu-open");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    mobileMenu.setAttribute("aria-hidden", "true");
+  });
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("is-visible");
+      revealObserver.unobserve(entry.target);
     }
+  });
+}, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
 
-    if (navToggle && navMenu) {
-        navToggle.addEventListener("click", function () {
-            var isOpen = body.classList.toggle("nav-open");
-            navToggle.setAttribute("aria-expanded", String(isOpen));
-        });
+document.querySelectorAll(".reveal").forEach((element, index) => {
+  element.style.transitionDelay = `${Math.min(index % 5, 4) * 80}ms`;
+  revealObserver.observe(element);
+});
 
-        navMenu.querySelectorAll("a").forEach(function (link) {
-            link.addEventListener("click", closeNav);
-        });
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    const element = entry.target;
+    const target = Number(element.dataset.count || 0);
+    const duration = 1400;
+    const start = performance.now();
 
-        window.addEventListener("keydown", function (event) {
-            if (event.key === "Escape") closeNav();
-        });
-    }
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = Math.round(target * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
 
-    function updateHeader() {
-        if (!header) return;
-        header.classList.toggle("is-scrolled", window.scrollY > 8);
-    }
+    requestAnimationFrame(tick);
+    countObserver.unobserve(element);
+  });
+}, { threshold: 0.4 });
 
-    updateHeader();
-    window.addEventListener("scroll", updateHeader, { passive: true });
+document.querySelectorAll("[data-count]").forEach((element) => countObserver.observe(element));
 
-    doc.querySelectorAll(".btn").forEach(function (button) {
-        button.addEventListener("pointerdown", function () {
-            button.classList.remove("is-pressed");
-            void button.offsetWidth;
-            button.classList.add("is-pressed");
-        });
-        button.addEventListener("animationend", function () {
-            button.classList.remove("is-pressed");
-        });
-    });
+document.querySelectorAll(".magnetic").forEach((button) => {
+  button.addEventListener("mousemove", (event) => {
+    const rect = button.getBoundingClientRect();
+    const x = event.clientX - rect.left - rect.width / 2;
+    const y = event.clientY - rect.top - rect.height / 2;
+    button.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
+  });
+  button.addEventListener("mouseleave", () => {
+    button.style.transform = "";
+  });
+});
 
-    function initGsap() {
-        if (reduceMotion || !window.gsap) return;
+window.addEventListener("mousemove", (event) => {
+  if (!cursorLight) return;
+  cursorLight.style.left = `${event.clientX}px`;
+  cursorLight.style.top = `${event.clientY}px`;
+}, { passive: true });
 
-        var gsap = window.gsap;
-        var ScrollTrigger = window.ScrollTrigger;
-        doc.documentElement.classList.add("gsap-ready");
-
-        if (ScrollTrigger) {
-            gsap.registerPlugin(ScrollTrigger);
-        }
-
-        gsap.from(".js-hero-item", {
-            y: 34,
-            opacity: 0,
-            duration: 0.9,
-            ease: "power3.out",
-            stagger: 0.12,
-            clearProps: "transform,opacity"
-        });
-
-        gsap.from(".hero-panel", {
-            y: 38,
-            scale: 0.94,
-            opacity: 0,
-            duration: 1.05,
-            ease: "power3.out",
-            stagger: 0.12,
-            delay: 0.16,
-            clearProps: "transform,opacity"
-        });
-
-        if (!ScrollTrigger) return;
-
-        doc.querySelectorAll(".js-section").forEach(function (section) {
-            gsap.from(section, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 82%",
-                    once: true
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.78,
-                ease: "power3.out",
-                clearProps: "transform,opacity"
-            });
-        });
-
-        doc.querySelectorAll(".js-grid").forEach(function (grid) {
-            var items = grid.children;
-            if (!items.length) return;
-            gsap.from(items, {
-                scrollTrigger: {
-                    trigger: grid,
-                    start: "top 84%",
-                    once: true
-                },
-                y: 32,
-                opacity: 0,
-                duration: 0.72,
-                ease: "power3.out",
-                stagger: {
-                    each: 0.07,
-                    from: "start"
-                },
-                clearProps: "transform,opacity"
-            });
-        });
-
-        doc.querySelectorAll(".js-split").forEach(function (split) {
-            var children = split.children;
-            if (!children.length) return;
-            gsap.from(children, {
-                scrollTrigger: {
-                    trigger: split,
-                    start: "top 80%",
-                    once: true
-                },
-                x: function (index) {
-                    return index % 2 === 0 ? -28 : 28;
-                },
-                opacity: 0,
-                duration: 0.82,
-                ease: "power3.out",
-                stagger: 0.1,
-                clearProps: "transform,opacity"
-            });
-        });
-
-        doc.querySelectorAll(".js-cta").forEach(function (cta) {
-            gsap.from(cta, {
-                scrollTrigger: {
-                    trigger: cta,
-                    start: "top 84%",
-                    once: true
-                },
-                y: 24,
-                scale: 0.98,
-                opacity: 0,
-                duration: 0.82,
-                ease: "power3.out",
-                clearProps: "transform,opacity"
-            });
-        });
-    }
-
-    if (doc.readyState === "complete") {
-        initGsap();
-    } else {
-        window.addEventListener("load", initGsap, { once: true });
-    }
-})();
+const parallaxHero = document.querySelector("[data-parallax] .hero-media img");
+window.addEventListener("scroll", () => {
+  if (!parallaxHero) return;
+  parallaxHero.style.transform = `translateY(${window.scrollY * 0.08}px) scale(1.08)`;
+}, { passive: true });

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About | Sudama Interiors{% endblock %}
+{% block content %}
+<section class="page-hero about-hero">
+  <div>
+    <p class="eyebrow reveal">About Sudama Interiors</p>
+    <h1 class="reveal">A studio for homes that feel refined before they feel decorated.</h1>
+  </div>
+  <img src="{% static 'images/services/modular-solutions/modular-solutions_office_1.jpg' %}" alt="Refined interior design workspace" loading="eager">
+</section>
+
+<section class="editorial-section">
+  <div class="section-kicker reveal">Our Belief</div>
+  <h2 class="editorial-title reveal">Luxury is not loud. It is proportion, light, touch, rhythm, and the relief of everything belonging.</h2>
+  <p class="editorial-copy reveal">Sudama Interiors is focused only on interiors: residential planning, modular solutions, ceilings, lighting, wardrobes, doors, partitions, and feature walls. The work is cinematic in feeling and practical in execution.</p>
+</section>
+
+<section class="principles section-wrap">
+  <div class="process-card reveal"><span>01</span><h3>Visual Depth</h3><p>Layered lighting, tactile materials, and graceful shadows give every room a premium atmosphere.</p></div>
+  <div class="process-card reveal"><span>02</span><h3>Daily Ease</h3><p>Storage, movement, maintenance, and comfort are designed before the final finish is chosen.</p></div>
+  <div class="process-card reveal"><span>03</span><h3>Execution Polish</h3><p>Details are controlled so the final space feels tailored, calm, and complete.</p></div>
+</section>
+
+{% include "partials/cta.html" %}
+{% endblock %}

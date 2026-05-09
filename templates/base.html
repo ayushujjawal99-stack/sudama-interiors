@@ -1,171 +1,24 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>
-      {% block title %}Sudama Construction & Interiors{% endblock %}
-    </title>
-
-    <meta
-      name="description"
-      content="{% block meta_description %}Premium interior, construction, and material solutions for homes and commercial spaces in Darbhanga and beyond.{% endblock %}"
-    />
-
-    <!-- PERFORMANCE -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- FONTS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-
-    {% block extra_head %}{% endblock %}
-  </head>
-
-  <body>
-
-    <!-- ACCESSIBILITY -->
-    <a class="skip-link" href="#main-content">
-      Skip to content
-    </a>
-
-    <!-- HEADER -->
-    <header class="site-header" data-header>
-      <div class="container nav-shell">
-
-        <!-- BRAND -->
-        <a
-          href="{% url 'home' %}"
-          class="brand"
-          aria-label="Sudama Construction and Interiors home"
-        >
-          <span class="brand-mark">
-            <img
-              src="{% static 'images/logo/logo.png' %}"
-              alt="Sudama Construction & Interiors"
-              width="44"
-              height="44"
-            />
-          </span>
-
-          <span class="brand-copy">
-            <span>Sudama</span>
-            <span>Construction & Interiors</span>
-          </span>
-        </a>
-
-        <!-- MOBILE TOGGLE -->
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded="false"
-          data-nav-toggle
-        >
-          <span></span>
-          <span></span>
-        </button>
-
-        <!-- NAV -->
-        <ul class="nav-list" aria-label="Main navigation" data-nav-menu>
-
-          <li>
-            <a href="{% url 'home' %}" class="nav-link">Home</a>
-          </li>
-
-          <li>
-            <a href="{% url 'products:products_home' %}" class="nav-link">Products</a>
-          </li>
-
-          <li>
-            <a href="{% url 'services:services_home' %}" class="nav-link">Services</a>
-          </li>
-
-          <li>
-            <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-          </li>
-
-          <li>
-            <a href="{% url 'contact' %}" class="btn btn-primary btn-small">
-              Get Quote
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-    </header>
-
-    <!-- MAIN -->
-    <main id="main-content">
-      {% block content %}{% endblock %}
-    </main>
-
-    {% include 'partials/footer.html' %}
-
-    <!-- SCRIPTS (ORDER MATTERS) -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"
-      defer
-    ></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"
-      defer
-    ></script>
-
-    <--script src="{% static 'js/premium.js' %}" defer></script>
-
-    {% block extra_scripts %}{% endblock %}
-
-    <!-- WHATSAPP FLOAT -->
-    <a href="#" id="waBtn" class="whatsapp-float" aria-label="Chat on WhatsApp">
-      💬
-    </a>
-
-    <!-- WHATSAPP SYSTEM -->
-    <div id="waSystem" class="wa-system">
-      <div class="wa-box">
-
-        <div class="wa-header">
-          <strong>Sudama Interiors</strong>
-          <span>Typically replies instantly</span>
-        </div>
-
-        <div class="wa-chat">
-          <div id="waTyping" class="wa-typing">Typing...</div>
-          <div id="waMsg" class="wa-msg hidden"></div>
-        </div>
-
-        <div class="wa-input">
-          <input
-            type="text"
-            id="waName"
-            placeholder="Your name (optional)"
-          />
-          <button id="waSend">Chat</button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- WHATSAPP SCRIPT -->
-    <script src="{% static 'js/wa-ai.js' %}"></script>
-
-    <!-- TRACKING -->
-    <script>
-      function trackWhatsAppLead(data) {
-        console.log("Lead captured:", data);
-      }
-    </script>
-
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Sudama Interiors | Luxury Interior Studio{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Cinematic, premium interior design and execution by Sudama Interiors.{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="ambient-layer" aria-hidden="true"></div>
+  <div class="cursor-light" aria-hidden="true"></div>
+  {% include "partials/navbar.html" %}
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+  {% include "partials/footer.html" %}
+  <script src="{% static 'js/premium.js' %}" defer></script>
+</body>
 </html>

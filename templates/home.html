@@ -1,113 +1,64 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}Sudama Construction & Interiors | Premium Interiors, Materials & Construction{% endblock %}
-{% block meta_description %}Plan interiors, materials, construction support, doors, windows, and modular systems with Sudama Construction & Interiors in Darbhanga.{% endblock %}
-
 {% block content %}
-
-<!-- HERO -->
-<section class="home-hero js-section" id="home">
-    <div class="container">
-        <div class="hero-grid">
-
-            <div class="hero-content">
-                <p class="eyebrow js-hero-item">
-                    Interior design, materials, and execution
-                </p>
-
-                <h1 class="hero-title js-hero-item">
-                    Spaces that feel considered from structure to finish.
-                </h1>
-
-                <p class="lead-copy hero-lede js-hero-item">
-                    Sudama Construction & Interiors brings premium materials, clean detailing, and practical site execution
-                    into one dependable workflow for homes and commercial spaces.
-                </p>
-
-                <div class="hero-actions js-hero-item">
-                    <a href="{% url 'contact' %}" class="btn btn-primary">Start a Project</a>
-                    <a href="{% url 'services:services_home' %}" class="btn btn-secondary">Explore Services</a>
-                </div>
-            </div>
-
-            <div class="hero-visual js-hero-item">
-                <img src="{% static 'images/products/panels-louvers.png' %}" alt="Interior materials showcase" loading="eager">
-            </div>
-
-        </div>
+<section class="hero hero-home" data-parallax>
+  <div class="hero-media">
+    <img src="{% static 'images/services/modular-solutions/modular-solutions_trending_1.jpg' %}" alt="Luxury living room by Sudama Interiors" loading="eager">
+    <div class="hero-sheen"></div>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow reveal">Luxury Interior Studio</p>
+    <h1 class="reveal">Homes with cinematic calm, crafted for a premium life.</h1>
+    <p class="hero-lede reveal">Sudama Interiors designs layered residential spaces, modular kitchens, wardrobes, ceilings, lighting, and feature walls with a refined, emotionally rich finish.</p>
+    <div class="hero-actions reveal">
+      <a class="button button-primary magnetic" href="{% url 'services:services_home' %}">Explore Services</a>
+      <a class="button button-ghost magnetic" href="{% url 'contact' %}">Plan My Space</a>
     </div>
+  </div>
+  <div class="hero-panel glass reveal">
+    <span>Studio Signature</span>
+    <strong>Material depth, soft light, precise execution.</strong>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">Scroll</div>
 </section>
 
-<!-- SERVICES -->
-<section class="section section-soft js-section" id="services">
-    <div class="container">
-
-        <!-- FIX: js-section removed from header (correct placement is section) -->
-        <div class="section-header section-header-center">
-            <p class="eyebrow">Services</p>
-            <h2>Complete project support, from design direction to site execution.</h2>
-            <p>
-                Choose a focused service or combine design, materials, and construction support into one coordinated plan.
-            </p>
-        </div>
-
-        <div class="service-groups">
-            {% for group in service_groups %}
-
-                <div class="service-group">
-
-                    <div class="group-heading">
-                        <p class="eyebrow">{{ group.name }}</p>
-                        {% if group.summary %}
-                            <p>{{ group.summary }}</p>
-                        {% endif %}
-                    </div>
-
-                    <!-- FIX: grid → card-grid + js-grid -->
-                    <div class="card-grid js-grid">
-                        {% for service in group.services %}
-                            {% include 'partials/_service_card.html' with service=service %}
-                        {% endfor %}
-                    </div>
-
-                </div>
-
-            {% endfor %}
-        </div>
-
-    </div>
+<section class="editorial-section">
+  <div class="section-kicker reveal">About The Studio</div>
+  <h2 class="editorial-title reveal">We design interiors that feel quiet, expensive, and deeply lived-in.</h2>
+  <p class="editorial-copy reveal">Our work begins with flow and feeling. Every surface, shadow, cabinet line, ceiling plane, and lighting scene is selected to make the space feel intentional from morning light to evening glow.</p>
 </section>
 
-<!-- PRODUCTS -->
-<section class="section js-section" id="products">
-    <div class="container">
-
-        <!-- FIX: js-section removed from header -->
-        <div class="section-header section-header-split">
-            <div>
-                <p class="eyebrow">Products</p>
-                <h2>Premium materials selected for durability, finish, and daily use.</h2>
-            </div>
-
-            <a href="{% url 'products:products_home' %}" class="btn btn-outline">
-                View Products
-            </a>
+<section class="services-showcase section-wrap">
+  <div class="section-heading reveal">
+    <p class="eyebrow">Interior Services</p>
+    <h2>Immersive spaces, not ordinary rooms.</h2>
+  </div>
+  <div class="service-panels">
+    {% for service in featured_services %}
+      <a class="service-panel reveal" href="{{ service.get_absolute_url }}">
+        <span class="panel-index">0{{ forloop.counter }}</span>
+        <img src="{{ service.image.url }}" alt="{{ service.title }}" loading="lazy">
+        <div>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.short_description }}</p>
         </div>
-
-        <!-- FIX: grid → card-grid + js-grid -->
-        <div class="card-grid js-grid">
-            {% for category in product_groups %}
-                {% include 'partials/_product_category_card.html' with category=category %}
-            {% endfor %}
-        </div>
-
-    </div>
+      </a>
+    {% endfor %}
+  </div>
 </section>
 
-{% include 'partials/about.html' %}
-{% include 'partials/why_choose.html' %}
-{% include 'partials/testimonials.html' %}
-{% include 'partials/get_started.html' %}
+<section class="why-section section-wrap">
+  <div class="section-heading reveal">
+    <p class="eyebrow">Why Clients Choose Us</p>
+    <h2>Designed for the moment people step inside.</h2>
+  </div>
+  <div class="metric-grid">
+    <div class="metric reveal"><strong data-count="12">0</strong><span>design disciplines coordinated</span></div>
+    <div class="metric reveal"><strong data-count="45">0</strong><span>finish and lighting checks per project</span></div>
+    <div class="metric reveal"><strong data-count="100">0</strong><span>percent interior-focused delivery</span></div>
+  </div>
+</section>
 
+{% include "partials/cta.html" %}
 {% endblock %}
