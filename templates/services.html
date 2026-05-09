@@ -3,13 +3,8 @@
 
 {% block title %}Interior Services | Sudama Interiors{% endblock %}
 {% block content %}
-<section class="page-hero compact-hero">
-  <div>
-    <p class="eyebrow reveal">Interior Services</p>
-    <h1 class="reveal">A complete luxury studio for homes with atmosphere.</h1>
-  </div>
-  <img src="{% static 'images/services/false-ceiling/false-ceiling_designs_2.jpg' %}" alt="Premium ceiling and lighting detail" loading="eager">
-</section>
+{% static 'images/services/false-ceiling/false-ceiling_designs_2.jpg' as services_hero_image %}
+{% include "partials/hero_page.html" with hero_class="compact-hero" hero_eyebrow="Interior Services" hero_title="A complete luxury studio for homes with atmosphere." hero_image=services_hero_image hero_alt="Premium ceiling and lighting detail" %}
 
 <section class="immersive-list section-wrap">
   {% for service in services %}

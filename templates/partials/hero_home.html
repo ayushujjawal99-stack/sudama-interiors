@@ -1,0 +1,21 @@
+{% load static %}
+<section class="hero hero-home" data-parallax>
+  <div class="hero-media">
+    <img src="{% static 'images/services/modular-solutions/modular-solutions_trending_1.jpg' %}" alt="Luxury living room by Sudama Interiors" loading="eager">
+    <div class="hero-sheen"></div>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow reveal">Luxury Interior Studio</p>
+    <h1 class="reveal">Homes with cinematic calm, crafted for a premium life.</h1>
+    <p class="hero-lede reveal">Sudama Interiors designs layered residential spaces, modular kitchens, wardrobes, ceilings, lighting, and feature walls with a refined, emotionally rich finish.</p>
+    <div class="hero-actions reveal">
+      <a class="button button-primary magnetic" href="{% url 'services:services_home' %}">Explore Services</a>
+      <a class="button button-ghost magnetic" href="{% url 'contact' %}">Plan My Space</a>
+    </div>
+  </div>
+  <div class="hero-panel glass reveal">
+    <span>Studio Signature</span>
+    <strong>Material depth, soft light, precise execution.</strong>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">Scroll</div>
+</section>

@@ -3,13 +3,8 @@
 
 {% block title %}About | Sudama Interiors{% endblock %}
 {% block content %}
-<section class="page-hero about-hero">
-  <div>
-    <p class="eyebrow reveal">About Sudama Interiors</p>
-    <h1 class="reveal">A studio for homes that feel refined before they feel decorated.</h1>
-  </div>
-  <img src="{% static 'images/services/modular-solutions/modular-solutions_office_1.jpg' %}" alt="Refined interior design workspace" loading="eager">
-</section>
+{% static 'images/services/modular-solutions/modular-solutions_office_1.jpg' as about_hero_image %}
+{% include "partials/hero_page.html" with hero_class="about-hero" hero_eyebrow="About Sudama Interiors" hero_title="A studio for homes that feel refined before they feel decorated." hero_image=about_hero_image hero_alt="Refined interior design workspace" %}
 
 <section class="editorial-section">
   <div class="section-kicker reveal">Our Belief</div>
