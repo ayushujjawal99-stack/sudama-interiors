@@ -10,9 +10,9 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        services = Service.objects.order_by("title")
+        services = Service.objects.order_by("id")
         context["services"] = services
-        context["featured_services"] = services[:4]
+        context["featured_services"] = services[:7]
         return context
 
 
@@ -28,4 +28,12 @@ def contact(request):
         )
         return redirect("contact")
 
-    return render(request, "contact.html", {"services": Service.objects.order_by("title")})
+    return render(
+        request,
+        "contact.html",
+        {
+            "services": Service.objects.order_by("id"),
+            "meta_title": "Contact Sudama Interiors | Interior Contractors in Darbhanga, Bihar",
+            "meta_description": "Book a consultation with Sudama Interiors for premium interior services, uPVC windows, false ceiling, ACP cladding, panels, laminates, and railing in Darbhanga and Bihar.",
+        },
+    )

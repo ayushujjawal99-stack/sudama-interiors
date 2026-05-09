@@ -2,46 +2,169 @@
 
 {% block title %}{{ meta_title }}{% endblock %}
 {% block meta_description %}{{ meta_description }}{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{{ service.title|escapejs }}",
+  "description": "{{ service.short_description|escapejs }}",
+  "areaServed": ["Darbhanga", "Bihar"],
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Sudama Interiors",
+    "telephone": "+91 98765 43210"
+  }
+}
+</script>
+{% endblock %}
+
 {% block content %}
-<section class="detail-hero">
-  <div class="detail-copy reveal">
-    <p class="eyebrow">Sudama Service</p>
-    <h1>{{ service.title }}</h1>
-    <p>{{ service.short_description }}</p>
-  </div>
-  <div class="detail-image reveal">
-    <img src="{{ service.image.url }}" alt="{{ service.title }}" loading="eager">
-  </div>
-</section>
+<article>
+  <section class="detail-hero service-hero">
+    <div class="detail-copy reveal">
+      <p class="eyebrow">{{ catalog.eyebrow|default:"Sudama Interiors" }}</p>
+      <h1>{{ service.title }}</h1>
+      <p>{{ catalog.local_intro|default:service.short_description }}</p>
+    </div>
+    <div class="detail-image reveal">
+      <img src="{{ service.image.url }}" alt="{{ service.title }} in Darbhanga and Bihar" loading="eager">
+    </div>
+  </section>
 
-<section class="detail-body section-wrap">
-  <div class="studio-note reveal">
-    <span>Design Direction</span>
-    <p>{{ service.description }}</p>
-  </div>
-  <div class="process-grid">
-    <div class="process-card reveal"><span>01</span><h3>Listen</h3><p>We decode lifestyle, rituals, constraints, and the desired emotional tone of the space.</p></div>
-    <div class="process-card reveal"><span>02</span><h3>Compose</h3><p>Plans, materials, lighting, and storage are shaped as one immersive interior language.</p></div>
-    <div class="process-card reveal"><span>03</span><h3>Execute</h3><p>Details are refined on site with disciplined coordination and premium finish control.</p></div>
-  </div>
-</section>
+  <section class="service-overview section-wrap">
+    <div class="section-heading reveal">
+      <p class="eyebrow">Service Overview</p>
+      <h2>What it is, where it works, and why clients choose it.</h2>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-card reveal"><span>What</span><p>{{ catalog.overview.what }}</p></div>
+      <div class="overview-card reveal"><span>Where</span><p>{{ catalog.overview.where }}</p></div>
+      <div class="overview-card reveal"><span>Why</span><p>{{ catalog.overview.why }}</p></div>
+    </div>
+  </section>
 
-{% if related_services %}
-<section class="section-wrap related">
-  <div class="section-heading reveal">
-    <p class="eyebrow">Continue Exploring</p>
-    <h2>More ways to shape your home.</h2>
-  </div>
-  <div class="related-grid">
-    {% for item in related_services %}
-      <a class="related-card reveal" href="{{ item.get_absolute_url }}">
-        <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
-        <h3>{{ item.title }}</h3>
-      </a>
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
+  {% if catalog.materials %}
+  <section class="material-section section-wrap">
+    <div class="section-heading reveal">
+      <p class="eyebrow">Material Guidance</p>
+      <h2>Compare subcategories before you invest.</h2>
+    </div>
+    <div class="material-tabs reveal" data-tabs>
+      <div class="tab-list" role="tablist" aria-label="{{ service.title }} options">
+        {% for material in catalog.materials %}
+          <button class="tab-button {% if forloop.first %}is-active{% endif %}" type="button" data-tab-button="{{ forloop.counter0 }}">{{ material.name }}</button>
+        {% endfor %}
+      </div>
+      <div class="tab-panels">
+        {% for material in catalog.materials %}
+          <section class="tab-panel {% if forloop.first %}is-active{% endif %}" data-tab-panel="{{ forloop.counter0 }}">
+            <div class="tab-copy">
+              <span>{{ material.pricing }}</span>
+              <h3>{{ material.name }}</h3>
+              <p>{{ material.what }}</p>
+              <dl>
+                <div><dt>Used For</dt><dd>{{ material.used }}</dd></div>
+                <div><dt>Benefits</dt><dd>{{ material.benefits }}</dd></div>
+                <div><dt>Durability</dt><dd>{{ material.durability }}</dd></div>
+                <div><dt>Maintenance</dt><dd>{{ material.maintenance }}</dd></div>
+                <div><dt>Visual Appeal</dt><dd>{{ material.visual }}</dd></div>
+              </dl>
+            </div>
+            {% if material.images %}
+              <div class="mini-gallery">
+                {% for item in material.images %}
+                  <img src="{{ item }}" alt="{{ material.name }} project image {{ forloop.counter }}" loading="lazy">
+                {% endfor %}
+              </div>
+            {% endif %}
+          </section>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="comparison-section section-wrap">
+    <div class="section-heading reveal">
+      <p class="eyebrow">Premium Comparison</p>
+      <h2>Material clarity at a glance.</h2>
+    </div>
+    <div class="comparison-table reveal">
+      <div class="comparison-row comparison-head">
+        <span>Option</span><span>Best Use</span><span>Durability</span><span>Maintenance</span><span>Pricing Feel</span>
+      </div>
+      {% for material in catalog.materials %}
+        <div class="comparison-row">
+          <span>{{ material.name }}</span>
+          <span>{{ material.used }}</span>
+          <span>{{ material.durability }}</span>
+          <span>{{ material.maintenance }}</span>
+          <span>{{ material.pricing }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if catalog.gallery %}
+  <section class="showcase-section section-wrap">
+    <div class="section-heading reveal">
+      <p class="eyebrow">Image Showcase</p>
+      <h2>Visual examples with cinematic framing.</h2>
+    </div>
+    <div class="masonry-gallery">
+      {% for item in catalog.gallery %}
+        <figure class="gallery-tile reveal">
+          <img src="{{ item }}" alt="{{ service.title }} visual example {{ forloop.counter }}" loading="lazy">
+          <figcaption>{{ service.title }}</figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="benefits-section section-wrap">
+    <div class="benefit-band reveal">
+      <p class="eyebrow">Why It Works in Bihar Homes</p>
+      <h2>{{ service.description }}</h2>
+      <p>Sudama Interiors guides clients through appearance, durability, maintenance, and pricing feel so interior contractors in Bihar can execute with better decisions from day one.</p>
+    </div>
+  </section>
+
+  {% if catalog.faqs %}
+  <section class="faq-section section-wrap">
+    <div class="section-heading reveal">
+      <p class="eyebrow">Client Questions</p>
+      <h2>Useful answers before the site visit.</h2>
+    </div>
+    <div class="faq-list">
+      {% for question, answer in catalog.faqs %}
+        <details class="faq-item reveal">
+          <summary>{{ question }}</summary>
+          <p>{{ answer }}</p>
+        </details>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if related_services %}
+  <section class="section-wrap related">
+    <div class="section-heading reveal">
+      <p class="eyebrow">Continue Exploring</p>
+      <h2>More premium services for Darbhanga interiors.</h2>
+    </div>
+    <div class="related-grid">
+      {% for item in related_services %}
+        <a class="related-card reveal" href="{{ item.get_absolute_url }}">
+          <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+          <h3>{{ item.title }}</h3>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</article>
 
 {% include "partials/cta.html" %}
 {% endblock %}

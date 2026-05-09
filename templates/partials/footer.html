@@ -1,18 +1,38 @@
 <footer class="site-footer">
+  <div class="footer-glow" aria-hidden="true"></div>
   <div class="footer-top">
     <div>
       <p class="eyebrow">Sudama Interiors</p>
-      <div class="footer-brand">Luxury interior studio.</div>
+      <div class="footer-brand">Premium interiors for Darbhanga and Bihar.</div>
+      <p class="footer-position">Interior services, uPVC windows, false ceiling, ACP cladding, panels, laminates, UV marble sheets, and SS railing with a premium material-first approach.</p>
     </div>
-    <nav class="footer-links" aria-label="Footer navigation">
-      <a href="{% url 'services:services_home' %}">Services</a>
-      <a href="{% url 'about' %}">About</a>
-      <a href="{% url 'contact' %}">Contact</a>
+    <a class="footer-cta magnetic" href="{% url 'contact' %}">Book Consultation</a>
+  </div>
+  <div class="footer-service-grid">
+    <div>
+      <h3>Services</h3>
+      <nav class="footer-service-links" aria-label="Footer service links">
+        {% for service in nav_services %}
+          <a href="{{ service.get_absolute_url }}">{{ service.title }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+    <div>
+      <h3>Local Expertise</h3>
+      <p>Interior Services in Darbhanga</p>
+      <p>Interior Designers in Bihar</p>
+      <p>False Ceiling Services in Bihar</p>
+      <p>ACP Cladding in Darbhanga</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <a href="tel:+919876543210">{{ brand_phone }}</a>
       <a href="mailto:{{ brand_email }}">{{ brand_email }}</a>
-    </nav>
+      <p>{{ brand_location }}</p>
+    </div>
   </div>
   <div class="footer-bottom">
-    <span>{{ brand_location }}</span>
-    <span>© {% now "Y" %} Sudama Interiors. All rights reserved.</span>
+    <span>Interior contractors and premium finish specialists in Bihar.</span>
+    <span>&copy; {% now "Y" %} Sudama Interiors. All rights reserved.</span>
   </div>
 </footer>

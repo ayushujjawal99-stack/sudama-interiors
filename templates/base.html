@@ -4,12 +4,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Sudama Interiors | Luxury Interior Studio{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}Cinematic, premium interior design and execution by Sudama Interiors.{% endblock %}">
+  <title>{% block title %}{{ meta_title|default:"Sudama Interiors | Interior Services in Darbhanga, Bihar" }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ meta_description|default:"Premium interior services in Darbhanga and Bihar: uPVC windows, false ceiling, ACP cladding, panels, laminates, UV marble sheets, and SS railing by Sudama Interiors." }}{% endblock %}">
+  <meta name="keywords" content="Interior Services in Darbhanga, Interior Designers in Bihar, uPVC Windows in Darbhanga, False Ceiling Services in Bihar, ACP Cladding in Darbhanga, Interior Contractors in Bihar">
+  <meta property="og:title" content="{{ meta_title|default:'Sudama Interiors | Interior Services in Darbhanga, Bihar' }}">
+  <meta property="og:description" content="{{ meta_description|default:'Premium cinematic interior services by Sudama Interiors in Darbhanga and Bihar.' }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block structured_data %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Sudama Interiors",
+    "description": "Premium interior services in Darbhanga and Bihar.",
+    "areaServed": ["Darbhanga", "Bihar"],
+    "telephone": "+91 98765 43210",
+    "email": "studio@sudamainteriors.com",
+    "url": "{{ request.scheme }}://{{ request.get_host }}"
+  }
+  </script>
+  {% endblock %}
 </head>
 <body>
   <div class="ambient-layer" aria-hidden="true"></div>

@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Contact | Sudama Interiors{% endblock %}
+{% block title %}{{ meta_title|default:"Contact Sudama Interiors | Darbhanga, Bihar" }}{% endblock %}
+{% block meta_description %}{{ meta_description|default:"Book Sudama Interiors for premium interior services in Darbhanga and Bihar." }}{% endblock %}
 {% block content %}
 <section class="contact-shell">
   <div class="contact-copy reveal">
-    <p class="eyebrow">Private Consultation</p>
-    <h1>Tell us what your space should feel like.</h1>
-    <p>Share a few details and our studio will help you shape the next step with clarity, taste, and a premium eye for execution.</p>
+    <p class="eyebrow">Darbhanga Consultation</p>
+    <h1>Tell us which interior service your space needs.</h1>
+    <p>Share a few details and our studio will help you compare materials, pricing feel, visual finish, and execution options for your Bihar project.</p>
     <div class="contact-lines">
       <a href="tel:+919876543210">{{ brand_phone }}</a>
       <a href="mailto:{{ brand_email }}">{{ brand_email }}</a>

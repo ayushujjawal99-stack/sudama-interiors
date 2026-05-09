@@ -87,3 +87,16 @@ window.addEventListener("scroll", () => {
   if (!parallaxHero) return;
   parallaxHero.style.transform = `translateY(${window.scrollY * 0.08}px) scale(1.08)`;
 }, { passive: true });
+
+document.querySelectorAll("[data-tabs]").forEach((tabs) => {
+  const buttons = [...tabs.querySelectorAll("[data-tab-button]")];
+  const panels = [...tabs.querySelectorAll("[data-tab-panel]")];
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.tabButton;
+      buttons.forEach((item) => item.classList.toggle("is-active", item === button));
+      panels.forEach((panel) => panel.classList.toggle("is-active", panel.dataset.tabPanel === target));
+    });
+  });
+});
