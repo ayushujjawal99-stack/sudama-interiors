@@ -1,9 +1,28 @@
 from django.templatetags.static import static
 
+import os
 
 def image(path):
     return static(f"images/services/{path}")
 
+def gallery_images(folder):
+    folder_path = os.path.join(
+        "staticfiles",
+        "images",
+        "services",
+        folder
+    )
+
+    if not os.path.exists(folder_path):
+        return []
+
+    files = sorted(os.listdir(folder_path))
+
+    return [
+        static(f"images/services/{folder}/{file}")
+        for file in files
+        if file.lower().endswith((".jpg", ".jpeg", ".png", ".webp"))
+    ]
 
 SERVICE_CATALOG = {
     "doors-windows-casement-louver-systems": {
@@ -66,12 +85,7 @@ SERVICE_CATALOG = {
                 "pricing": "Budget to premium",
             },
         ],
-        "gallery": [
-            image("doors-windows/doors-windows_exterior-doors_1.jpeg"),
-            image("doors-windows/doors-windows_sliding-casement_1.jpeg"),
-            image("doors-windows/doors-windows_interior-doors_2.jpeg"),
-            image("doors-windows/doors-windows_finishes_1.jpeg"),
-        ],
+        "gallery": gallery_images("doors-windows"),
         "faqs": [
             ("Which is better for windows in Darbhanga, uPVC or aluminium?", "uPVC is excellent for low-maintenance residential comfort, while aluminium feels slimmer and more premium for larger openings and modern facades."),
             ("Can WPC doors be used in bathrooms?", "Yes. WPC is a strong option for bathroom and utility doors because it handles moisture better than many traditional wood-based shutters."),
@@ -90,12 +104,7 @@ SERVICE_CATALOG = {
             {"name": "Residential ACP Cladding", "what": "A modern facade treatment for homes.", "used": "Balconies, porch faces, elevation bands, and exterior highlights.", "benefits": "Clean facade lines, weather resistance, and a premium first impression.", "durability": "High with correct grade and installation.", "maintenance": "Low; periodic washing is usually enough.", "visual": "Modern, polished, and architectural.", "pricing": "Mid-premium"},
             {"name": "Shop ACP Cladding", "what": "A commercial frontage system for visual identity.", "used": "Retail shops, signboards, counters, entrance bands, and exterior facades.", "benefits": "Strong branding, quick transformation, durable finish, and high street visibility.", "durability": "High for commercial frontage when fixed correctly.", "maintenance": "Low to moderate depending on road dust exposure.", "visual": "Sharp, modern, and business-ready.", "pricing": "Premium practical"},
         ],
-        "gallery": [
-            image("doors-windows/doors-windows_exterior-doors_2.jpeg"),
-            image("doors-windows/doors-windows_exterior-doors_3.jpeg"),
-            image("modular-solutions/modular-solutions_outdoor_1.jpg"),
-            image("modular-solutions/modular-solutions_outdoor_2.jpg"),
-        ],
+        "gallery": gallery_images("acp-cladding"),
         "faqs": [
             ("Is ACP cladding suitable for shop fronts in Darbhanga?", "Yes. ACP is widely used for modern shop facades because it gives a clean commercial finish and supports strong brand visibility."),
             ("Does ACP require heavy maintenance?", "No. Good ACP cladding is easy to clean and maintains its exterior appearance with periodic washing."),
@@ -116,12 +125,7 @@ SERVICE_CATALOG = {
             {"name": "POP Ceiling", "what": "A molded plaster ceiling system.", "used": "Decorative rooms, classical profiles, coves, and custom ceiling curves.", "benefits": "Flexible shaping, elegant detailing, and smooth finish.", "durability": "Good in dry spaces.", "maintenance": "Moderate.", "visual": "Decorative and refined.", "pricing": "Mid-range", "images": [image("false-ceiling/false-ceiling_pop_1.jpeg"), image("false-ceiling/false-ceiling_pop_2.jpg")]},
             {"name": "Gypsum Ceiling", "what": "A precise board-based ceiling system.", "used": "Modern homes, offices, living rooms, bedrooms, and lighting-led interiors.", "benefits": "Clean lines, fast execution, crisp edges, and premium lighting integration.", "durability": "High in dry interiors.", "maintenance": "Low to moderate.", "visual": "Minimal, elegant, and premium.", "pricing": "Premium practical", "images": [image("false-ceiling/false-ceiling_gypsum_1.jpg"), image("false-ceiling/false-ceiling_gypsum_2.jpg")]},
         ],
-        "gallery": [
-            image("false-ceiling/false-ceiling_designs_1.jpg"),
-            image("false-ceiling/false-ceiling_designs_2.jpg"),
-            image("false-ceiling/false-ceiling_designs_3.jpg"),
-            image("modular-solutions/modular-solutions_lighting_1.jpg"),
-        ],
+        "gallery": gallery_images("false-ceiling"),
         "faqs": [
             ("Which false ceiling is best for a living room?", "Gypsum is often preferred for modern living rooms because it gives clean edges and supports layered lighting beautifully."),
             ("Is PVC ceiling good for kitchens?", "Yes. PVC works well in kitchens and utility zones because it is lightweight, moisture-resistant, and easy to clean."),
@@ -141,12 +145,7 @@ SERVICE_CATALOG = {
             {"name": "Balcony Railing", "what": "Exterior railing for balcony and terrace edges.", "used": "Homes, apartments, terraces, and commercial fronts.", "benefits": "Safety, weather resistance, and clean elevation impact.", "durability": "High with correct grade.", "maintenance": "Low to moderate.", "visual": "Open, refined, and contemporary.", "pricing": "Premium practical"},
             {"name": "Modern SS Finishes", "what": "Stainless steel railing with polished or matte treatment.", "used": "Premium homes, staircases, and balcony edges.", "benefits": "Corrosion resistance, elegant shine, and long-term value.", "durability": "Excellent.", "maintenance": "Low.", "visual": "Premium, clean, and bright.", "pricing": "Premium"},
         ],
-        "gallery": [
-            image("modular-solutions/modular-solutions_partition_1.jpg"),
-            image("modular-solutions/modular-solutions_partition_2.jpg"),
-            image("doors-windows/doors-windows_sliding-casement_2.jpeg"),
-            image("modular-solutions/modular-solutions_outdoor_3.jpg"),
-        ],
+        "gallery": gallery_images("steel-ss-railing"),
         "faqs": [
             ("Is SS railing better than painted steel railing?", "SS railing generally offers a more premium finish and better corrosion resistance, while painted steel can be more budget-flexible."),
             ("Can railing design look modern without feeling heavy?", "Yes. Slim profiles, matte finishes, and balanced spacing can make railings feel refined and contemporary."),
@@ -167,12 +166,7 @@ SERVICE_CATALOG = {
             {"name": "WPC Louvers", "what": "Wood-polymer louver strips.", "used": "Partitions, wall accents, ceiling features, and living room details.", "benefits": "Warm look, termite resistance, and dimensional rhythm.", "durability": "High indoors.", "maintenance": "Low.", "visual": "Warm, modern, and rich.", "pricing": "Mid-premium"},
             {"name": "PU Panels", "what": "Decorative polyurethane panels with stone or molded looks.", "used": "Accent walls, boutique spaces, bedrooms, and statement zones.", "benefits": "Lightweight, dramatic texture, and fast transformation.", "durability": "Good for interior decorative use.", "maintenance": "Low.", "visual": "Bold and luxurious.", "pricing": "Premium feel"},
         ],
-        "gallery": [
-            image("modular-solutions/modular-solutions_tv-unit_1.jpg"),
-            image("modular-solutions/modular-solutions_partition_3.jpg"),
-            image("modular-solutions/modular-solutions_trending_2.jpg"),
-            image("modular-solutions/modular-solutions_storage_1.jpg"),
-        ],
+        "gallery": gallery_images("panels"),
         "faqs": [
             ("Which panel is best for a TV wall?", "Fluted panels and WPC louvers are popular for TV walls because they add depth without making the wall feel heavy."),
             ("Are PVC panels easy to maintain?", "Yes. PVC panels are lightweight, easy to clean, and practical for budget-conscious wall styling."),
@@ -191,12 +185,7 @@ SERVICE_CATALOG = {
             {"name": "Wall Applications", "what": "Large-format sheets applied to vertical surfaces.", "used": "TV units, lobby walls, headboards, and shop interiors.", "benefits": "Fast transformation, fewer joints, and strong reflective polish.", "durability": "Good in interior use.", "maintenance": "Low.", "visual": "Glossy, dramatic, and premium.", "pricing": "Mid-premium"},
             {"name": "Moisture Resistant Finish", "what": "A surface finish that performs better than many painted walls in splash-prone areas.", "used": "Wash areas, commercial counters, and selected kitchen walls.", "benefits": "Easy wipe-down, stain resistance, and clean shine.", "durability": "Good with correct installation.", "maintenance": "Very low.", "visual": "Clean and polished.", "pricing": "Premium practical"},
         ],
-        "gallery": [
-            image("modular-solutions/modular-solutions_trending_3.jpg"),
-            image("modular-solutions/modular-solutions_tv-unit_2.jpg"),
-            image("modular-solutions/modular-solutions_bathroom_1.jpeg"),
-            image("modular-solutions/modular-solutions_kitchen_2.jpg"),
-        ],
+        "gallery": gallery_images("uv-marble-sheets"),
         "faqs": [
             ("Are UV marble sheets suitable for TV walls?", "Yes. They create a premium, glossy backdrop and pair well with warm lighting and slim cabinetry."),
             ("Are UV sheets waterproof?", "They are moisture-resistant for wall applications, but correct installation and edge finishing are important."),
@@ -216,12 +205,7 @@ SERVICE_CATALOG = {
             {"name": "Acrylic Laminates", "what": "High-gloss premium laminates with a reflective finish.", "used": "Kitchens, wardrobes, premium shutters, and statement furniture.", "benefits": "Luxury gloss, rich color depth, and a showroom-like finish.", "durability": "Good with careful handling.", "maintenance": "Moderate; fingerprints need wiping.", "visual": "Glossy and expensive.", "pricing": "Premium"},
             {"name": "PVC Laminates", "what": "Flexible surface laminates used for curved and practical surfaces.", "used": "Wardrobes, kitchens, shutters, and decorative furniture edges.", "benefits": "Moisture handling, flexible application, and modern finishes.", "durability": "Good by grade.", "maintenance": "Low.", "visual": "Modern and clean.", "pricing": "Mid-range"},
         ],
-        "gallery": [
-            image("modular-solutions/modular-solutions_kitchen_3.jpg"),
-            image("modular-solutions/modular-solutions_wardrobe_2.jpg"),
-            image("modular-solutions/modular-solutions_storage_2.jpg"),
-            image("doors-windows/doors-windows_finishes_2.jpeg"),
-        ],
+       "gallery": gallery_images("laminates"),
         "faqs": [
             ("Which laminate is best for kitchens?", "Mica is practical and durable, while acrylic gives a more premium glossy finish for show kitchens and statement shutters."),
             ("Are acrylic laminates worth the price?", "They are worth it when a client wants high gloss, rich color, and a more premium showroom-like appearance."),
