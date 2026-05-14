@@ -20,18 +20,25 @@ class ServiceAdmin(admin.ModelAdmin):
 
     @admin.display(description="Image")
     def preview(self, obj):
-        if obj.image:
+        if self._has_image_file(obj):
             return format_html(
-                '<img src="{}" style="width:76px;height:52px;object-fit:cover;border-radius:8px;" />',
+                '<img src="{}" alt="{}" style="width:76px;height:52px;object-fit:cover;border-radius:8px;" />',
                 obj.image.url,
+                obj.title,
             )
         return "No image"
 
     @admin.display(description="Current preview")
     def image_preview(self, obj):
-        if obj.image:
+        if self._has_image_file(obj):
             return format_html(
-                '<img src="{}" style="max-width:420px;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.22);" />',
+                '<img src="{}" alt="{}" style="max-width:420px;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.22);" />',
                 obj.image.url,
+                obj.title,
             )
+        if obj.image:
+            return "Image file is missing. Upload a new service image to restore the preview."
         return "Upload a service image to see the preview."
+
+    def _has_image_file(self, obj):
+        return bool(obj.image and obj.image.name and obj.image.storage.exists(obj.image.name))
